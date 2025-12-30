@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+    <title>Media Gallery</title>
+</head>
+<body>
+<h1>Media Categories</h1>
+
+<ul>
+{% for cat in categories %}
+    <li>{{ cat }}</li>
+{% endfor %}
+</ul>
+
+<p>Visit URLs like: <code>/watercolor/nature</code></p>
+</body>
+</html>

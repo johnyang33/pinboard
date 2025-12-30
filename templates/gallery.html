@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+    <title>{{ category }} / {{ subcategory }}</title>
+    <style>
+        img, video {
+            max-width: 300px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>{{ category }} / {{ subcategory }}</h1>
+
+{% if images %}
+<h2>Images</h2>
+{% for img in images %}
+    <img src="{{ url_for('media_file', filename=category ~ '/' ~ subcategory ~ '/' ~ img) }}">
+{% endfor %}
+{% endif %}
+
+{% if videos %}
+<h2>Videos</h2>
+{% for vid in videos %}
+    <video controls>
+        <source src="{{ url_for('media_file', filename=category ~ '/' ~ subcategory ~ '/' ~ vid) }}">
+    </video>
+{% endfor %}
+{% endif %}
+
+</body>
+</html>
