@@ -1,17 +1,37 @@
 <!doctype html>
 <html>
 <head>
-    <title>Media Gallery</title>
+    <title>Media Browser</title>
+    <style>
+        ul { list-style-type: none; padding-left: 20px; }
+        li { margin: 4px 0; }
+        .count { color: #666; font-size: 0.9em; }
+    </style>
 </head>
 <body>
-<h1>Media Categories</h1>
 
+<h1>Media Library</h1>
+
+{% macro render_tree(nodes) %}
 <ul>
-{% for cat in categories %}
-    <li>{{ cat }}</li>
-{% endfor %}
-</ul>
+    {% for node in nodes %}
+    <li>
+        {% if node.count > 0 %}
+            <a href="/{{ node.path }}">{{ node.name }}</a>
+        {% else %}
+            {{ node.name }}
+        {% endif %}
+        <span class="count">({{ node.count }})</span>
 
-<p>Visit URLs like: <code>/watercolor/nature</code></p>
+        {% if node.children %}
+            {{ render_tree(node.children) }}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endmacro %}
+
+{{ render_tree(tree) }}
+
 </body>
 </html>
