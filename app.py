@@ -8,6 +8,7 @@ MEDIA_ROOT = os.path.join(app.root_path, "media")
 
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
 VIDEO_EXTS = {".mp4", ".webm", ".mov"}
+AUDIO_EXTS = {".mp3", ".wav", ".ogg", ".m4a", ".opus"}
 FAVORITES_FILE = os.path.join(app.root_path, "favorites.json")
 
 # --------------------------------
@@ -32,11 +33,14 @@ def is_safe_path(path):
     return abs_path.startswith(os.path.abspath(MEDIA_ROOT))
 
 
-def list_media(folder_path, rel_path):
+import os
+
+def list_media(folder_path, rel_path, favorites_only=False):
     favorites = load_favorites()
 
     images = []
     videos = []
+    audios = []
 
     for name in sorted(os.listdir(folder_path)):
         full = os.path.join(folder_path, name)
@@ -45,23 +49,32 @@ def list_media(folder_path, rel_path):
 
         ext = os.path.splitext(name)[1].lower()
         rel_file = f"{rel_path}/{name}"
+        is_fav = rel_file in favorites
+        display_name = os.path.splitext(name)[0].replace("_", " ").replace("-", " ").title()
+
+        if favorites_only and not is_fav:
+            continue
 
         item = {
             "name": name,
+            "display_name": display_name,
             "path": rel_file,
-            "favorite": rel_file in favorites
+            "favorite": is_fav
         }
 
         if ext in IMAGE_EXTS:
             images.append(item)
         elif ext in VIDEO_EXTS:
             videos.append(item)
+        elif ext in AUDIO_EXTS:
+            audios.append(item)
 
     # Favorites first
     images.sort(key=lambda x: not x["favorite"])
     videos.sort(key=lambda x: not x["favorite"])
+    audios.sort(key=lambda x: not x["favorite"])
 
-    return images, videos
+    return images, videos, audios
 
 
 def count_media_files(folder):
@@ -70,7 +83,7 @@ def count_media_files(folder):
         full = os.path.join(folder, name)
         if os.path.isfile(full):
             ext = os.path.splitext(name)[1].lower()
-            if ext in IMAGE_EXTS or ext in VIDEO_EXTS:
+            if ext in IMAGE_EXTS or ext in VIDEO_EXTS or ext in AUDIO_EXTS:
                 count += 1
     return count
 
@@ -149,7 +162,13 @@ def gallery(folder_path):
     if not is_safe_path(folder) or not os.path.isdir(folder):
         abort(404)
 
-    images, videos = list_media(folder, folder_path)
+    favorites_only = request.args.get("favorites") == "1"
+
+    images, videos, audios = list_media(
+        folder,
+        folder_path,
+        favorites_only=favorites_only
+    )
 
     breadcrumbs = build_breadcrumbs(*folder_path.split("/"))
 
@@ -160,10 +179,13 @@ def gallery(folder_path):
         "gallery.html",
         images=images,
         videos=videos,
+        audios=audios,
         breadcrumbs=breadcrumbs,
         tree=tree,
+        favorites_only=favorites_only,
         current_path=folder_path
     )
+
 
 # ----------------------------------
 # FAVORITES
@@ -188,10 +210,6 @@ def toggle_favorite():
     save_favorites(favorites)
 
     return jsonify({"favorite": state})
-
-
-
-
 
 # -------------------------------------------
 # MEDIA

@@ -2,37 +2,8 @@
 <html>
 <head>
     <title>Media Browser</title>
-    <style>
-        ul { list-style-type: none; padding-left: 20px; }
-        li { margin: 4px 0; }
-        .count { color: #666; font-size: 0.9em; }
-        .tree {
-    list-style: none;
-    padding-left: 0;
-}
-
-.tree ul {
-    padding-left: 16px;
-}
-
-summary {
-    cursor: pointer;
-}
-
-summary a {
-    text-decoration: none;
-    color: #0066cc;
-}
-
-.count {
-    color: #777;
-    font-size: 0.85em;
-}
-
-details > summary::marker {
-    font-size: 0.8em;
-}
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
@@ -44,7 +15,7 @@ details > summary::marker {
     {% for node in nodes %}
     <li class="{{ 'open' if node.active }}">
         {% if node.children %}
-            <details {{ 'open' if node.active }}>
+            <details id="folder-{{ node.path|replace('/', '-') }}" {{ 'open' if node.active }}>
                 <summary>
                     {% if node.file_count > 0 %}
                         <a href="/gallery/{{ node.path }}">{{ node.name }}</a>
@@ -72,7 +43,25 @@ details > summary::marker {
 {{ render_tree(tree) }}
 </aside>
 
+<script>
+// Load open/closed state from localStorage
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("details").forEach(details => {
+        const id = details.id;
+        const state = localStorage.getItem(id);
+        if (state === "open") {
+            details.open = true;
+        } else if (state === "closed") {
+            details.open = false;
+        }
 
+        // Save state on toggle
+        details.addEventListener("toggle", () => {
+            localStorage.setItem(id, details.open ? "open" : "closed");
+        });
+    });
+});
+</script>
 
 </body>
 </html>

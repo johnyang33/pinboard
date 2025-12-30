@@ -1,13 +1,9 @@
 <!doctype html>
 <html>
 <head>
-    <title>{{ category }} / {{ subcategory }}</title>
-    <style>
-        img, video {
-            max-width: 300px;
-            margin: 10px;
-        }
-    </style>
+    <title>{{ current_path }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <nav aria-label="Breadcrumb">
@@ -23,17 +19,30 @@
         {% endfor %}
     </ul>
 </nav>
-<h1>{{category}}/{{subcategory}}</h1>
+
+<div style="margin-bottom:10px;">
+    {% if favorites_only %}
+        <a href="/gallery/{{ current_path }}">Show all</a>
+    {% else %}
+        <a href="/gallery/{{ current_path }}?favorites=1">Show favorites only</a>
+    {% endif %}
+</div>
+{% if favorites_only %}
+<p><strong>Showing favorites only</strong></p>
+{% endif %}
 {% if images %}
 <h2>Images</h2>
 {% for img in images %}
-    <div class="media-item">
+<div class="media-item">
     <img src="{{ url_for('media_file', filename=img.path) }}">
 
-    <button
-        class="fav-btn"
-        data-path="{{ img.path }}"
-        onclick="toggleFavorite(this)">
+    <div class="caption">
+        {{ img.display_name }}
+    </div>
+
+    <button class="fav-btn"
+            data-path="{{ img.path }}"
+            onclick="toggleFavorite(this)">
         {{ "★" if img.favorite else "☆" }}
     </button>
 </div>
@@ -48,15 +57,37 @@
         <source src="{{ url_for('media_file', filename=vid.path) }}">
     </video>
 
-    <button
-        class="fav-btn"
-        data-path="{{ vid.path }}"
-        onclick="toggleFavorite(this)">
+    <div class="caption">
+        {{ vid.display_name }}
+    </div>
+
+    <button class="fav-btn"
+            data-path="{{ vid.path }}"
+            onclick="toggleFavorite(this)">
         {{ "★" if vid.favorite else "☆" }}
     </button>
 </div>
 {% endfor %}
 {% endif %}
+
+
+{% if audios %}
+<h2>Audio Playlist</h2>
+<audio id="global-audio-player" controls>
+    <source src="{{ url_for('media_file', filename=audios[0].path) }}">
+    Your browser does not support the audio element.
+</audio>
+
+<ul id="audio-playlist">
+    {% for aud in audios %}
+    <li data-src="{{ url_for('media_file', filename=aud.path) }}">
+        {{ aud.display_name }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
 <script>
 function toggleFavorite(btn) {
     const path = btn.dataset.path;
@@ -73,5 +104,76 @@ function toggleFavorite(btn) {
     });
 }
 </script>
+<script>
+
+/**************************
+
+How it works:
+--------------
+
+When the user leaves the page (or reloads), the current track index and playback time are saved to localStorage.
+When the gallery reloads, the script restores the previous track and resumes playback.
+The autoplay-next feature still works normally.
+Favorites and highlighting remain functional.
+
+***************************/
+
+const audioPlayer = document.getElementById("global-audio-player");
+const playlistItems = Array.from(document.querySelectorAll("#audio-playlist li"));
+
+// Load playback state from localStorage
+let savedState = JSON.parse(localStorage.getItem("audioPlayerState") || "{}");
+let currentIndex = savedState.currentIndex || 0;
+let currentTime = savedState.currentTime || 0;
+
+// Function to play a specific track
+function playTrack(index, resumeTime=0) {
+    if(index < 0 || index >= playlistItems.length) return;
+    currentIndex = index;
+    const item = playlistItems[index];
+    audioPlayer.src = item.dataset.src;
+    audioPlayer.currentTime = resumeTime;
+    audioPlayer.play();
+    highlightPlaying();
+}
+
+// Highlight the currently playing track
+function highlightPlaying() {
+    playlistItems.forEach((item, idx) => {
+        if(idx === currentIndex) {
+            item.style.fontWeight = "bold";
+            item.style.color = "#e91e63";
+        } else {
+            item.style.fontWeight = "normal";
+            item.style.color = "#0066cc";
+        }
+    });
+}
+
+// Click to manually select track
+playlistItems.forEach((item, idx) => {
+    item.style.cursor = "pointer";
+    item.addEventListener("click", () => playTrack(idx));
+});
+
+// Autoplay next track when current ends
+audioPlayer.addEventListener("ended", () => {
+    let nextIndex = currentIndex + 1;
+    if(nextIndex >= playlistItems.length) nextIndex = 0; // loop
+    playTrack(nextIndex);
+});
+
+// Save playback state before navigating away
+window.addEventListener("beforeunload", () => {
+    localStorage.setItem("audioPlayerState", JSON.stringify({
+        currentIndex: currentIndex,
+        currentTime: audioPlayer.currentTime
+    }));
+});
+
+// Restore state on page load
+playTrack(currentIndex, currentTime);
+</script>
+
 </body>
 </html>

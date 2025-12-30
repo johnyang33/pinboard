@@ -1,0 +1,57 @@
+ul {
+	list-style-type: none;
+	padding-left: 20px;
+}
+li {
+	margin: 4px 0;
+}
+.count {
+	color: #666;
+	font-size: 0.9em;
+}
+.tree {
+	list-style: none;
+	padding-left: 0;
+}
+.tree ul {
+	padding-left: 16px;
+}
+summary {
+	cursor: pointer;
+}
+summary a {
+	text-decoration: none;
+	color: #0066cc;
+}
+.count {
+	color: #777;
+	font-size: 0.85em;
+}
+details > summary::marker {
+	font-size: 0.8em;
+}
+img, video {
+	max-width: 300px;
+	margin: 10px;
+}
+.media-item {
+	display: inline-block;
+	text-align: center;
+	margin: 10px;
+}
+.caption {
+	font-size: 0.9em;
+	color: #555;
+	margin-top: 4px;
+}
+#audio-playlist {
+	list-style: none;
+	padding-left: 0;
+}
+#audio-playlist li {
+	margin: 4px 0;
+	color: #0066cc;
+}
+#audio-playlist li:hover {
+	text-decoration: underline;
+}
