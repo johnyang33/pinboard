@@ -6,25 +6,63 @@
         ul { list-style-type: none; padding-left: 20px; }
         li { margin: 4px 0; }
         .count { color: #666; font-size: 0.9em; }
+        .tree {
+    list-style: none;
+    padding-left: 0;
+}
+
+.tree ul {
+    padding-left: 16px;
+}
+
+summary {
+    cursor: pointer;
+}
+
+summary a {
+    text-decoration: none;
+    color: #0066cc;
+}
+
+.count {
+    color: #777;
+    font-size: 0.85em;
+}
+
+details > summary::marker {
+    font-size: 0.8em;
+}
     </style>
 </head>
 <body>
 
 <h1>Media Library</h1>
 
+<aside style="width:250px;">
 {% macro render_tree(nodes) %}
-<ul>
+<ul class="tree">
     {% for node in nodes %}
-    <li>
-        {% if node.count > 0 %}
-            <a href="/{{ node.path }}">{{ node.name }}</a>
-        {% else %}
-            {{ node.name }}
-        {% endif %}
-        <span class="count">({{ node.count }})</span>
-
+    <li class="{{ 'open' if node.active }}">
         {% if node.children %}
-            {{ render_tree(node.children) }}
+            <details {{ 'open' if node.active }}>
+                <summary>
+                    {% if node.file_count > 0 %}
+                        <a href="/gallery/{{ node.path }}">{{ node.name }}</a>
+                    {% else %}
+                        {{ node.name }}
+                    {% endif %}
+
+                    <span class="count">
+                        ({{ node.file_count }} files{% if node.folder_count %}, {{ node.folder_count }} folders{% endif %})
+                    </span>
+                </summary>
+                {{ render_tree(node.children) }}
+            </details>
+        {% else %}
+            <a href="/gallery/{{ node.path }}">{{ node.name }}</a>
+            <span class="count">
+                ({{ node.file_count }} files)
+            </span>
         {% endif %}
     </li>
     {% endfor %}
@@ -32,6 +70,9 @@
 {% endmacro %}
 
 {{ render_tree(tree) }}
+</aside>
+
+
 
 </body>
 </html>

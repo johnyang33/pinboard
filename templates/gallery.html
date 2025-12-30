@@ -23,22 +23,55 @@
         {% endfor %}
     </ul>
 </nav>
-
+<h1>{{category}}/{{subcategory}}</h1>
 {% if images %}
 <h2>Images</h2>
 {% for img in images %}
-    <img src="{{ url_for('media_file', filename=category ~ '/' ~ subcategory ~ '/' ~ img) }}">
+    <div class="media-item">
+    <img src="{{ url_for('media_file', filename=img.path) }}">
+
+    <button
+        class="fav-btn"
+        data-path="{{ img.path }}"
+        onclick="toggleFavorite(this)">
+        {{ "★" if img.favorite else "☆" }}
+    </button>
+</div>
 {% endfor %}
 {% endif %}
 
 {% if videos %}
 <h2>Videos</h2>
 {% for vid in videos %}
+<div class="media-item">
     <video controls>
-        <source src="{{ url_for('media_file', filename=category ~ '/' ~ subcategory ~ '/' ~ vid) }}">
+        <source src="{{ url_for('media_file', filename=vid.path) }}">
     </video>
+
+    <button
+        class="fav-btn"
+        data-path="{{ vid.path }}"
+        onclick="toggleFavorite(this)">
+        {{ "★" if vid.favorite else "☆" }}
+    </button>
+</div>
 {% endfor %}
 {% endif %}
+<script>
+function toggleFavorite(btn) {
+    const path = btn.dataset.path;
 
+    fetch("/favorite/toggle", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ path })
+    })
+    .then(r => r.json())
+    .then(data => {
+        btn.textContent = data.favorite ? "★" : "☆";
+        location.reload(); // simple & reliable
+    });
+}
+</script>
 </body>
 </html>
