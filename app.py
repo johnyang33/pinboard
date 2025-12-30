@@ -82,6 +82,32 @@ def build_media_tree(base_path, rel_path=""):
 
 
 # -------------------------------
+# BREADCRUMBS
+# -------------------------------
+
+def build_breadcrumbs(*parts):
+    """
+    Input: ("watercolor", "nature")
+    Output:
+    [
+      {"name": "Home", "url": "/"},
+      {"name": "watercolor", "url": "/watercolor"},
+      {"name": "nature", "url": "/watercolor/nature"}
+    ]
+    """
+    crumbs = [{"name": "Home", "url": "/"}]
+    path = ""
+
+    for part in parts:
+        path += f"/{part}"
+        crumbs.append({
+            "name": part,
+            "url": path
+        })
+
+    return crumbs
+
+# -------------------------------
 # ROUTES
 # -------------------------------
 
@@ -103,15 +129,16 @@ def gallery(category, subcategory):
         abort(404)
 
     images, videos = list_media(folder)
+    breadcrumbs = build_breadcrumbs(category, subcategory)
 
     return render_template(
         "gallery.html",
         category=category,
         subcategory=subcategory,
         images=images,
-        videos=videos
+        videos=videos,
+        breadcrumbs=breadcrumbs
     )
-
 # -------------------------------------------
 # MEDIA
 # -------------------------------------------
