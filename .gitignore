@@ -1,5 +1,13 @@
 media/
 *.mp4
+*.jpg
+*.webp
+*.gif
+*.png
+*.mkv
+*.mp3
+*.wav
+*.jpeg
 
 
 # Byte-compiled / optimized / DLL files
