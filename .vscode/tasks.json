@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Watch SCSS",
+      "type": "shell",
+      "command": "sass static/scss/main.scss static/css/styles.css --watch",
+      "problemMatcher": [],
+      "isBackground": true
+    }
+  ]
+}

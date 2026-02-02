@@ -1,57 +1,183 @@
-ul {
-	list-style-type: none;
-	padding-left: 20px;
+/*sass static/scss/main.scss static/css/styles.css --watch */
+:root {
+  --bg: #111;
+  --panel: #1b1b1b;
+  --text: #eee;
+  --accent: #4da3ff;
 }
-li {
-	margin: 4px 0;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
 }
-.count {
-	color: #666;
-	font-size: 0.9em;
+
+button {
+  border-radius: 10px;
+  transition: 0.2s ease;
 }
-.tree {
-	list-style: none;
-	padding-left: 0;
+button.active {
+  background: var(--accent);
 }
-.tree ul {
-	padding-left: 16px;
+button.fav-btn {
+  border: none;
+  background: none;
+  color: #aaa;
+  text-shadow: 1px 0 1px black;
+  font-size: 32px;
+  margin-top: -10px;
 }
-summary {
-	cursor: pointer;
+button.fav-btn:hover {
+  color: orange;
+  cursor: pointer;
 }
-summary a {
-	text-decoration: none;
-	color: #0066cc;
+
+#bottom_linkz {
+  text-align: center;
 }
-.count {
-	color: #777;
-	font-size: 0.85em;
+#bottom_linkz a {
+  font-size: 24px;
+  text-decoration: none;
+  margin-right: 10px;
 }
-details > summary::marker {
-	font-size: 0.8em;
+#bottom_linkz a:hover {
+  text-decoration: underline;
 }
-img, video {
-	max-width: 300px;
-	margin: 10px;
+#bottom_linkz .pc {
+  margin-bottom: 20px;
 }
-.media-item {
-	display: inline-block;
-	text-align: center;
-	margin: 10px;
+
+main#index {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
 }
-.caption {
-	font-size: 0.9em;
-	color: #555;
-	margin-top: 4px;
+main#index .card_wrapper {
+  width: 400px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-#audio-playlist {
-	list-style: none;
-	padding-left: 0;
+main#index .card_wrapper .card {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
 }
-#audio-playlist li {
-	margin: 4px 0;
-	color: #0066cc;
+main#index .card_wrapper .card a {
+  text-decoration: none;
+  font-size: 28px;
 }
-#audio-playlist li:hover {
-	text-decoration: underline;
+main#index .card_wrapper .card a:hover {
+  text-decoration: underline;
 }
+
+.container {
+  display: flex;
+  min-height: 80vh;
+}
+.container main {
+  width: 100%;
+}
+.container main nav#content_bar {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
+.container main nav#content_bar .favorites_wrapper {
+  margin-right: 100px;
+  display: flex;
+  align-items: center;
+}
+.container main nav#content_bar .favorites_wrapper div {
+  margin-right: 20px;
+  display: inline-block;
+}
+.container main .image_container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.container main .media-item video {
+  width: 600px;
+  margin: 10px;
+}
+.container main .media-item a img {
+  width: 300px;
+  margin-right: 10px;
+  display: block;
+}
+.container main .media-item .caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 300px;
+}
+.container aside#sidebar {
+  flex-shrink: 0;
+  background-color: lightcyan;
+  overflow: hidden;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.container aside#sidebar #toggle-aside {
+  width: 100%;
+  border: none;
+  background: lightcoral;
+  color: #fff;
+  padding: 8px;
+  cursor: pointer;
+}
+.container aside#sidebar.collapsed {
+  width: 48px;
+}
+.container aside#sidebar.collapsed ul, .container aside#sidebar.collapsed .card_wrapper {
+  display: none;
+  width: 0;
+}
+.container aside#sidebar a {
+  text-decoration: none;
+}
+.container aside#sidebar ul.tree {
+  font-size: 15px;
+  list-style-type: none;
+  padding-left: 12px;
+}
+.container aside#sidebar ul.tree summary {
+  padding: 5px 0;
+}
+.container aside#sidebar ul.tree summary:hover {
+  background: lightgoldenrodyellow;
+  cursor: pointer;
+}
+.container aside#sidebar ul.tree li.folder {
+  padding: 5px 0;
+}
+.container aside#sidebar ul.tree li.folder .count {
+  color: darkblue;
+  font-style: italic;
+  font-size: 13px;
+}
+.container aside#sidebar ul.tree li.folder a {
+  color: purple;
+  padding: 5px 0;
+}
+.container aside#sidebar ul.tree li.folder a:hover {
+  background-color: orange;
+  color: #eee;
+  text-shadow: 1px 0 1px yellow;
+}
+.container aside#sidebar .card_wrapper {
+  font-size: 16px;
+  text-align: center;
+}
+.container aside#sidebar .card_wrapper .card {
+  margin: 10px 0;
+}
+
+/*sass static/scss/main.scss static/css/styles.css --watch */
+
+/*# sourceMappingURL=styles.css.map */

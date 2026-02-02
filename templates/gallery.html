@@ -1,98 +1,135 @@
 <!doctype html>
 <html>
 <head>
-    <title>{{ current_path }}</title>
+    <title>PinBoard-{{ current_path }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <nav aria-label="Breadcrumb">
-        <ul style="list-style:none; padding:0; display:flex; gap:6px;">
-            {% for crumb in breadcrumbs %}
-                <li>
-                    {% if not loop.last %}
-                        <a href="{{ crumb.url }}">{{ crumb.name }}</a> /
-                    {% else %}
-                        <strong>{{ crumb.name }}</strong>
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-    </nav>
+    <!-- MACRO: START -->
+    {% macro render_tree(nodes) %}
+    <ul class="tree">
+        {% for node in nodes %}
+        <li class="{{ 'open' if node.active }} folder">
+            {% if node.children %}
+                <details id="folder-{{ node.path|replace('/', '-') }}" {{ 'open' if node.active }}>
+                    <summary>
+                        {% if node.file_count > 0 %}
+                            <a href="/gallery/{{ node.path }}">{{ node.name }}</a>
+                        {% else %}
+                            {{ node.name }}
+                        {% endif %}
 
-    <div style="margin-bottom:10px;">
-        {% if favorites_only %}
-            <a href="/gallery/{{ current_path }}">Show all</a>
-        {% else %}
-            <a href="/gallery/{{ current_path }}?favorites=1">Show favorites only</a>
-        {% endif %}
-    </div>
-
-    {% if favorites_only %}
-        <p><strong>Showing favorites only</strong></p>
-    {% endif %}
-
-    {% if images %}
-        <h2>Images</h2>
-        {% for img in images %}
-            <div class="media-item">
-                <img src="{{ url_for('media_file', filename=img.path) }}">
-
-                <div class="caption">
-                    {{ img.display_name }}
-                </div>
-
-                <button class="fav-btn"
-                        data-path="{{ img.path }}"
-                        onclick="toggleFavorite(this)">
-                    {{ "★" if img.favorite else "☆" }}
-                </button>
-            </div>
+                        <span class="count">
+                            ({{ node.file_count }} files{% if node.folder_count %}, {{ node.folder_count }} folders{% endif %})
+                        </span>
+                    </summary>
+                    {{ render_tree(node.children) }}
+                </details>
+            {% else %}
+                <a href="/gallery/{{ node.path }}">{{ node.name }}</a>
+                <span class="count">
+                    ({{ node.file_count }} files)
+                </span>
+            {% endif %}
+        </li>
         {% endfor %}
-    {% endif %}
-                       
-    {% if videos %}
-        <h2>Videos</h2>
-            {% for vid in videos %}
-                <div class="media-item">
-                    <video controls>
-                        <source src="{{ url_for('media_file', filename=vid.path) }}">
-                    </video>
+    </ul>
+    {% endmacro %}
+    <!-- MACRO: END -->
+<div class="container">
+    <main>
+        <aside id="sidebar">
+            <button id="toggle-aside" aria-label="Toggle sidebar">☰</button>
+            <div class="navtree">    
+                {{ render_tree(tree) }}
+            </div>
+        </aside>
+        <nav id="content_bar">
+            <ul style="list-style:none; padding:0; display:flex; gap:6px;">
+                {% for crumb in breadcrumbs %}
+                    <li>
+                        {% if not loop.last %}
+                            <a href="{{ crumb.url }}">{{ crumb.name }}</a> /
+                        {% else %}
+                            <strong>{{ crumb.name }}</strong>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
 
-                    <div class="caption">
-                        {{ vid.display_name }}
-                    </div>
-
-                    <button class="fav-btn"
-                            data-path="{{ vid.path }}"
-                            onclick="toggleFavorite(this)">
-                        {{ "★" if vid.favorite else "☆" }}
-                    </button>
+            <div class="favorites_wrapper">
+                <div class="showing">
+                    {% if favorites_only %}
+                        <p><strong>Currently only showing favorites</strong></p>
+                    {% endif %}
                 </div>
-            {% endfor %}
-    {% endif %}
+                <div class="showing">
+                    {% if favorites_only %}
+                        <a href="/gallery/{{ current_path }}">✰Show all✰</a>
+                    {% else %}
+                        <a href="/gallery/{{ current_path }}?favorites=1">⭐Show favorites only⭐</a>
+                    {% endif %}
+                </div>
 
+            </div>
+        </nav>
+        <div class="image_container">
+            {% if images %}
+                {% for img in images %}
+                    <div class="media-item">
+                        <a href="{{ url_for('media_file', filename=img.path) }}">
+                            <img src="{{ url_for('media_file', filename=img.path) }}">
+                        </a>
 
-    {% if audios %}
-        <h2>Audio Playlist</h2>
-        <audio id="global-audio-player" controls>
-            <source src="{{ url_for('media_file', filename=audios[0].path) }}">
-            Your browser does not support the audio element.
-        </audio>
-        <div id="audio-controls">
-    <button onclick="setSpeed(0.75)">0.75×</button>
-    <button onclick="setSpeed(1.0)">1×</button>
-    <button onclick="setSpeed(1.25)">1.25×</button>
+                        <div class="caption">
+                            <div>{{ img.display_name }}</div>
+                            <button class="fav-btn"
+                                    data-path="{{ img.path }}"
+                                    onclick="toggleFavorite(this)">
+                                {{ "⭐" if img.favorite else "✰" }}
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if videos %}
+                {% for vid in videos %}
+                    <div class="media-item video">
+                        <video class="viddd" controls loop>
+                            <source src="{{ url_for('media_file', filename=vid.path) }}">
+                        </video>
+
+                        <div class="caption">
+                            <div>{{ vid.display_name }}</div>
+                            <button class="fav-btn"
+                                    data-path="{{ vid.path }}"
+                                    onclick="toggleFavorite(this)">
+                                {{ "⭐" if vid.favorite else "✰" }}
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div><!-- images_container-->    
+    </main>
+</div><!-- container -->
+
+<div id="bottom_linkz">
+    <div class="pc">
+        <a style="color:darkorange;" href="http://localhost:8790/">MainDB</a>
+        <a href="http://127.0.0.1:8789/">CrimeDB</a>
+       <a style="color:lightsalmon;"href="http://localhost:8787/">AudiobookDB</a>
+       <a href="http://localhost:9999/">Snipz</a>
+       <a style="color:blue;" href="http://localhost:8080/">PinBoard</a>
+       <a style="color:lightcoral;" href="http://localhost:8000/">Counter</a>
+       <a href="http://localhost:7000/">JungAPP</a>
+    </div>
+    <div class="pi">
+        <a href="http://192.168.254.70:9999">Snipz-Pi</a>
+        <a href="http://192.168.254.70:7000/">Jung-Pi</a>
+    </div>
 </div>
-
-        <ul id="audio-playlist">
-            {% for aud in audios %}
-            <li data-src="{{ url_for('media_file', filename=aud.path) }}">
-                {{ aud.display_name }}
-            </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
 
 
 <script>
@@ -112,95 +149,35 @@ function toggleFavorite(btn) {
 }
 </script>
 <script>
-
-/**************************
-
-How it works:
---------------
-
-When the user leaves the page (or reloads), the current track index and playback time are saved to localStorage.
-When the gallery reloads, the script restores the previous track and resumes playback.
-The autoplay-next feature still works normally.
-Favorites and highlighting remain functional.
-
-***************************/
-
-const audioPlayer = document.getElementById("global-audio-player");
-const playlistItems = Array.from(document.querySelectorAll("#audio-playlist li"));
-
-// Load playback state from localStorage
-let savedState = JSON.parse(localStorage.getItem("audioPlayerState") || "{}");
-let currentIndex = savedState.currentIndex || 0;
-let currentTime = savedState.currentTime || 0;
-
-// Load saved speed or default to normal
-let savedSpeed = parseFloat(localStorage.getItem("audioPlaybackSpeed")) || 1.0;
-audioPlayer.playbackRate = savedSpeed;
-
-function setSpeed(rate) {
-    audioPlayer.playbackRate = rate;
-    localStorage.setItem("audioPlaybackSpeed", rate);
-    updateSpeedUI(rate);
-}
-
-function updateSpeedUI(rate) {
-    document.querySelectorAll("#audio-controls button").forEach(btn => {
-        btn.style.fontWeight = btn.textContent.startsWith(rate.toString()) ? "bold" : "normal";
-    });
-}
-updateSpeedUI(savedSpeed);
-
-
-
-
-// Function to play a specific track
-function playTrack(index, resumeTime=0) {
-    if(index < 0 || index >= playlistItems.length) return;
-    currentIndex = index;
-    const item = playlistItems[index];
-    audioPlayer.src = item.dataset.src;
-    audioPlayer.currentTime = resumeTime;
-    audioPlayer.play();
-    highlightPlaying();
-}
-
-// Highlight the currently playing track
-function highlightPlaying() {
-    playlistItems.forEach((item, idx) => {
-        if(idx === currentIndex) {
-            item.style.fontWeight = "bold";
-            item.style.color = "#e91e63";
-        } else {
-            item.style.fontWeight = "normal";
-            item.style.color = "#0066cc";
-        }
-    });
-}
-
-// Click to manually select track
-playlistItems.forEach((item, idx) => {
-    item.style.cursor = "pointer";
-    item.addEventListener("click", () => playTrack(idx));
+    document.getElementById("toggle-aside").addEventListener("click", () => {
+  document.getElementById("sidebar").classList.toggle("collapsed");
 });
-
-// Autoplay next track when current ends
-audioPlayer.addEventListener("ended", () => {
-    let nextIndex = currentIndex + 1;
-    if(nextIndex >= playlistItems.length) nextIndex = 0; // loop
-    playTrack(nextIndex);
-});
-
-// Save playback state before navigating away
-window.addEventListener("beforeunload", () => {
-    localStorage.setItem("audioPlayerState", JSON.stringify({
-        currentIndex: currentIndex,
-        currentTime: audioPlayer.currentTime
-    }));
-});
-
-// Restore state on page load
-playTrack(currentIndex, currentTime);
 </script>
+<script>
+// Load open/closed state from localStorage
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("details").forEach(details => {
+        const id = details.id;
+        const state = localStorage.getItem(id);
+        if (state === "open") {
+            details.open = true;
+        } else if (state === "closed") {
+            details.open = false;
+        }
+
+        // Save state on toggle
+        details.addEventListener("toggle", () => {
+            localStorage.setItem(id, details.open ? "open" : "closed");
+        });
+    });
+});
+</script>
+<script>
+      // Set volume for all videos with a specific class
+  document.querySelectorAll('.viddd').forEach(video => {
+    video.volume = 0.05; // 50% volume
+  });
+    </script>
 
 </body>
 </html>

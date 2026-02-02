@@ -1,0 +1,201 @@
+/*sass static/scss/main.scss static/css/styles.css --watch */
+
+
+$radius: 10px;
+$transition: 0.2s ease;
+
+:root {
+  --bg: #111;
+  --panel: #1b1b1b;
+  --text: #eee;
+  --accent: #4da3ff;
+}
+
+
+body { 
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+}
+
+button {
+    border-radius: $radius;
+    transition: $transition;
+
+    &.active {
+        background: var(--accent);
+    }
+
+    &.fav-btn { 
+      border:none;
+      background:none;
+      color:#aaa;
+      text-shadow:1px 0 1px black;
+      font-size:32px;
+      margin-top:-10px;
+    }
+    &.fav-btn:hover { 
+        color:orange;
+        cursor:pointer;
+    }
+}
+
+
+
+#bottom_linkz { 
+text-align:center;
+    a { 
+        font-size:24px;
+        text-decoration:none;
+        margin-right:10px;
+    }
+    a:hover { 
+        text-decoration:underline;
+    }
+    .pc { 
+    margin-bottom:20px; }
+}
+
+main#index { 
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-top:100px;
+    .card_wrapper { 
+        width:400px;
+        padding:40px;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        .card { 
+            width:400px;
+            display:flex;
+            justify-content:center;
+            margin-bottom:10px;
+            a{
+                text-decoration:none;
+                font-size:28px;
+                &:hover { 
+                    text-decoration:underline;
+                }
+            }
+        }
+    }
+}
+
+.container { 
+    display: flex;
+    min-height:80vh;
+        main { 
+            width:100%;
+            nav#content_bar { 
+                display:flex;
+                justify-content:space-between;
+                width:80%;
+                .favorites_wrapper { 
+                    margin-right:100px;
+                    display:flex;
+                    align-items:center;
+                    div { 
+                        margin-right:20px;
+                        display:inline-block;
+                    }
+                }
+            }
+            .image_container { 
+                display:flex;
+                justify-content:flex-start;
+                flex-wrap:wrap;
+            }
+            
+            .media-item 
+            {   
+                video { 
+                    width:600px;
+                    margin:10px;
+                }
+                a {
+                    img { 
+                        width:300px;
+                        margin-right:10px;
+                        display:block;
+                    }
+                }
+                .caption { 
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    max-width:300px;
+                }
+            }
+        }
+        aside#sidebar { 
+            flex-shrink: 0;
+            background-color: lightcyan;
+            //transition: width 0.25s ease;
+            overflow: hidden;
+            position:absolute;
+            top:10px;
+            right:10px;
+
+            #toggle-aside {
+                width: 100%;
+                border: none;
+                background: lightcoral;
+                color: #fff;
+                padding: 8px;
+                cursor: pointer;
+            }
+
+            &.collapsed {
+                width: 48px; // collapsed width
+            }
+
+            &.collapsed ul,
+            &.collapsed .card_wrapper {
+                display: none;
+                width:0;
+            }
+            a { 
+                text-decoration: none;
+            }
+            ul.tree { 
+                font-size:15px;
+                list-style-type: none;
+                padding-left:12px;
+
+                summary{
+                    padding:5px 0;
+                    &:hover {
+                    background:lightgoldenrodyellow;
+                    cursor:pointer;
+                }}
+
+                li.folder {
+                    padding:5px 0;
+                    .count {     
+                        color:darkblue;
+                        font-style:italic;
+                        font-size:13px;
+                    }
+                    a {
+                        color: purple;
+                        padding:5px 0;
+                        &:hover {
+                            background-color:orange;
+                            color:#eee;
+                            text-shadow:1px 0 1px yellow;
+                        }
+                    }
+                }
+            }
+            .card_wrapper { 
+                font-size:16px;
+                text-align:center;
+                .card { margin:10px 0;}
+            }
+        }
+}
+
+
+/*sass static/scss/main.scss static/css/styles.css --watch */

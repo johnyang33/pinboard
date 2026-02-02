@@ -15,7 +15,6 @@ FAVORITES_FILE = os.path.join(app.root_path, "favorites.json")
 # HELPERS
 # --------------------------------
 
-
 def load_favorites():
     if not os.path.exists(FAVORITES_FILE):
         return {}
@@ -26,14 +25,10 @@ def save_favorites(favs):
     with open(FAVORITES_FILE, "w") as f:
         json.dump(favs, f, indent=2)
 
-
 def is_safe_path(path):
     # Prevent directory traversal
     abs_path = os.path.abspath(path)
     return abs_path.startswith(os.path.abspath(MEDIA_ROOT))
-
-
-import os
 
 def list_media(folder_path, rel_path, favorites_only=False):
     favorites = load_favorites()
@@ -75,7 +70,6 @@ def list_media(folder_path, rel_path, favorites_only=False):
     audios.sort(key=lambda x: not x["favorite"])
 
     return images, videos, audios
-
 
 def count_media_files(folder):
     count = 0
@@ -122,7 +116,6 @@ def build_media_tree(base_path, rel_path=""):
 
     return tree
 
-
 # -------------------------------
 # BREADCRUMBS
 # -------------------------------
@@ -149,7 +142,6 @@ def index():
     tree = build_media_tree(MEDIA_ROOT)
     mark_active(tree, "")
     return render_template("index.html", tree=tree)
-
 
 # ----------------------------------
 # GALLERY
@@ -185,7 +177,6 @@ def gallery(folder_path):
         favorites_only=favorites_only,
         current_path=folder_path
     )
-
 
 # ----------------------------------
 # FAVORITES

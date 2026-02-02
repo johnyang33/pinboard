@@ -1,19 +1,17 @@
 <!doctype html>
 <html>
 <head>
-    <title>Media Browser</title>
+    <title>PinBoard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/old_styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-<h1>Media Library</h1>
-
-<aside style="width:250px;">
 {% macro render_tree(nodes) %}
 <ul class="tree">
     {% for node in nodes %}
-    <li class="{{ 'open' if node.active }}">
+    <li class="{{ 'open' if node.active }} folder">
         {% if node.children %}
             <details id="folder-{{ node.path|replace('/', '-') }}" {{ 'open' if node.active }}>
                 <summary>
@@ -39,9 +37,31 @@
     {% endfor %}
 </ul>
 {% endmacro %}
+           
+<div class="container">
+    <aside id="sidebar">
+        <button id="toggle-aside" aria-label="Toggle sidebar">☰</button>
+        {{ render_tree(tree) }}
+    </aside>
+    <main id="index">
 
-{{ render_tree(tree) }}
-</aside>
+    </main>
+</div>
+<div id="bottom_linkz">
+        <div class="pc">
+            <a style="color:darkorange;" href="http://localhost:8790/">MainDB</a>
+            <a href="http://127.0.0.1:8789/">CrimeDB</a>
+           <a style="color:lightsalmon;"href="http://localhost:8787/">AudiobookDB</a> 
+           <a href="http://localhost:9999/">Snipz</a>
+           <a style="color:blue;" href="http://localhost:8080/">PinBoard</a>
+           <a style="color:lightcoral;" href="http://localhost:8000/">Counter</a>
+           <a href="http://localhost:7000/">JungAPP</a>
+        </div>
+        <div class="pi">
+            <a href="http://192.168.254.70:9999">Snipz-Pi</a>
+            <a href="http://192.168.254.70:7000/">Jung-Pi</a>
+        </div>
+    </div>
 
 <script>
 // Load open/closed state from localStorage
@@ -62,6 +82,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
-
+<script>
+    document.getElementById("toggle-aside").addEventListener("click", () => {
+  document.getElementById("sidebar").classList.toggle("collapsed");
+});
+    </script>
 </body>
 </html>
