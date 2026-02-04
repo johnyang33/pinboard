@@ -39,7 +39,7 @@
     <!-- MACRO: END -->
 <div class="container">
     <main>
-        <aside id="sidebar">
+        <aside id="sidebar" class="collapsed">
             <button id="toggle-aside" aria-label="Toggle sidebar">☰</button>
             <div class="navtree">    
                 {{ render_tree(tree) }}
@@ -115,7 +115,7 @@
     </main>
 </div><!-- container -->
 
-<div id="bottom_linkz">
+<div style="margin-top:50px;"id="bottom_linkz">
     <div class="pc">
         <a style="color:darkorange;" href="http://localhost:8790/">MainDB</a>
         <a href="http://127.0.0.1:8789/">CrimeDB</a>
