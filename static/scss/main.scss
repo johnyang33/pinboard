@@ -44,22 +44,74 @@ button {
 #bottom_linkz { 
 text-align:center;
     a { 
-        font-size:24px;
-        text-decoration:none;
-        margin-right:10px;
+           text-decoration: none;
+                background: #aaa;
+                padding: 8px 16px;
+                margin: 4px 0;
+                display: inline-block;
+                border-radius: 7px;
+                color: #111;
+                font-size:18px;
     }
     a:hover { 
-        text-decoration:underline;
+        background:lightgreen;
+                    color:#111;
     }
     .pc { 
     margin-bottom:20px; }
 }
 
+
+
+
+#index_tree_wrapper { 
+    ul.tree { 
+        display:flex;
+        flex-wrap:wrap;
+        list-style-type:none;
+        li { 
+            font-size:18px;
+            margin-right:5px;
+            a { 
+                text-decoration: none;
+                background: #111;
+                padding: 8px 16px;
+                margin: 4px 0;
+                display: inline-block;
+                border-radius: 7px;
+                color: lightgreen;
+                text-shadow: 1px 0 10px yellow;
+                &:hover { 
+                    background:lightgreen;
+                    color:#111;
+                    .count {
+                        color:darkblue; 
+
+                    }
+                    .folder_size {
+                        color: rgb(75, 52, 11);
+                    }
+                }
+                .count {
+                font-style:italic;
+                color:lightblue; 
+                }
+                .folder_size {
+                    color: rgb(223, 176, 90);
+                }
+            }
+            
+        }
+    }
+}
+
 main#index { 
     display:flex;
-    flex-direction:column;
+    justify-content:center;
+    align-items:center;
     align-items:center;
     margin-top:100px;
+    max-width:1000px;
     .card_wrapper { 
         width:400px;
         padding:40px;
@@ -82,6 +134,8 @@ main#index {
         }
     }
 }
+
+#index_container { justify-content:center;} 
 
 .container { 
     display: flex;

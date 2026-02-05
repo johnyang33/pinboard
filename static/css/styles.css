@@ -35,22 +35,67 @@ button.fav-btn:hover {
   text-align: center;
 }
 #bottom_linkz a {
-  font-size: 24px;
   text-decoration: none;
-  margin-right: 10px;
+  background: #aaa;
+  padding: 8px 16px;
+  margin: 4px 0;
+  display: inline-block;
+  border-radius: 7px;
+  color: #111;
+  font-size: 18px;
 }
 #bottom_linkz a:hover {
-  text-decoration: underline;
+  background: lightgreen;
+  color: #111;
 }
 #bottom_linkz .pc {
   margin-bottom: 20px;
 }
 
+#index_tree_wrapper ul.tree {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+#index_tree_wrapper ul.tree li {
+  font-size: 18px;
+  margin-right: 5px;
+}
+#index_tree_wrapper ul.tree li a {
+  text-decoration: none;
+  background: #111;
+  padding: 8px 16px;
+  margin: 4px 0;
+  display: inline-block;
+  border-radius: 7px;
+  color: lightgreen;
+  text-shadow: 1px 0 10px yellow;
+}
+#index_tree_wrapper ul.tree li a:hover {
+  background: lightgreen;
+  color: #111;
+}
+#index_tree_wrapper ul.tree li a:hover .count {
+  color: darkblue;
+}
+#index_tree_wrapper ul.tree li a:hover .folder_size {
+  color: rgb(75, 52, 11);
+}
+#index_tree_wrapper ul.tree li a .count {
+  font-style: italic;
+  color: lightblue;
+}
+#index_tree_wrapper ul.tree li a .folder_size {
+  color: rgb(223, 176, 90);
+}
+
 main#index {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   align-items: center;
   margin-top: 100px;
+  max-width: 1000px;
 }
 main#index .card_wrapper {
   width: 400px;
@@ -72,6 +117,10 @@ main#index .card_wrapper .card a {
 }
 main#index .card_wrapper .card a:hover {
   text-decoration: underline;
+}
+
+#index_container {
+  justify-content: center;
 }
 
 .container {

@@ -96,7 +96,7 @@
             {% if videos %}
                 {% for vid in videos %}
                     <div class="media-item video">
-                        <video class="viddd" controls loop>
+                        <video class="viddd" preload="metadata" controls loop>
                             <source src="{{ url_for('media_file', filename=vid.path) }}">
                         </video>
 

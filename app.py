@@ -90,6 +90,23 @@ def mark_active(tree, current_path):
         if node["children"]:
             mark_active(node["children"], current_path)
 
+def format_bytes(size):
+    for unit in ("B", "KB", "MB", "GB", "TB"):
+        if size < 1024:
+            return f"{size:.2f} {unit}"
+        size /= 1024
+
+def get_folder_size(path):
+    total = 0
+    for root, dirs, files in os.walk(path):
+        for f in files:
+            try:
+                fp = os.path.join(root, f)
+                total += os.path.getsize(fp)
+            except OSError:
+                pass  # skip unreadable files
+    return total
+
 def build_media_tree(base_path, rel_path=""):
     abs_path = os.path.join(base_path, rel_path)
     tree = []
@@ -103,11 +120,15 @@ def build_media_tree(base_path, rel_path=""):
 
         children = build_media_tree(base_path, sub_rel)
 
+        size = get_folder_size(full)
+
         node = {
             "name": name,
             "path": sub_rel.replace("\\", "/"),
             "file_count": count_media_files(full),
             "folder_count": len(children),
+            "size_bytes": get_folder_size(full),
+            "size": format_bytes(size),
             "children": children,
             "active": False
         }
@@ -224,4 +245,4 @@ def media_file(filename):
  # ---------------------------------------------
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",port=8080,debug=True)
+    app.run(host="0.0.0.0",port=8081,debug=True)

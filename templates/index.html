@@ -13,7 +13,9 @@
     {% for node in nodes %}
     <li class="{{ 'open' if node.active }} folder">
         {% if node.children %}
-            <details id="folder-{{ node.path|replace('/', '-') }}" {{ 'open' if node.active }}>
+            <details id="folder-{{ node.path|replace('/', '-') }}"
+         {% if node.active %}open{% endif %}>
+
                 <summary>
                     {% if node.file_count > 0 %}
                         <a href="/gallery/{{ node.path }}">{{ node.name }}</a>
@@ -21,40 +23,42 @@
                         {{ node.name }}
                     {% endif %}
 
-                    <span class="count">
-                        ({{ node.file_count }} files{% if node.folder_count %}, {{ node.folder_count }} folders{% endif %})
-                    </span>
+                   <span class="count fix">
+    {{ node.file_count }} files{% if node.folder_count %}, {{ node.folder_count }} folders{% endif %}
+</span>
+<span class="folder_size">
+    • {{ node.size }}
+</span>
                 </summary>
                 {{ render_tree(node.children) }}
             </details>
         {% else %}
-            <a href="/gallery/{{ node.path }}">{{ node.name }}</a>
-            <span class="count">
-                ({{ node.file_count }} files)
-            </span>
-        {% endif %}
+    <a href="/gallery/{{ node.path }}">{{ node.name }}
+    (<span class="count">
+        {{ node.file_count }} files
+    </span>
+    <span class="folder_size">
+        {{ node.size }} 
+    </span>)</a>
+{% endif %}
     </li>
     {% endfor %}
 </ul>
 {% endmacro %}
            
-<div class="container">
-    <aside id="sidebar">
-        <button id="toggle-aside" aria-label="Toggle sidebar">☰</button>
-        {{ render_tree(tree) }}
-    </aside>
+<div  id="index_container" class="container">
     <main id="index">
-
+        <div id="index_tree_wrapper">{{ render_tree(tree) }}</div>
     </main>
 </div>
 <div id="bottom_linkz">
         <div class="pc">
-            <a style="color:darkorange;" href="http://localhost:8790/">MainDB</a>
+            <a href="http://localhost:8790/">MainDB</a>
             <a href="http://127.0.0.1:8789/">CrimeDB</a>
-           <a style="color:lightsalmon;"href="http://localhost:8787/">AudiobookDB</a> 
+           <a href="http://localhost:8787/">AudiobookDB</a> 
            <a href="http://localhost:9999/">Snipz</a>
-           <a style="color:blue;" href="http://localhost:8080/">PinBoard</a>
-           <a style="color:lightcoral;" href="http://localhost:8000/">Counter</a>
+           <a href="http://localhost:8080/">PinBoard</a>
+           <a href="http://localhost:8000/">Counter</a>
            <a href="http://localhost:7000/">JungAPP</a>
         </div>
         <div class="pi">
