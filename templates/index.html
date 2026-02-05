@@ -23,12 +23,12 @@
                         {{ node.name }}
                     {% endif %}
 
-                   <span class="count fix">
-    {{ node.file_count }} files{% if node.folder_count %}, {{ node.folder_count }} folders{% endif %}
-</span>
-<span class="folder_size">
-    • {{ node.size }}
-</span>
+                   <span class="count">
+                        {{ node.file_count }} files{% if node.folder_count %}, {{ node.folder_count }} folders{% endif %}
+                    </span>
+                    <span class="folder_size">
+                        • {{ node.size }}
+                    </span>
                 </summary>
                 {{ render_tree(node.children) }}
             </details>
@@ -58,6 +58,7 @@
            <a href="http://localhost:8787/">AudiobookDB</a> 
            <a href="http://localhost:9999/">Snipz</a>
            <a href="http://localhost:8080/">PinBoard</a>
+           <a href="http://localhost:8081/">Clipzzz</a>
            <a href="http://localhost:8000/">Counter</a>
            <a href="http://localhost:7000/">JungAPP</a>
         </div>

@@ -39,19 +39,29 @@ button {
     }
 }
 
+/* Change the marker when the details element is open */
+details[open] > summary::marker {
+  content: "👇 ";
+}
 
+summary::marker {
+  content: "👉 "; /* Replaces the default marker with an emoji */
+  color: blue; /* Changes the marker color */
+  font-size: 2em; /* Adjusts the marker size */
+}
 
 #bottom_linkz { 
 text-align:center;
     a { 
            text-decoration: none;
-                background: #aaa;
+                background: #eee;
+                border:1px solid #111;
                 padding: 8px 16px;
                 margin: 4px 0;
                 display: inline-block;
                 border-radius: 7px;
                 color: #111;
-                font-size:18px;
+                font-size:15px;
     }
     a:hover { 
         background:lightgreen;
@@ -61,47 +71,68 @@ text-align:center;
     margin-bottom:20px; }
 }
 
+details { 
+    summary { 
+        background:rgb(209, 180, 255);
+        padding:12px 24px;
+        border-radius:5px;
+        margin-top:10px;
+        &:hover { 
+            cursor:zoom-in;
+            background:rgb(128, 100, 255);
+            color:yellow;
+            .folder_size { 
+                color:orange;
+            }
+            .count { 
+                color:#ff97d4;
+                text-shadow:1px 0 10px #111;
+            }
+        }
+        .count { 
+            color:#b4002d;
+        }
+        .folder_size { 
+            color:darkblue;
+        }
+    }
+}
 
-
-
-#index_tree_wrapper { 
-    ul.tree { 
-        display:flex;
-        flex-wrap:wrap;
-        list-style-type:none;
-        li { 
-            font-size:18px;
-            margin-right:5px;
-            a { 
-                text-decoration: none;
-                background: #111;
-                padding: 8px 16px;
-                margin: 4px 0;
-                display: inline-block;
-                border-radius: 7px;
-                color: lightgreen;
-                text-shadow: 1px 0 10px yellow;
-                &:hover { 
-                    background:lightgreen;
-                    color:#111;
-                    .count {
-                        color:darkblue; 
-
-                    }
-                    .folder_size {
-                        color: rgb(75, 52, 11);
-                    }
-                }
+ul.tree { 
+    list-style-type:none;
+    li.folder { 
+        font-size:18px;
+        margin-right:5px;
+        margin-bottom:20px;
+        a { 
+            text-decoration: none;
+            background: #111;
+            padding: 8px 16px;
+            margin: 4px 0;
+            display: inline-block;
+            border-radius: 7px;
+            color: lightgreen;
+            text-shadow: 1px 0 10px yellow;
+            &:hover { 
+                background:lightgreen;
+                color:#111;
                 .count {
-                font-style:italic;
-                color:lightblue; 
+                    color:darkblue; 
+
                 }
                 .folder_size {
-                    color: rgb(223, 176, 90);
+                    color: rgb(75, 52, 11);
                 }
             }
-            
+            .count {
+            font-style:italic;
+            color:lightblue; 
+            }
+            .folder_size {
+                color: rgb(223, 176, 90);
+            }
         }
+        
     }
 }
 
@@ -136,6 +167,53 @@ main#index {
 }
 
 #index_container { justify-content:center;} 
+
+
+aside#sidebar { 
+    flex-shrink: 0;
+    //transition: width 0.25s ease;
+    overflow: hidden;
+    position:absolute;
+    top:10px;
+    right:10px;
+    background:#fff;
+    border:1px solid lightcoral;
+    border-radius:5px;
+
+    #toggle-aside {
+        width: 100%;
+        border: none;
+        background: lightcoral;
+        color: #fff;
+        padding: 8px;
+        cursor: pointer;
+        border-radius:4px;
+    }
+
+    &.collapsed {
+        width: 48px; // collapsed width
+    }
+
+    &.collapsed ul,
+    &.collapsed .card_wrapper {
+        display: none;
+        width:0;
+    }
+    a { 
+        text-decoration: none;
+    }
+    ul.tree { 
+        font-size:15px;
+        list-style-type: none;
+        padding-left:12px;
+    }
+    .card_wrapper { 
+        font-size:16px;
+        text-align:center;
+        .card { margin:10px 0;}
+    }
+}
+
 
 .container { 
     display: flex;
@@ -183,73 +261,17 @@ main#index {
                 }
             }
         }
-        aside#sidebar { 
-            flex-shrink: 0;
-            background-color: lightcyan;
-            //transition: width 0.25s ease;
-            overflow: hidden;
-            position:absolute;
-            top:10px;
-            right:10px;
-
-            #toggle-aside {
-                width: 100%;
-                border: none;
-                background: lightcoral;
-                color: #fff;
-                padding: 8px;
-                cursor: pointer;
-            }
-
-            &.collapsed {
-                width: 48px; // collapsed width
-            }
-
-            &.collapsed ul,
-            &.collapsed .card_wrapper {
-                display: none;
-                width:0;
-            }
-            a { 
-                text-decoration: none;
-            }
-            ul.tree { 
-                font-size:15px;
-                list-style-type: none;
-                padding-left:12px;
-
-                summary{
-                    padding:5px 0;
-                    &:hover {
-                    background:lightgoldenrodyellow;
-                    cursor:pointer;
-                }}
-
-                li.folder {
-                    padding:5px 0;
-                    .count {     
-                        color:darkblue;
-                        font-style:italic;
-                        font-size:13px;
-                    }
-                    a {
-                        color: purple;
-                        padding:5px 0;
-                        &:hover {
-                            background-color:orange;
-                            color:#eee;
-                            text-shadow:1px 0 1px yellow;
-                        }
-                    }
-                }
-            }
-            .card_wrapper { 
-                font-size:16px;
-                text-align:center;
-                .card { margin:10px 0;}
-            }
-        }
 }
 
 
-/*sass static/scss/main.scss static/css/styles.css --watch */
+@media only screen and (max-width:480px){
+    .container main .media-item a { 
+        img { width:410px;}
+    }
+} 
+
+@media only screen and (max-width:1024px){
+    .container main .media-item a { 
+        img { width:900px;}
+    }
+} 

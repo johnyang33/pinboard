@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*sass static/scss/main.scss static/css/styles.css --watch */
 :root {
   --bg: #111;
@@ -31,18 +32,30 @@ button.fav-btn:hover {
   cursor: pointer;
 }
 
+/* Change the marker when the details element is open */
+details[open] > summary::marker {
+  content: "👇 ";
+}
+
+summary::marker {
+  content: "👉 "; /* Replaces the default marker with an emoji */
+  color: blue; /* Changes the marker color */
+  font-size: 2em; /* Adjusts the marker size */
+}
+
 #bottom_linkz {
   text-align: center;
 }
 #bottom_linkz a {
   text-decoration: none;
-  background: #aaa;
+  background: #eee;
+  border: 1px solid #111;
   padding: 8px 16px;
   margin: 4px 0;
   display: inline-block;
   border-radius: 7px;
   color: #111;
-  font-size: 18px;
+  font-size: 15px;
 }
 #bottom_linkz a:hover {
   background: lightgreen;
@@ -52,16 +65,40 @@ button.fav-btn:hover {
   margin-bottom: 20px;
 }
 
-#index_tree_wrapper ul.tree {
-  display: flex;
-  flex-wrap: wrap;
+details summary {
+  background: rgb(209, 180, 255);
+  padding: 12px 24px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+details summary:hover {
+  cursor: zoom-in;
+  background: rgb(128, 100, 255);
+  color: yellow;
+}
+details summary:hover .folder_size {
+  color: orange;
+}
+details summary:hover .count {
+  color: #ff97d4;
+  text-shadow: 1px 0 10px #111;
+}
+details summary .count {
+  color: #b4002d;
+}
+details summary .folder_size {
+  color: darkblue;
+}
+
+ul.tree {
   list-style-type: none;
 }
-#index_tree_wrapper ul.tree li {
+ul.tree li.folder {
   font-size: 18px;
   margin-right: 5px;
+  margin-bottom: 20px;
 }
-#index_tree_wrapper ul.tree li a {
+ul.tree li.folder a {
   text-decoration: none;
   background: #111;
   padding: 8px 16px;
@@ -71,21 +108,21 @@ button.fav-btn:hover {
   color: lightgreen;
   text-shadow: 1px 0 10px yellow;
 }
-#index_tree_wrapper ul.tree li a:hover {
+ul.tree li.folder a:hover {
   background: lightgreen;
   color: #111;
 }
-#index_tree_wrapper ul.tree li a:hover .count {
+ul.tree li.folder a:hover .count {
   color: darkblue;
 }
-#index_tree_wrapper ul.tree li a:hover .folder_size {
+ul.tree li.folder a:hover .folder_size {
   color: rgb(75, 52, 11);
 }
-#index_tree_wrapper ul.tree li a .count {
+ul.tree li.folder a .count {
   font-style: italic;
   color: lightblue;
 }
-#index_tree_wrapper ul.tree li a .folder_size {
+ul.tree li.folder a .folder_size {
   color: rgb(223, 176, 90);
 }
 
@@ -121,6 +158,48 @@ main#index .card_wrapper .card a:hover {
 
 #index_container {
   justify-content: center;
+}
+
+aside#sidebar {
+  flex-shrink: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #fff;
+  border: 1px solid lightcoral;
+  border-radius: 5px;
+}
+aside#sidebar #toggle-aside {
+  width: 100%;
+  border: none;
+  background: lightcoral;
+  color: #fff;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+aside#sidebar.collapsed {
+  width: 48px;
+}
+aside#sidebar.collapsed ul, aside#sidebar.collapsed .card_wrapper {
+  display: none;
+  width: 0;
+}
+aside#sidebar a {
+  text-decoration: none;
+}
+aside#sidebar ul.tree {
+  font-size: 15px;
+  list-style-type: none;
+  padding-left: 12px;
+}
+aside#sidebar .card_wrapper {
+  font-size: 16px;
+  text-align: center;
+}
+aside#sidebar .card_wrapper .card {
+  margin: 10px 0;
 }
 
 .container {
@@ -164,69 +243,16 @@ main#index .card_wrapper .card a:hover {
   justify-content: space-between;
   max-width: 300px;
 }
-.container aside#sidebar {
-  flex-shrink: 0;
-  background-color: lightcyan;
-  overflow: hidden;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-.container aside#sidebar #toggle-aside {
-  width: 100%;
-  border: none;
-  background: lightcoral;
-  color: #fff;
-  padding: 8px;
-  cursor: pointer;
-}
-.container aside#sidebar.collapsed {
-  width: 48px;
-}
-.container aside#sidebar.collapsed ul, .container aside#sidebar.collapsed .card_wrapper {
-  display: none;
-  width: 0;
-}
-.container aside#sidebar a {
-  text-decoration: none;
-}
-.container aside#sidebar ul.tree {
-  font-size: 15px;
-  list-style-type: none;
-  padding-left: 12px;
-}
-.container aside#sidebar ul.tree summary {
-  padding: 5px 0;
-}
-.container aside#sidebar ul.tree summary:hover {
-  background: lightgoldenrodyellow;
-  cursor: pointer;
-}
-.container aside#sidebar ul.tree li.folder {
-  padding: 5px 0;
-}
-.container aside#sidebar ul.tree li.folder .count {
-  color: darkblue;
-  font-style: italic;
-  font-size: 13px;
-}
-.container aside#sidebar ul.tree li.folder a {
-  color: purple;
-  padding: 5px 0;
-}
-.container aside#sidebar ul.tree li.folder a:hover {
-  background-color: orange;
-  color: #eee;
-  text-shadow: 1px 0 1px yellow;
-}
-.container aside#sidebar .card_wrapper {
-  font-size: 16px;
-  text-align: center;
-}
-.container aside#sidebar .card_wrapper .card {
-  margin: 10px 0;
-}
 
-/*sass static/scss/main.scss static/css/styles.css --watch */
+@media only screen and (max-width: 480px) {
+  .container main .media-item a img {
+    width: 410px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .container main .media-item a img {
+    width: 900px;
+  }
+}
 
 /*# sourceMappingURL=styles.css.map */
