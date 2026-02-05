@@ -257,7 +257,8 @@ aside#sidebar .card_wrapper .card {
     justify-content: center;
   }
   .container main .media-item a img {
-    width: 800px;
+    width: 100%;
+    max-width: 800px;
   }
 }
 
