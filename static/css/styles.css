@@ -245,13 +245,19 @@ aside#sidebar .card_wrapper .card {
 }
 
 @media only screen and (max-width: 480px) {
+  .container main .image_container {
+    justify-content: center;
+  }
   .container main .media-item a img {
     width: 410px;
   }
 }
 @media only screen and (max-width: 1024px) {
+  .container main .image_container {
+    justify-content: center;
+  }
   .container main .media-item a img {
-    width: 900px;
+    width: 800px;
   }
 }
 
