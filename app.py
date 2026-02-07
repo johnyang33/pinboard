@@ -1,6 +1,14 @@
 import os
 from flask import Flask, render_template, abort, send_from_directory,jsonify,request
 import json
+from dotenv import load_dotenv
+
+load_dotenv()
+
+port = int(os.environ.get("FLASK_PORT", 6001))
+
+app = Flask(__name__)
+
 
 app = Flask(__name__)
 
@@ -245,4 +253,8 @@ def media_file(filename):
  # ---------------------------------------------
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",port=8081,debug=True)
+    app.run(
+        host="0.0.0.0",
+        port = int(os.environ.get("FLASK_PORT", 6001)),
+        debug=True
+        )
