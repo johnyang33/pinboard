@@ -1,9 +1,9 @@
 media/
+media/*.png
 *.mp4
 *.jpg
 *.webp
 *.gif
-*.png
 *.mkv
 *.mp3
 *.wav
