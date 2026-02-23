@@ -19,9 +19,21 @@ VIDEO_EXTS = {".mp4", ".webm", ".mov"}
 AUDIO_EXTS = {".mp3", ".wav", ".ogg", ".m4a", ".opus"}
 FAVORITES_FILE = os.path.join(app.root_path, "favorites.json")
 
+RATINGS_FILE = os.path.join(app.root_path, "ratings.json")
+
 # --------------------------------
 # HELPERS
 # --------------------------------
+
+def load_ratings():
+    if not os.path.exists(RATINGS_FILE):
+        return {}
+    with open(RATINGS_FILE, "r") as f:
+        return json.load(f)
+
+def save_ratings(ratings):
+    with open(RATINGS_FILE, "w") as f:
+        json.dump(ratings, f, indent=2)
 
 def load_favorites():
     if not os.path.exists(FAVORITES_FILE):
@@ -40,6 +52,7 @@ def is_safe_path(path):
 
 def list_media(folder_path, rel_path, favorites_only=False):
     favorites = load_favorites()
+    ratings = load_ratings()  # ADD THIS
 
     images = []
     videos = []
@@ -53,6 +66,7 @@ def list_media(folder_path, rel_path, favorites_only=False):
         ext = os.path.splitext(name)[1].lower()
         rel_file = f"{rel_path}/{name}"
         is_fav = rel_file in favorites
+        rating = ratings.get(rel_file, 0)  # ADD THIS
         display_name = os.path.splitext(name)[0].replace("_", " ").replace("-", " ").title()
 
         if favorites_only and not is_fav:
@@ -62,7 +76,8 @@ def list_media(folder_path, rel_path, favorites_only=False):
             "name": name,
             "display_name": display_name,
             "path": rel_file,
-            "favorite": is_fav
+            "favorite": is_fav,
+            "rating": rating   # ADD THIS
         }
 
         if ext in IMAGE_EXTS:
@@ -72,10 +87,13 @@ def list_media(folder_path, rel_path, favorites_only=False):
         elif ext in AUDIO_EXTS:
             audios.append(item)
 
-    # Favorites first
-    images.sort(key=lambda x: not x["favorite"])
-    videos.sort(key=lambda x: not x["favorite"])
-    audios.sort(key=lambda x: not x["favorite"])
+    # Sort by rating (high → low), then favorite, then name
+    def sort_key(item):
+        return (-item["rating"], not item["favorite"], item["name"].lower())
+
+    images.sort(key=sort_key)
+    videos.sort(key=sort_key)
+    audios.sort(key=sort_key)
 
     return images, videos, audios
 
@@ -171,6 +189,125 @@ def index():
     tree = build_media_tree(MEDIA_ROOT)
     mark_active(tree, "")
     return render_template("index.html", tree=tree)
+
+
+# DELETE 
+@app.route("/media/delete", methods=["POST"])
+def delete_media():
+    data = request.json
+    rel_path = data.get("path")
+
+    if not rel_path:
+        return jsonify({"error": "Missing path"}), 400
+
+    full_path = os.path.join(MEDIA_ROOT, rel_path)
+
+    if not is_safe_path(full_path):
+        return jsonify({"error": "Invalid path"}), 400
+
+    if not os.path.isfile(full_path):
+        return jsonify({"error": "File not found"}), 404
+
+    try:
+        os.remove(full_path)
+
+        # Remove from favorites if it exists
+        favorites = load_favorites()
+        if rel_path in favorites:
+            del favorites[rel_path]
+            save_favorites(favorites)
+
+        ratings = load_ratings()
+        if rel_path in ratings:
+            del ratings[rel_path]
+            save_ratings(ratings)
+
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# SET RATING
+@app.route("/rating/set", methods=["POST"])
+def set_rating():
+    data = request.json
+    rel_path = data.get("path")
+    rating = int(data.get("rating", 0))
+
+    if not rel_path or rating < 0 or rating > 10:
+        return jsonify({"error": "Invalid input"}), 400
+
+    full_path = os.path.join(MEDIA_ROOT, rel_path)
+
+    if not is_safe_path(full_path):
+        return jsonify({"error": "Invalid path"}), 400
+
+    ratings = load_ratings()
+
+    if rating == 0:
+        ratings.pop(rel_path, None)
+    else:
+        ratings[rel_path] = rating
+
+    save_ratings(ratings)
+
+    return jsonify({"success": True, "rating": rating})
+
+
+# RENAME 
+@app.route("/media/rename", methods=["POST"])
+def rename_media():
+    data = request.json
+    old_rel_path = data.get("old_path")
+    new_name = data.get("new_name")
+
+    if not old_rel_path or not new_name:
+        return jsonify({"error": "Missing data"}), 400
+
+    old_full_path = os.path.join(MEDIA_ROOT, old_rel_path)
+
+    if not is_safe_path(old_full_path):
+        return jsonify({"error": "Invalid path"}), 400
+
+    if not os.path.isfile(old_full_path):
+        return jsonify({"error": "File not found"}), 404
+
+    # Prevent path traversal in new name
+    new_name = os.path.basename(new_name)
+
+    # Preserve extension if user removed it
+    old_ext = os.path.splitext(old_full_path)[1]
+    if not new_name.lower().endswith(old_ext.lower()):
+        new_name += old_ext
+
+    folder = os.path.dirname(old_full_path)
+    new_full_path = os.path.join(folder, new_name)
+
+    try:
+        if os.path.exists(new_full_path):
+            return jsonify({"error": "File already exists"}), 400
+        os.rename(old_full_path, new_full_path)
+
+        # Update favorites
+        favorites = load_favorites()
+        ratings = load_ratings()
+
+        old_key = old_rel_path
+        new_rel_path = os.path.join(
+            os.path.dirname(old_rel_path),
+            new_name
+        ).replace("\\", "/")
+
+        if old_key in favorites:
+            favorites[new_rel_path] = favorites.pop(old_key)
+            save_favorites(favorites)
+
+        if old_key in ratings:
+            ratings[new_rel_path] = ratings.pop(old_key)
+            save_ratings(ratings)
+
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 # ----------------------------------
 # GALLERY

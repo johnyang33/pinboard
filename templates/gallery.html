@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>PinBoard-{{ current_path }}</title>
+    <title>Pinz-{{ current_path }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" sizes="180x180" href="static/favicons/apple-touch-icon.png">
@@ -70,9 +70,9 @@
                 </div>
                 <div class="showing">
                     {% if favorites_only %}
-                        <a href="/gallery/{{ current_path }}">✰Show all✰</a>
+                        <a href="/gallery/{{ current_path }}"><i class="fontello icon-empty-heart"></i>Show all</a>
                     {% else %}
-                        <a href="/gallery/{{ current_path }}?favorites=1">⭐Show favorites only⭐</a>
+                        <a href="/gallery/{{ current_path }}?favorites=1"><i class="fontello icon-heart"></i>Show favorites only</a>
                     {% endif %}
                 </div>
 
@@ -81,18 +81,55 @@
         <div class="image_container">
             {% if images %}
                 {% for img in images %}
-                    <div class="media-item">
+                    <div class="media-item image">
                         <a href="{{ url_for('media_file', filename=img.path) }}">
                             <img src="{{ url_for('media_file', filename=img.path) }}">
                         </a>
 
                         <div class="caption">
-                            <div>{{ img.display_name }}</div>
-                            <button class="fav-btn"
+                            <div class="file_name">{{ img.display_name }}</div>
+                            <div class="actions">
+                                <button class="fav-btn"
+                                        data-path="{{ img.path }}"
+                                        onclick="toggleFavorite(this)">
+                                    
+                                    {% if img.favorite %}
+                                        <i class="fontello icon-heart"></i>
+                                        {% else %}
+                                        <i class="fontello icon-empty-heart"></i>
+                                    {% endif %}
+                                </button>
+                                <button class="clear-rating"
                                     data-path="{{ img.path }}"
-                                    onclick="toggleFavorite(this)">
-                                {{ "⭐" if img.favorite else "✰" }}
-                            </button>
+                                    onclick="clearRating(this)">
+                                    <i class="fontello icon-cancel"></i>
+                                </button>
+                                <button class="rename-btn"
+                                        data-path="{{ img.path }}"
+                                        data-name="{{ img.name }}"
+                                        onclick="renameMedia(this)">
+                                    <i class="fontello icon-pencil"></i>
+                                </button>
+                                <button class="delete-btn"
+                                    data-path="{{ img.path }}"
+                                    onclick="deleteMedia(this)">
+                                    <i class="fontello icon-trashcan"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            {% for i in range(1, 11) %}
+                                <span class="star"
+                                    data-path="{{ img.path }}"
+                                    data-value="{{ i }}"
+                                    onclick="setRating(this)">
+                                    {% if i <= img.rating %}
+                                        <i class="fontello icon-star"></i>
+                                    {% else %}
+                                        <i class="fontello icon-empty-star"></i>
+                                    {% endif %}
+                                </span>
+                            {% endfor %}
                         </div>
                     </div>
                 {% endfor %}
@@ -105,12 +142,49 @@
                         </video>
 
                         <div class="caption">
-                            <div>{{ vid.display_name }}</div>
-                            <button class="fav-btn"
+                            <div class="file_name">{{ vid.display_name }}</div>
+                            <div class="actions">
+                                <button class="fav-btn"
+                                        data-path="{{ vid.path }}"
+                                        onclick="toggleFavorite(this)">
+                                    
+                                    {% if vid.favorite %}
+                                        <i class="fontello icon-heart"></i>
+                                        {% else %}
+                                        <i class="fontello icon-empty-heart"></i>
+                                    {% endif %}
+                                </button>
+                                <button class="clear-rating"
                                     data-path="{{ vid.path }}"
-                                    onclick="toggleFavorite(this)">
-                                {{ "⭐" if vid.favorite else "✰" }}
-                            </button>
+                                    onclick="clearRating(this)">
+                                    <i class="fontello icon-cancel"></i>
+                                </button>
+                                <button class="rename-btn"
+                                        data-path="{{ vid.path }}"
+                                        data-name="{{ vid.name }}"
+                                        onclick="renameMedia(this)">
+                                    <i class="fontello icon-pencil"></i>
+                                </button>
+                                <button class="delete-btn"
+                                    data-path="{{ vid.path }}"
+                                    onclick="deleteMedia(this)">
+                                    <i class="fontello icon-trashcan"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            {% for i in range(1, 11) %}
+                                <span class="star"
+                                    data-path="{{ vid.path }}"
+                                    data-value="{{ i }}"
+                                    onclick="setRating(this)">
+                                    {% if i <= vid.rating %}
+                                        <i class="fontello icon-star"></i>
+                                    {% else %}
+                                        <i class="fontello icon-empty-star"></i>
+                                    {% endif %}
+                                </span>
+                            {% endfor %}
                         </div>
                     </div>
                 {% endfor %}
@@ -120,21 +194,87 @@
 </div><!-- container -->
 
 <script>
-function toggleFavorite(btn) {
-    const path = btn.dataset.path;
+    function toggleFavorite(btn) {
+        const path = btn.dataset.path;
 
-    fetch("/favorite/toggle", {
+        fetch("/favorite/toggle", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ path })
+        })
+
+        .then(r => r.json())
+        .then(data => {
+            const icon = btn.querySelector("i");
+
+            icon.classList.toggle("icon-empty-heart", !data.favorite);
+            icon.classList.toggle("icon-heart", data.favorite);
+        });
+    }
+
+    function setRating(el) {
+    const path = el.dataset.path;
+    const rating = parseInt(el.dataset.value);
+
+    fetch("/rating/set", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ path })
+        body: JSON.stringify({ path, rating })
     })
     .then(r => r.json())
     .then(data => {
-        btn.textContent = data.favorite ? "★" : "☆";
-        location.reload(); // simple & reliable
+        if (!data.success) {
+            alert("Error setting rating");
+            return;
+        }
+
+        // Get all stars for this image
+        const stars = document.querySelectorAll(
+            `.star[data-path="${path}"]`
+        );
+
+        stars.forEach(star => {
+            const value = parseInt(star.dataset.value);
+            const icon = star.querySelector("i");
+
+            icon.classList.toggle("icon-star", value <= rating);
+            icon.classList.toggle("icon-empty-star", value > rating);
+        });
     });
 }
 </script>
+
+<script>
+function clearRating(btn) {
+    const path = btn.dataset.path;
+
+    fetch("/rating/set", {   // reuse existing endpoint
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ path, rating: 0 })
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (!data.success) {
+            alert("Error clearing rating");
+            return;
+        }
+
+        // Select all stars for this image
+        const stars = document.querySelectorAll(
+            `.star[data-path="${path}"]`
+        );
+
+        stars.forEach(star => {
+            const icon = star.querySelector("i");
+            icon.classList.remove("icon-star");
+            icon.classList.add("icon-empty-star");
+        });
+    });
+}
+</script>
+
+
 <script>
     document.getElementById("toggle-aside").addEventListener("click", () => {
   document.getElementById("sidebar").classList.toggle("collapsed");
@@ -164,7 +304,76 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('.viddd').forEach(video => {
     video.volume = 0.05; // 50% volume
   });
-    </script>
+</script>
+<script>
+function deleteMedia(btn) {
+    const path = btn.dataset.path;
 
+    if (!confirm("Are you sure you want to delete this file?")) {
+        return;
+    }
+
+    fetch("/media/delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ path })
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert("Error: " + data.error);
+        }
+    });
+}
+</script>
+<!-- <script>
+function setRating(el) {
+    const path = el.dataset.path;
+    const rating = el.dataset.value;
+
+    fetch("/rating/set", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ path, rating })
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert("Error setting rating");
+        }
+    });
+}
+</script> -->
+
+<script>
+function renameMedia(btn) {
+    const oldPath = btn.dataset.path;
+    const currentName = btn.dataset.name;
+
+    const newName = prompt("Enter new file name:", currentName);
+    if (!newName || newName === currentName) return;
+
+    fetch("/media/rename", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            old_path: oldPath,
+            new_name: newName
+        })
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert("Error: " + data.error);
+        }
+    });
+}
+</script>
 </body>
 </html>

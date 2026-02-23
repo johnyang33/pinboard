@@ -1,5 +1,5 @@
 /*sass static/scss/main.scss static/css/styles.css --watch */
-
+@use 'fontface';
 
 $radius: 10px;
 $transition: 0.2s ease;
@@ -19,23 +19,9 @@ body {
 
 button {
     border-radius: $radius;
-    transition: $transition;
 
     &.active {
         background: var(--accent);
-    }
-
-    &.fav-btn { 
-      border:none;
-      background:none;
-      color:#aaa;
-      text-shadow:1px 0 1px black;
-      font-size:32px;
-      margin-top:-10px;
-    }
-    &.fav-btn:hover { 
-        color:orange;
-        cursor:pointer;
     }
 }
 
@@ -215,6 +201,64 @@ aside#sidebar {
 }
 
 
+.media-item.video { 
+    .caption { 
+        max-width:600px;
+    }
+}
+
+.media-item.image { 
+    .caption { 
+        max-width:300px;
+    }
+}
+
+.media-item 
+{   
+    video { 
+        width:600px;
+        margin:10px;
+    }
+    a {
+        img { 
+            width:300px;
+            margin-right:10px;
+            display:block;
+        }
+    }
+    .caption { 
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        margin-top:10px;
+
+        .file_name { 
+            width:60%;
+        }
+        .actions { 
+            button { 
+                border:none;
+                background:none;
+                padding:0;
+                font-size:16px;
+                &:hover{
+                    color:lightcoral;
+                    cursor:pointer;
+                }
+            }
+        }
+    }
+    .rating { 
+        margin:10px 0;
+        .star { 
+            font-size: 18px;
+            &:hover { 
+                color:#111;
+            }
+        }
+    }
+}
+
 .container { 
     display: flex;
     min-height:80vh;
@@ -238,27 +282,6 @@ aside#sidebar {
                 display:flex;
                 justify-content:flex-start;
                 flex-wrap:wrap;
-            }
-            
-            .media-item 
-            {   
-                video { 
-                    width:600px;
-                    margin:10px;
-                }
-                a {
-                    img { 
-                        width:300px;
-                        margin-right:10px;
-                        display:block;
-                    }
-                }
-                .caption { 
-                    display:flex;
-                    align-items:center;
-                    justify-content:space-between;
-                    max-width:300px;
-                }
             }
         }
 }

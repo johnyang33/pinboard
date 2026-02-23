@@ -1,90 +1,5 @@
 @charset "UTF-8";
 /*sass static/scss/main.scss static/css/styles.css --watch */
-@font-face {
-  font-family: "fontello";
-  src: url("./fontface/fontello.eot?16074009");
-  src: url("./fontface/fontello.eot?16074009#iefix") format("embedded-opentype"), url("./fontface/fontello.woff?16074009") format("woff"), url("./fontface/fontello.ttf?16074009") format("truetype"), url("./fontface/fontello.svg?16074009#play") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-.fontello {
-  font-family: "fontello";
-  font-style: normal;
-  font-weight: normal;
-  display: inline-block;
-  text-decoration: inherit;
-  width: 1em;
-  margin-right: 0.2em;
-  text-align: center;
-  /* opacity: .8; */
-  /* For safety - reset parent styles, that can break glyph codes*/
-  font-variant: normal;
-  text-transform: none;
-  /* fix buttons height, for twitter bootstrap */
-  line-height: 1em;
-  /* Animation center compensation - margins should be symmetric */
-  /* remove if not needed */
-  margin-left: 0.2em;
-  /* You can be more comfortable with increased icons size */
-  /* font-size: 120%; */
-  /* Font smoothing. That was taken from TWBS */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* Uncomment for 3D effect */
-  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
-}
-
-.fontello::before {
-  display: inline-block;
-}
-
-.icon-heart::before {
-  content: "\e80a";
-}
-
-.icon-heart {
-  color: lightcoral;
-}
-
-.icon-empty-heart::before {
-  content: "\e809";
-}
-
-.icon-trashcan::before {
-  content: "\e801";
-}
-
-.icon-empty-star::before {
-  content: "\e800";
-}
-
-.icon-empty-star {
-  color: #eee;
-}
-.icon-empty-star:hover {
-  color: lightblue;
-  cursor: pointer;
-}
-
-.icon-star::before {
-  content: "\e802";
-}
-
-.icon-star {
-  color: lightblue;
-}
-.icon-star:hover {
-  cursor: pointer;
-}
-
-.icon-pencil::before {
-  content: "\e836";
-}
-
-.icon-cancel::before {
-  content: "\e804";
-}
-
 :root {
   --bg: #111;
   --panel: #1b1b1b;
@@ -99,9 +14,22 @@ body {
 
 button {
   border-radius: 10px;
+  transition: 0.2s ease;
 }
 button.active {
   background: var(--accent);
+}
+button.fav-btn {
+  border: none;
+  background: none;
+  color: #aaa;
+  text-shadow: 1px 0 1px black;
+  font-size: 32px;
+  margin-top: -10px;
+}
+button.fav-btn:hover {
+  color: orange;
+  cursor: pointer;
 }
 
 /* Change the marker when the details element is open */
@@ -135,6 +63,19 @@ summary::marker {
 }
 #bottom_linkz .pc {
   margin-bottom: 20px;
+}
+
+.rating { 
+  border:1px solid blue;
+}
+
+.star {
+    cursor: pointer;
+    font-size: 18px;
+    color: gold;
+}
+.star:hover {
+    transform: scale(1.2);
 }
 
 details summary {
@@ -274,52 +215,6 @@ aside#sidebar .card_wrapper .card {
   margin: 10px 0;
 }
 
-.media-item.video .caption {
-  max-width: 600px;
-}
-
-.media-item.image .caption {
-  max-width: 300px;
-}
-
-.media-item video {
-  width: 600px;
-  margin: 10px;
-}
-.media-item a img {
-  width: 300px;
-  margin-right: 10px;
-  display: block;
-}
-.media-item .caption {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-.media-item .caption .file_name {
-  width: 60%;
-}
-.media-item .caption .actions button {
-  border: none;
-  background: none;
-  padding: 0;
-  font-size: 16px;
-}
-.media-item .caption .actions button:hover {
-  color: lightcoral;
-  cursor: pointer;
-}
-.media-item .rating {
-  margin: 10px 0;
-}
-.media-item .rating .star {
-  font-size: 18px;
-}
-.media-item .rating .star:hover {
-  color: #111;
-}
-
 .container {
   display: flex;
   min-height: 80vh;
@@ -345,6 +240,21 @@ aside#sidebar .card_wrapper .card {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+}
+.container main .media-item video {
+  width: 600px;
+  margin: 10px;
+}
+.container main .media-item a img {
+  width: 300px;
+  margin-right: 10px;
+  display: block;
+}
+.container main .media-item .caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 300px;
 }
 
 @media only screen and (max-width: 480px) {
