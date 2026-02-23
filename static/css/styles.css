@@ -275,11 +275,11 @@ aside#sidebar .card_wrapper .card {
 }
 
 .media-item.video .caption {
-  max-width: 600px;
+  width: 600px;
 }
 
 .media-item.image .caption {
-  max-width: 300px;
+  width: 300px;
 }
 
 .media-item video {
@@ -311,6 +311,9 @@ aside#sidebar .card_wrapper .card {
   cursor: pointer;
 }
 .media-item .rating {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   margin: 10px 0;
 }
 .media-item .rating .star {
@@ -347,21 +350,45 @@ aside#sidebar .card_wrapper .card {
   flex-wrap: wrap;
 }
 
-@media only screen and (max-width: 480px) {
+@media screen and (max-width: 1024px) {
+  .container main .image_container {
+    justify-content: center;
+  }
+  .media-item.video .caption {
+    width: 100%;
+    max-width: 920px;
+  }
+  .media-item.video .caption .actions button {
+    font-size: 24px;
+  }
+  .media-item.image {
+    margin-bottom: 40px;
+  }
+  .media-item.image .caption {
+    max-width: 920px;
+    width: 100%;
+  }
+  .media-item.image .caption .actions button {
+    font-size: 24px;
+  }
+  .container main .media-item a img {
+    width: 100%;
+    max-width: 920px;
+  }
+}
+@media screen and (max-width: 480px) {
   .container main .image_container {
     justify-content: center;
   }
   .container main .media-item a img {
     width: 410px;
   }
-}
-@media only screen and (max-width: 1024px) {
-  .container main .image_container {
-    justify-content: center;
-  }
-  .container main .media-item a img {
+  .media-item.image .caption {
+    max-width: 420px;
     width: 100%;
-    max-width: 800px;
+  }
+  .media-item.image .caption .actions button {
+    font-size: 16px;
   }
 }
 
