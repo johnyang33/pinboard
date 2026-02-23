@@ -82,7 +82,7 @@
             {% if images %}
                 {% for img in images %}
                     <div class="media-item image">
-                        <a href="{{ url_for('media_file', filename=img.path) }}" target="_blank">
+                        <a href="{{ url_for('media_file', filename=img.path) }}">
                             <img src="{{ url_for('media_file', filename=img.path) }}">
                         </a>
 
