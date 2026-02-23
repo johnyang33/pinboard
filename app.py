@@ -383,7 +383,11 @@ def media_file(filename):
     directory = os.path.dirname(full_path)
     file = os.path.basename(full_path)
 
-    return send_from_directory(directory, file)
+    return send_from_directory(
+    directory,
+    file,
+    mimetype="image/jpeg/png"  # or png if needed
+)
 
  # ---------------------------------------------
  # MAIN
