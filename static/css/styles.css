@@ -297,6 +297,10 @@ aside#sidebar .card_wrapper .card {
   justify-content: space-between;
   margin-top: 10px;
 }
+.media-item .caption .size {
+  margin-left: 5px;
+  color: #aaa;
+}
 .media-item .caption .file_name {
   width: 60%;
 }

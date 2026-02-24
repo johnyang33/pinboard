@@ -231,7 +231,10 @@ aside#sidebar {
         align-items:center;
         justify-content:space-between;
         margin-top:10px;
-
+        .size { 
+            margin-left:5px;
+            color:#aaa;
+        }
         .file_name { 
             width:60%;
         }

@@ -67,6 +67,8 @@ def list_media(folder_path, rel_path, favorites_only=False):
         rel_file = f"{rel_path}/{name}"
         is_fav = rel_file in favorites
         rating = ratings.get(rel_file, 0)  # ADD THIS
+        size_bytes = os.path.getsize(full)
+        size_display = format_size(size_bytes)
         display_name = os.path.splitext(name)[0].replace("_", " ").replace("-", " ").title()
 
         if favorites_only and not is_fav:
@@ -76,6 +78,7 @@ def list_media(folder_path, rel_path, favorites_only=False):
             "name": name,
             "display_name": display_name,
             "path": rel_file,
+            "size": size_display,
             "favorite": is_fav,
             "rating": rating   # ADD THIS
         }
@@ -162,6 +165,14 @@ def build_media_tree(base_path, rel_path=""):
         tree.append(node)
 
     return tree
+
+def format_size(size):
+    for unit in ['B', 'KB', 'MB', 'GB']:
+        if size < 1024:
+            return f"{size:.1f} {unit}"
+        size /= 1024
+    return f"{size:.1f} TB"
+
 
 # -------------------------------
 # BREADCRUMBS

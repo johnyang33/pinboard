@@ -87,7 +87,7 @@
                         </a>
 
                         <div class="caption">
-                            <div class="file_name">{{ img.display_name }}</div>
+                            <div class="file_name">{{ img.display_name }}<span class="size">{{ img.size }}</span></div>
                             <div class="actions">
                                 <button class="fav-btn"
                                         data-path="{{ img.path }}"
@@ -142,7 +142,7 @@
                         </video>
 
                         <div class="caption">
-                            <div class="file_name">{{ vid.display_name }}</div>
+                            <div class="file_name">{{ vid.display_name }}<span class="size">{{ vid.size }}</span></div>
                             <div class="actions">
                                 <button class="fav-btn"
                                         data-path="{{ vid.path }}"
