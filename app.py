@@ -386,7 +386,8 @@ def media_file(filename):
     return send_from_directory(
     directory,
     file,
-    mimetype="image/jpeg/png/webp/jpg"  # or png if needed
+    mimetype="image/jpeg",
+    conditional=False
 )
 
  # ---------------------------------------------
