@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, abort, send_from_directory,jsonify,request
 import json
+import shutil
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -320,6 +321,107 @@ def rename_media():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/folder/delete", methods=["POST"])
+def delete_folder():
+    data = request.json
+    rel_path = data.get("path")
+
+    if not rel_path:
+        return jsonify({"error": "Missing path"}), 400
+
+    full_path = os.path.join(MEDIA_ROOT, rel_path)
+
+    if not is_safe_path(full_path):
+        return jsonify({"error": "Invalid path"}), 400
+
+    if not os.path.isdir(full_path):
+        return jsonify({"error": "Folder not found"}), 404
+
+    # 🔒 Prevent deleting root
+    if rel_path.strip() == "":
+        return jsonify({"error": "Cannot delete root"}), 400
+
+    # 🔒 Prevent deleting folders that contain subfolders
+    for name in os.listdir(full_path):
+        if os.path.isdir(os.path.join(full_path, name)):
+            return jsonify({
+                "error": "Cannot delete folder that contains subfolders"
+            }), 400
+
+    try:
+        shutil.rmtree(full_path)
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/folder/rename", methods=["POST"])
+def rename_folder():
+    data = request.json
+    old_rel_path = data.get("old_path")
+    new_name = data.get("new_name")
+
+    if not old_rel_path or not new_name:
+        return jsonify({"error": "Missing data"}), 400
+
+    old_full_path = os.path.join(MEDIA_ROOT, old_rel_path)
+
+    if not is_safe_path(old_full_path):
+        return jsonify({"error": "Invalid path"}), 400
+
+    if not os.path.isdir(old_full_path):
+        return jsonify({"error": "Folder not found"}), 404
+
+    # 🔒 Prevent renaming root
+    if old_rel_path.strip() == "":
+        return jsonify({"error": "Cannot rename root"}), 400
+
+    # 🔒 Prevent path traversal
+    new_name = os.path.basename(new_name)
+
+    parent_dir = os.path.dirname(old_full_path)
+    new_full_path = os.path.join(parent_dir, new_name)
+
+    if os.path.exists(new_full_path):
+        return jsonify({"error": "Folder already exists"}), 400
+
+    try:
+        os.rename(old_full_path, new_full_path)
+
+        # ------------------------------
+        # Update favorites + ratings
+        # ------------------------------
+        favorites = load_favorites()
+        ratings = load_ratings()
+
+        old_prefix = old_rel_path + "/"
+        new_rel_path = os.path.join(
+            os.path.dirname(old_rel_path),
+            new_name
+        ).replace("\\", "/")
+        new_prefix = new_rel_path + "/"
+
+        updated_favorites = {}
+        for k, v in favorites.items():
+            if k.startswith(old_prefix):
+                updated_favorites[k.replace(old_prefix, new_prefix)] = v
+            else:
+                updated_favorites[k] = v
+
+        updated_ratings = {}
+        for k, v in ratings.items():
+            if k.startswith(old_prefix):
+                updated_ratings[k.replace(old_prefix, new_prefix)] = v
+            else:
+                updated_ratings[k] = v
+
+        save_favorites(updated_favorites)
+        save_ratings(updated_ratings)
+
+        return jsonify({"success": True})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
 # ----------------------------------
 # GALLERY
 # ----------------------------------

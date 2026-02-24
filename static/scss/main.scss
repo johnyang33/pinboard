@@ -129,6 +129,17 @@ main#index {
     align-items:center;
     margin-top:100px;
     max-width:1000px;
+        button { 
+            border:none;
+            background:none;
+            cursor:pointer;
+            font-size:25px;
+            color:#ddd;
+            &:hover { 
+                color:#222;
+                text-shadow:1px 0 10px darkorange;
+            }
+        }
     .card_wrapper { 
         width:400px;
         padding:40px;
@@ -149,7 +160,7 @@ main#index {
                 }
             }
         }
-    }
+    }    
 }
 
 #index_container { justify-content:center;} 

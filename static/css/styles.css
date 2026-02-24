@@ -206,6 +206,17 @@ main#index {
   margin-top: 100px;
   max-width: 1000px;
 }
+main#index button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 25px;
+  color: #ddd;
+}
+main#index button:hover {
+  color: #222;
+  text-shadow: 1px 0 10px darkorange;
+}
 main#index .card_wrapper {
   width: 400px;
   padding: 40px;
