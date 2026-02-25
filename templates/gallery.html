@@ -4,10 +4,10 @@
     <title>{{app_name}}-{{ current_path }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="apple-touch-icon" sizes="180x180" href="static/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="static/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="static/favicons/favicon-16x16.png">
-    <link rel="manifest" href="static/favicons/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicons/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicons/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicons/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicons/site.webmanifest') }}">
 </head>
 <body>
     <!-- MACRO: START -->
@@ -328,26 +328,6 @@ function deleteMedia(btn) {
     });
 }
 </script>
-<!-- <script>
-function setRating(el) {
-    const path = el.dataset.path;
-    const rating = el.dataset.value;
-
-    fetch("/rating/set", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ path, rating })
-    })
-    .then(r => r.json())
-    .then(data => {
-        if (data.success) {
-            location.reload();
-        } else {
-            alert("Error setting rating");
-        }
-    });
-}
-</script> -->
 
 <script>
 function renameMedia(btn) {

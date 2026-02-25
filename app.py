@@ -171,7 +171,6 @@ def format_size(size):
         size /= 1024
     return f"{size:.1f} TB"
 
-
 # -------------------------------
 # BREADCRUMBS
 # -------------------------------
@@ -198,7 +197,6 @@ def index():
     tree = build_media_tree(MEDIA_ROOT)
     mark_active(tree, "")
     return render_template("index.html", app_name=app_name,tree=tree)
-
 
 # DELETE 
 @app.route("/media/delete", methods=["POST"])
