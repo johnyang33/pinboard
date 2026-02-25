@@ -7,10 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 port = int(os.environ.get("FLASK_PORT", 6001))
-
-app = Flask(__name__)
-
-
+app_name = os.environ.get("APP_NAME","pinz_app") 
 app = Flask(__name__)
 
 MEDIA_ROOT = os.path.join(app.root_path, "media")
@@ -200,7 +197,7 @@ def build_breadcrumbs(*parts):
 def index():
     tree = build_media_tree(MEDIA_ROOT)
     mark_active(tree, "")
-    return render_template("index.html", tree=tree)
+    return render_template("index.html", app_name=app_name,tree=tree)
 
 
 # DELETE 
@@ -448,6 +445,7 @@ def gallery(folder_path):
 
     return render_template(
         "gallery.html",
+        app_name=app_name,
         images=images,
         videos=videos,
         audios=audios,
