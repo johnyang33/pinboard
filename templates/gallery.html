@@ -138,11 +138,16 @@
                 {% for vid in videos %}
                     <div class="media-item video">
                         <video class="viddd" preload="none" controls loop data-src="{{ url_for('media_file', filename=vid.path) }}">
-</video>
+                        </video>
 
                         <div class="caption">
                             <div class="file_name">{{ vid.display_name }}<span class="size">{{ vid.size }}</span></div>
                             <div class="actions">
+                                <a class="download-btn" 
+                                    href="{{ url_for('media_file', filename=vid.path) }}" 
+                                    download="{{ vid.name }}">
+                                        download
+                                    </a>
                                 <button class="fav-btn"
                                         data-path="{{ vid.path }}"
                                         onclick="toggleFavorite(this)">
