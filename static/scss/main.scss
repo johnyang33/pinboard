@@ -277,7 +277,15 @@ aside#sidebar {
         .file_name { 
             width:60%;
         }
-        .actions { 
+        .actions {
+            .download_btn { 
+                font-size:20px;
+                color:#111;
+                &:hover { 
+                    color: lightgreen;
+                }
+
+            } 
             button { 
                 border:none;
                 background:none;

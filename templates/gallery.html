@@ -143,11 +143,9 @@
                         <div class="caption">
                             <div class="file_name">{{ vid.display_name }}<span class="size">{{ vid.size }}</span></div>
                             <div class="actions">
-                                <a class="download-btn" 
+                                <a class="download_btn" 
                                     href="{{ url_for('media_file', filename=vid.path) }}" 
-                                    download="{{ vid.name }}">
-                                        download
-                                    </a>
+                                    download="{{ vid.name }}"><i class="fontello icon-download"></i></a>
                                 <button class="fav-btn"
                                         data-path="{{ vid.path }}"
                                         onclick="toggleFavorite(this)">
