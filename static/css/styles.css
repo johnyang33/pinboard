@@ -106,12 +106,13 @@ button.active {
 
 /* Change the marker when the details element is open */
 details[open] > summary::marker {
-  content: "👇 ";
+  content: "🡻 ";
+  color: rgb(198, 185, 245); /* Changes the marker color */
 }
 
 summary::marker {
-  content: "👉 "; /* Replaces the default marker with an emoji */
-  color: blue; /* Changes the marker color */
+  content: "🡺 "; /* Replaces the default marker with an emoji */
+  color: #f875dc; /* Changes the marker color */
   font-size: 2em; /* Adjusts the marker size */
 }
 
@@ -138,47 +139,69 @@ summary::marker {
 }
 
 details summary {
-  background: rgb(209, 180, 255);
-  padding: 12px 24px;
+  background: rgb(191, 207, 255);
+  padding: 5px 12px;
   border-radius: 5px;
   margin-top: 10px;
 }
 details summary:hover {
-  cursor: zoom-in;
-  background: rgb(128, 100, 255);
-  color: yellow;
+  background: rgb(255, 203, 1);
+  color: rgb(43, 43, 26);
+  cursor: grab;
+}
+details summary:hover:active {
+  cursor: grabbing;
 }
 details summary:hover .folder_size {
-  color: orange;
+  color: rgb(49, 43, 31);
 }
 details summary:hover .count {
-  color: #ff97d4;
-  text-shadow: 1px 0 10px #111;
+  color: #421f34;
 }
 details summary .count {
-  color: #b4002d;
+  color: #332227;
 }
 details summary .folder_size {
   color: darkblue;
 }
 
+details[open] > summary {
+  background: rgb(196, 255, 194);
+}
+details[open] > summary:hover {
+  cursor: grab;
+}
+details[open] > summary:hover:active {
+  cursor: grabbing;
+}
+details[open] > summary:hover {
+  background: rgb(255, 203, 1);
+  color: rgb(10, 10, 7);
+}
+details[open] > summary:hover .folder_size {
+  color: rgb(39, 35, 27);
+}
+details[open] > summary:hover .count {
+  color: #1b1017;
+}
+
 ul.tree {
   list-style-type: none;
+  padding-left: 0;
 }
 ul.tree li.folder {
   font-size: 18px;
-  margin-right: 5px;
-  margin-bottom: 20px;
+  margin: 20px;
+  width: 500px;
 }
 ul.tree li.folder a {
   text-decoration: none;
-  background: #111;
+  background: #5b23f4;
   padding: 8px 16px;
   margin: 4px 0;
   display: inline-block;
   border-radius: 7px;
   color: lightgreen;
-  text-shadow: 1px 0 10px yellow;
 }
 ul.tree li.folder a:hover {
   background: lightgreen;

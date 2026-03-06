@@ -137,9 +137,8 @@
             {% if videos %}
                 {% for vid in videos %}
                     <div class="media-item video">
-                        <video class="viddd" preload="metadata" controls loop>
-                            <source src="{{ url_for('media_file', filename=vid.path) }}">
-                        </video>
+                        <video class="viddd" preload="none" controls loop data-src="{{ url_for('media_file', filename=vid.path) }}">
+</video>
 
                         <div class="caption">
                             <div class="file_name">{{ vid.display_name }}<span class="size">{{ vid.size }}</span></div>
@@ -192,6 +191,69 @@
         </div><!-- images_container-->    
     </main>
 </div><!-- container -->
+
+<script>
+    document.querySelectorAll('video.viddd').forEach(video => {
+    let loaded = false;
+
+    // Generate thumbnail from first frame
+    const tempVideo = document.createElement('video');
+    tempVideo.src = video.dataset.src;
+    tempVideo.crossOrigin = 'anonymous';
+    tempVideo.muted = true;
+    tempVideo.preload = 'metadata';
+
+    tempVideo.addEventListener('loadeddata', () => {
+        tempVideo.currentTime = 0.1;
+    });
+
+    tempVideo.addEventListener('seeked', () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = tempVideo.videoWidth;
+        canvas.height = tempVideo.videoHeight;
+        canvas.getContext('2d').drawImage(tempVideo, 0, 0);
+        video.poster = canvas.toDataURL('image/jpeg');
+        tempVideo.src = '';
+    });
+
+    // Your existing load-on-play logic
+    function loadSource() {
+        if (loaded) return;
+        const src = video.dataset.src;
+        if (src) {
+            video.src = src;
+            video.removeAttribute('data-src');
+            loaded = true;
+            video.load();
+            video.addEventListener('canplay', () => video.play(), { once: true });
+        }
+    }
+
+    video.addEventListener('click', loadSource);
+    video.addEventListener('play', loadSource);
+});
+    </script>
+<script>
+document.querySelectorAll('video.viddd').forEach(video => {
+    let loaded = false;
+
+    function loadSource() {
+        if (loaded) return;
+        const src = video.dataset.src;
+        if (src) {
+            console.log('loading source:', src);
+            video.src = src;
+            video.removeAttribute('data-src');
+            loaded = true;
+            video.load();
+            video.addEventListener('canplay', () => video.play(), { once: true });
+        }
+    }
+
+    video.addEventListener('click', loadSource);
+    video.addEventListener('play', loadSource);
+});
+</script>
 
 <script>
     function toggleFavorite(btn) {
@@ -355,5 +417,6 @@ function renameMedia(btn) {
     });
 }
 </script>
+
 </body>
 </html>
