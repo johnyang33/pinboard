@@ -89,7 +89,8 @@
                         <div class="caption">
                             <div class="file_name">{{ img.display_name }}<span class="size">{{ img.size }}</span></div>
                             <div class="actions">
-                                <button class="fav-btn"
+                                
+                                <button class="fav-btn" title="make favorite"
                                         data-path="{{ img.path }}"
                                         onclick="toggleFavorite(this)">
                                     
@@ -99,18 +100,18 @@
                                         <i class="fontello icon-empty-heart"></i>
                                     {% endif %}
                                 </button>
-                                <button class="clear-rating"
+                                <button class="clear-rating" title="clear rating"
                                     data-path="{{ img.path }}"
                                     onclick="clearRating(this)">
                                     <i class="fontello icon-cancel"></i>
                                 </button>
-                                <button class="rename-btn"
+                                <button class="rename-btn" title="rename"
                                         data-path="{{ img.path }}"
                                         data-name="{{ img.name }}"
                                         onclick="renameMedia(this)">
                                     <i class="fontello icon-pencil"></i>
                                 </button>
-                                <button class="delete-btn"
+                                <button class="delete-btn" title="delete"
                                     data-path="{{ img.path }}"
                                     onclick="deleteMedia(this)">
                                     <i class="fontello icon-trashcan"></i>
@@ -143,10 +144,10 @@
                         <div class="caption">
                             <div class="file_name">{{ vid.display_name }}<span class="size">{{ vid.size }}</span></div>
                             <div class="actions">
-                                <a class="download_btn" 
+                                <a class="download_btn" alt="download button"
                                     href="{{ url_for('media_file', filename=vid.path) }}" 
                                     download="{{ vid.name }}"><i class="fontello icon-download"></i></a>
-                                <button class="fav-btn"
+                                <button class="fav-btn" title="make favorite"
                                         data-path="{{ vid.path }}"
                                         onclick="toggleFavorite(this)">
                                     
@@ -156,18 +157,18 @@
                                         <i class="fontello icon-empty-heart"></i>
                                     {% endif %}
                                 </button>
-                                <button class="clear-rating"
+                                <button class="clear-rating" title="clear rating"
                                     data-path="{{ vid.path }}"
                                     onclick="clearRating(this)">
                                     <i class="fontello icon-cancel"></i>
                                 </button>
-                                <button class="rename-btn"
+                                <button class="rename-btn" title="rename"
                                         data-path="{{ vid.path }}"
                                         data-name="{{ vid.name }}"
                                         onclick="renameMedia(this)">
                                     <i class="fontello icon-pencil"></i>
                                 </button>
-                                <button class="delete-btn"
+                                <button class="delete-btn" title="delete"
                                     data-path="{{ vid.path }}"
                                     onclick="deleteMedia(this)">
                                     <i class="fontello icon-trashcan"></i>
