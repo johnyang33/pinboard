@@ -545,6 +545,11 @@ aside#sidebar .card_wrapper .card {
   }
 }
 @media screen and (max-width: 480px) {
+  ul.tree li.folder {
+    font-size: 15px;
+    margin: 20px;
+    width: 380px;
+  }
   .container main .image_container {
     justify-content: center;
   }
