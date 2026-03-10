@@ -30,22 +30,27 @@
                 <!-- has subfolders -->
                 <details style="margin-top:-30px;" id="folder-{{ node.path|replace('/', '-') }}"
                     {% if node.active %}open{% endif %}><summary>
+                        {% if node.folder_count %}
+                    <span class="count">(
+                        {{ node.folder_count }} folders )
+                    </span> 
+                {% endif %}
             {% else %}
                 <!-- no subfolders -->
                 <details id="folder-{{ node.path|replace('/', '-') }}"
                     {% if node.active %}open{% endif %}><summary>{{ node.name }}
-                         <button onclick="renameFolder('{{ node.path }}', '{{ node.name }}')">
-                        <i class="fontello icon-pencil"></i>
-                    </button>
-            {% endif %}    
+                         
             
                 {% if node.folder_count %}
                     <span class="count">
-                        {{ node.folder_count }} folders
-                    </span> <span class="folder_size">({{ node.size }})</span>
+                        ({{ node.folder_count }} folders
+                    </span> <span class="folder_size">{{ node.size }})</span>
                 {% endif %}
-                
-                   
+                <button onclick="renameFolder('{{ node.path }}', '{{ node.name }}')">
+                        <i class="fontello icon-pencil"></i>
+                    </button>
+            {% endif %}    
+            <!-- <a class="button expand_button">expand</a> -->
                 </summary>
                 {{ render_tree(node.children) }}
             </details>
@@ -53,12 +58,12 @@
             <div class="leaf-folder">
                 <a href="/gallery/{{ node.path }}">
                     {{ node.name }}
-                    (<span class="count">
-                        {{ node.file_count }} files
+                    <span class="count">
+                        ({{ node.file_count }} files
                     </span>
                     <span class="folder_size">
-                        {{ node.size }}
-                    </span>)
+                        {{ node.size }})
+                    </span>
                 </a>
                 <button onclick="renameFolder('{{ node.path }}', '{{ node.name }}')">
                     <i class="fontello icon-pencil"></i>

@@ -288,10 +288,10 @@ details summary:hover .count {
   color: #421f34;
 }
 details summary .count {
-  color: #332227;
+  color: #e2a7d0;
 }
 details summary .folder_size {
-  color: darkblue;
+  color: rgb(169, 120, 197);
 }
 
 details[open] > summary {
@@ -349,10 +349,10 @@ ul.tree li.folder a:hover .folder_size {
 }
 ul.tree li.folder a .count {
   font-style: italic;
-  color: lightblue;
+  color: rgb(82, 115, 126);
 }
 ul.tree li.folder a .folder_size {
-  color: rgb(223, 176, 90);
+  color: rgb(109, 95, 70);
 }
 
 main#index {
