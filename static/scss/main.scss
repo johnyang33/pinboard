@@ -63,6 +63,15 @@ text-align:center;
     margin-bottom:20px; }
 }
 
+details[open]{
+    ul.tree { 
+        background: #eee;
+        padding:20px 0;
+        border-radius: 0 0 10px 10px;
+
+    }
+}
+
 details { 
     summary { 
         background:rgb(191, 207, 255);
@@ -96,7 +105,7 @@ details {
 
 details[open] > summary {
         background: rgb(196, 255, 194);
-            &:hover { 
+        &:hover { 
             cursor:grab;
             &:active { 
                 cursor:grabbing;
@@ -110,6 +119,12 @@ details[open] > summary {
                 color:#1b1017;
             }
         }
+}
+
+
+h1#app_name { 
+    color:darkblue;
+    text-align:center;
 }
 
 ul.tree { 

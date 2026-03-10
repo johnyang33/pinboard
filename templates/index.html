@@ -10,31 +10,42 @@
     <link rel="manifest" href="static/favicons/site.webmanifest">
 </head>
 <body>
-
+<h1 id="app_name">{{app_name}}</h1>
 {% macro render_tree(nodes) %}
 <ul class="tree">
+    
     {% for node in nodes %}
     <li class="{{ 'open' if node.active }} folder">
         {% if node.children %}
-            <details id="folder-{{ node.path|replace('/', '-') }}"
-         {% if node.active %}open{% endif %}>
-
-                <summary>
-                    {% if node.file_count > 0 %}
-                        <a href="/gallery/{{ node.path }}">{{ node.name }}</a>
-                    {% else %}
-                        {{ node.name }}
-                    {% endif %}
-
-                   <span class="count">
-                        {{ node.file_count }} files{% if node.folder_count %}, {{ node.folder_count }} folders{% endif %}
-                    </span>
-                    <span class="folder_size">
+            {% if node.file_count > 0 %}
+                <a href="/gallery/{{ node.path }}">{{ node.name }} 
+                    <span class="count"> {{ node.file_count }} files </span>
+                     <span class="folder_size">
                         • {{ node.size }}
                     </span>
                     <button onclick="renameFolder('{{ node.path }}', '{{ node.name }}')">
                         <i class="fontello icon-pencil"></i>
                     </button>
+                </a>
+                <!-- has subfolders -->
+                <details style="margin-top:-30px;" id="folder-{{ node.path|replace('/', '-') }}"
+                    {% if node.active %}open{% endif %}><summary>
+            {% else %}
+                <!-- no subfolders -->
+                <details id="folder-{{ node.path|replace('/', '-') }}"
+                    {% if node.active %}open{% endif %}><summary>{{ node.name }}
+                         <button onclick="renameFolder('{{ node.path }}', '{{ node.name }}')">
+                        <i class="fontello icon-pencil"></i>
+                    </button>
+            {% endif %}    
+            
+                {% if node.folder_count %}
+                    <span class="count">
+                        {{ node.folder_count }} folders
+                    </span> <span class="folder_size">({{ node.size }})</span>
+                {% endif %}
+                
+                   
                 </summary>
                 {{ render_tree(node.children) }}
             </details>
