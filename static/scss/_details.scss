@@ -1,0 +1,115 @@
+
+// summary::marker {
+//   content: "🡺 "; /* Replaces the default marker with an emoji */
+//   color: #f875dc;; /* Changes the marker color */
+//   font-size: 2em; /* Adjusts the marker size */
+// }
+
+ul.tree li.folder a {
+    background: #5b23f4; 
+    color:#6a71d6;
+    text-decoration: none;
+    padding: 8px 16px;
+    margin: 4px 0;
+    display: inline-block;
+    border-radius: 7px;
+    font-size:.9em;
+    .count {
+        font-style:italic;
+        color:rgb(81, 140, 160); 
+    }
+    .folder_size {
+        color: rgb(155, 128, 80);
+    }
+    .meta { 
+        .node_name { 
+            font-size:1.3em;
+            color: rgb(71, 255, 71);
+            text-transform:uppercase;
+            letter-spacing:1px;
+            
+        }
+    }
+    &:hover { 
+        background:lightgreen;
+        color:#111;
+        .meta { .node_name { color: rgb(114, 114, 255);}}
+        .count {
+            color:rgb(247, 58, 0); 
+        }
+        .folder_size {
+            color: rgb(159, 82, 247);
+        }
+    }
+}
+
+details { 
+    font-size:.9em;
+    color:#aaa;
+    .node_name { color:rgb(0, 60, 255);font-size:1.3em;text-transform:uppercase;letter-spacing:1px;text-shadow:1px 0 10px yellow;}
+    .icon-left-open { color:darkblue;}
+    ul.tree li.folder a { 
+        background: #29da23;
+    .meta { 
+        .node_name { color:rgb(197, 26, 197);
+    }}}
+    summary { 
+        background:rgb(191, 207, 255);
+        padding:5px 12px;
+        border-radius:5px;
+        margin-top:10px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+
+        &:hover { 
+            
+            background:rgb(255, 203, 1);
+            color:rgb(43, 43, 26);
+            cursor:grab;
+            .icon-pencil { color:rgb(159, 157, 241);
+            &:hover { color:rgb(36, 41, 35);}}
+            &:active { 
+                cursor:grabbing;
+            }
+            .folder_size { 
+                color:rgb(111, 44, 236);
+            }
+            .count { 
+                color:#f82ba6;
+            }
+        }
+        .count { 
+            color:#da7c7c;
+        }
+        .folder_size { 
+            color:rgb(120, 132, 197);
+        }
+    }
+}
+
+details[open]{
+    ul.tree { 
+        background: #eee;
+        padding:5px 0;
+        border-radius: 0 0 10px 10px;
+    }
+}
+
+details[open] > summary {
+    background: rgb(196, 255, 194);
+    &:hover { 
+        cursor:grab;
+        &:active { 
+            cursor:grabbing;
+        }
+        background:rgb(255, 203, 1);
+        color:rgb(10, 10, 7);
+        .folder_size { 
+            color:rgb(39, 35, 27);
+        }
+        .count { 
+            color:#1b1017;
+        }
+    }
+}

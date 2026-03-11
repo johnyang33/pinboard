@@ -18,38 +18,63 @@
     <li class="{{ 'open' if node.active }} folder">
         {% if node.children %}
             {% if node.file_count > 0 %}
-                <a href="/gallery/{{ node.path }}">{{ node.name }} 
-                    <span class="count"> {{ node.file_count }} files </span>
-                     <span class="folder_size">
-                        • {{ node.size }}
-                    </span>
-                    <button onclick="renameFolder('{{ node.path }}', '{{ node.name }}')">
-                        <i class="fontello icon-pencil"></i>
-                    </button>
+                <!-- has files -->
+                <a class="has_files" href="/gallery/{{ node.path }}">
+                    <div class="meta">
+                        <span class="node_name">{{ node.name }}</span>
+                        (<span class="count"> {{ node.file_count }} files </span>
+                        <span class="folder_size">• {{ node.size }}</span>
+                    )</div>
                 </a>
-                <!-- has subfolders -->
-                <details style="margin-top:-30px;" id="folder-{{ node.path|replace('/', '-') }}"
-                    {% if node.active %}open{% endif %}><summary>
-                        {% if node.folder_count %}
-                    <span class="count">(
-                        {{ node.folder_count }} folders )
-                    </span> 
-                {% endif %}
-            {% else %}
-                <!-- no subfolders -->
-                <details id="folder-{{ node.path|replace('/', '-') }}"
-                    {% if node.active %}open{% endif %}><summary>{{ node.name }}
-                         
-            
-                {% if node.folder_count %}
-                    <span class="count">
-                        ({{ node.folder_count }} folders
-                    </span> <span class="folder_size">{{ node.size }})</span>
-                {% endif %}
                 <button onclick="renameFolder('{{ node.path }}', '{{ node.name }}')">
                         <i class="fontello icon-pencil"></i>
                     </button>
-            {% endif %}    
+                <details style="margin-top:0;" id="folder-{{ node.path|replace('/', '-') }}"
+                    {% if node.active %}open{% endif %}>
+                        <summary>
+                            
+                            {% if node.folder_count %}
+                                <div class="meta">
+                                    <button onclick="renameFolder('{{ node.path }}', '{{ node.name }}')">
+                                        <i class="fontello icon-pencil"></i>
+                                    </button>
+                                </div>
+                            {% endif %}
+                            <div class="name">(
+                                <span class="count">{{ node.folder_count }} folders </span>)
+                                <i class="fontello icon-left-open"></i><span class="node_name">{{ node.name }}</span> 
+                            </div>
+            {% else %}
+                <!-- no files -->
+                <details id="folder-{{ node.path|replace('/', '-') }}"
+                    {% if node.active %}open{% endif %}>
+                    <summary>
+                        
+                        <div class="meta">
+                            <button onclick="renameFolder('{{ node.path }}', '{{ node.name }}')">
+                        <i class="fontello icon-pencil"></i>
+                    </button>
+             
+                    </div>
+                    
+                    <div class="name">
+                                       (                     
+                            {% if node.folder_count %}
+                                <span class="count">
+                                    {{ node.folder_count }} folders
+                                </span>/
+                                <span class="folder_size">
+                                    {{ node.size }}
+                                </span>
+                            {% endif %}
+                        )
+                        <i class="fontello icon-left-open"></i>
+                        <span class="node_name">
+                                {{ node.name }}
+                            </span>
+                            
+                    </div>
+            {% endif %}   
             <!-- <a class="button expand_button">expand</a> -->
                 </summary>
                 {{ render_tree(node.children) }}
@@ -57,13 +82,15 @@
         {% else %}
             <div class="leaf-folder">
                 <a href="/gallery/{{ node.path }}">
-                    {{ node.name }}
-                    <span class="count">
-                        ({{ node.file_count }} files
-                    </span>
-                    <span class="folder_size">
-                        {{ node.size }})
-                    </span>
+                    <div class="meta">
+                        <span class="node_name">{{ node.name }}</span>
+                        (<span class="count">
+                            {{ node.file_count }} files
+                        </span>/
+                        <span class="folder_size">
+                            {{ node.size }}
+                        </span>)
+                    </div>
                 </a>
                 <button onclick="renameFolder('{{ node.path }}', '{{ node.name }}')">
                     <i class="fontello icon-pencil"></i>
@@ -84,7 +111,25 @@
         <div id="index_tree_wrapper">{{ render_tree(tree) }}</div>
     </main>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('details').forEach(details => {
+    const icon = details.querySelector('summary .name > i.fontello');
 
+    const updateIcon = () => {
+      if (icon) {
+        icon.classList.toggle('icon-left-open', !details.open);
+        icon.classList.toggle('icon-down-open', details.open);
+      }
+    };
+
+    // Set initial state
+    updateIcon();
+
+    details.addEventListener('toggle', updateIcon);
+  });
+});
+    </script>
 <script>
 // Load open/closed state from localStorage
 document.addEventListener("DOMContentLoaded", () => {

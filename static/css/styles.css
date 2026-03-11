@@ -2,8 +2,8 @@
 /*sass static/scss/main.scss static/css/styles.css --watch */
 @font-face {
   font-family: "fontello";
-  src: url("./fontface/fontello.eot?16074009");
-  src: url("./fontface/fontello.eot?16074009#iefix") format("embedded-opentype"), url("./fontface/fontello.woff?16074009") format("woff"), url("./fontface/fontello.ttf?16074009") format("truetype"), url("./fontface/fontello.svg?16074009#play") format("svg");
+  src: url("./fontface/800.eot?16074009");
+  src: url("./fontface/800.eot?16074009#iefix") format("embedded-opentype"), url("./fontface/800.woff?16074009") format("woff"), url("./fontface/800.ttf?16074009") format("truetype"), url("./fontface/800.svg?16074009#play") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -145,6 +145,30 @@
 .icon-download-alt:before {
   content: "\e824";
 } /* '' */
+.icon-down-open:before {
+  content: "\e825";
+} /* '' */
+.icon-right-open:before {
+  content: "\e826";
+} /* '' */
+.icon-left-open:before {
+  content: "\e827";
+} /* '' */
+.icon-down-open-big:before {
+  content: "\e828";
+} /* '' */
+.icon-up-open-big:before {
+  content: "\e829";
+} /* '' */
+.icon-up-open:before {
+  content: "\e82a";
+} /* '' */
+.icon-right-open-big:before {
+  content: "\e82b";
+} /* '' */
+.icon-left-open-big:before {
+  content: "\e82c";
+} /* '' */
 .icon-feather:before {
   content: "\e835";
 } /* '' */
@@ -208,6 +232,125 @@
   content: "\e804";
 }
 
+ul.tree li.folder a {
+  background: #5b23f4;
+  color: #6a71d6;
+  text-decoration: none;
+  padding: 8px 16px;
+  margin: 4px 0;
+  display: inline-block;
+  border-radius: 7px;
+  font-size: 0.9em;
+}
+ul.tree li.folder a .count {
+  font-style: italic;
+  color: rgb(81, 140, 160);
+}
+ul.tree li.folder a .folder_size {
+  color: rgb(155, 128, 80);
+}
+ul.tree li.folder a .meta .node_name {
+  font-size: 1.3em;
+  color: rgb(71, 255, 71);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+ul.tree li.folder a:hover {
+  background: lightgreen;
+  color: #111;
+}
+ul.tree li.folder a:hover .meta .node_name {
+  color: rgb(114, 114, 255);
+}
+ul.tree li.folder a:hover .count {
+  color: rgb(247, 58, 0);
+}
+ul.tree li.folder a:hover .folder_size {
+  color: rgb(159, 82, 247);
+}
+
+details {
+  font-size: 0.9em;
+  color: #aaa;
+}
+details .node_name {
+  color: rgb(0, 60, 255);
+  font-size: 1.3em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 1px 0 10px yellow;
+}
+details .icon-left-open {
+  color: darkblue;
+}
+details ul.tree li.folder a {
+  background: #29da23;
+}
+details ul.tree li.folder a .meta .node_name {
+  color: rgb(197, 26, 197);
+}
+details summary {
+  background: rgb(191, 207, 255);
+  padding: 5px 12px;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+details summary:hover {
+  background: rgb(255, 203, 1);
+  color: rgb(43, 43, 26);
+  cursor: grab;
+}
+details summary:hover .icon-pencil {
+  color: rgb(159, 157, 241);
+}
+details summary:hover .icon-pencil:hover {
+  color: rgb(36, 41, 35);
+}
+details summary:hover:active {
+  cursor: grabbing;
+}
+details summary:hover .folder_size {
+  color: rgb(111, 44, 236);
+}
+details summary:hover .count {
+  color: #f82ba6;
+}
+details summary .count {
+  color: #da7c7c;
+}
+details summary .folder_size {
+  color: rgb(120, 132, 197);
+}
+
+details[open] ul.tree {
+  background: #eee;
+  padding: 5px 0;
+  border-radius: 0 0 10px 10px;
+}
+
+details[open] > summary {
+  background: rgb(196, 255, 194);
+}
+details[open] > summary:hover {
+  cursor: grab;
+}
+details[open] > summary:hover:active {
+  cursor: grabbing;
+}
+details[open] > summary:hover {
+  background: rgb(255, 203, 1);
+  color: rgb(10, 10, 7);
+}
+details[open] > summary:hover .folder_size {
+  color: rgb(39, 35, 27);
+}
+details[open] > summary:hover .count {
+  color: #1b1017;
+}
+
 :root {
   --bg: #111;
   --panel: #1b1b1b;
@@ -225,18 +368,6 @@ button {
 }
 button.active {
   background: var(--accent);
-}
-
-/* Change the marker when the details element is open */
-details[open] > summary::marker {
-  content: "🡻 ";
-  color: rgb(198, 185, 245); /* Changes the marker color */
-}
-
-summary::marker {
-  content: "🡺 "; /* Replaces the default marker with an emoji */
-  color: #f875dc; /* Changes the marker color */
-  font-size: 2em; /* Adjusts the marker size */
 }
 
 #bottom_linkz {
@@ -261,59 +392,6 @@ summary::marker {
   margin-bottom: 20px;
 }
 
-details[open] ul.tree {
-  background: #eee;
-  padding: 20px 0;
-  border-radius: 0 0 10px 10px;
-}
-
-details summary {
-  background: rgb(191, 207, 255);
-  padding: 5px 12px;
-  border-radius: 5px;
-  margin-top: 10px;
-}
-details summary:hover {
-  background: rgb(255, 203, 1);
-  color: rgb(43, 43, 26);
-  cursor: grab;
-}
-details summary:hover:active {
-  cursor: grabbing;
-}
-details summary:hover .folder_size {
-  color: rgb(49, 43, 31);
-}
-details summary:hover .count {
-  color: #421f34;
-}
-details summary .count {
-  color: #e2a7d0;
-}
-details summary .folder_size {
-  color: rgb(169, 120, 197);
-}
-
-details[open] > summary {
-  background: rgb(196, 255, 194);
-}
-details[open] > summary:hover {
-  cursor: grab;
-}
-details[open] > summary:hover:active {
-  cursor: grabbing;
-}
-details[open] > summary:hover {
-  background: rgb(255, 203, 1);
-  color: rgb(10, 10, 7);
-}
-details[open] > summary:hover .folder_size {
-  color: rgb(39, 35, 27);
-}
-details[open] > summary:hover .count {
-  color: #1b1017;
-}
-
 h1#app_name {
   color: darkblue;
   text-align: center;
@@ -327,32 +405,6 @@ ul.tree li.folder {
   font-size: 18px;
   margin: 20px;
   width: 500px;
-}
-ul.tree li.folder a {
-  text-decoration: none;
-  background: #5b23f4;
-  padding: 8px 16px;
-  margin: 4px 0;
-  display: inline-block;
-  border-radius: 7px;
-  color: lightgreen;
-}
-ul.tree li.folder a:hover {
-  background: lightgreen;
-  color: #111;
-}
-ul.tree li.folder a:hover .count {
-  color: darkblue;
-}
-ul.tree li.folder a:hover .folder_size {
-  color: rgb(75, 52, 11);
-}
-ul.tree li.folder a .count {
-  font-style: italic;
-  color: rgb(82, 115, 126);
-}
-ul.tree li.folder a .folder_size {
-  color: rgb(109, 95, 70);
 }
 
 main#index {

@@ -1,5 +1,6 @@
 /*sass static/scss/main.scss static/css/styles.css --watch */
 @use 'fontface';
+@use 'details';
 
 $radius: 10px;
 $transition: 0.2s ease;
@@ -27,21 +28,6 @@ button {
     }
 }
 
-
-
-/* Change the marker when the details element is open */
-details[open] > summary::marker {
-  content: "🡻 ";
-  color: rgb(198, 185, 245); /* Changes the marker color */
-  
-}
-
-summary::marker {
-  content: "🡺 "; /* Replaces the default marker with an emoji */
-  color: #f875dc;; /* Changes the marker color */
-  font-size: 2em; /* Adjusts the marker size */
-}
-
 #bottom_linkz { 
 text-align:center;
     a { 
@@ -63,65 +49,6 @@ text-align:center;
     margin-bottom:20px; }
 }
 
-details[open]{
-    ul.tree { 
-        background: #eee;
-        padding:20px 0;
-        border-radius: 0 0 10px 10px;
-
-    }
-}
-
-details { 
-    summary { 
-        background:rgb(191, 207, 255);
-        padding:5px 12px;
-        border-radius:5px;
-        margin-top:10px;
-        
-        &:hover { 
-            
-            background:rgb(255, 203, 1);
-            color:rgb(43, 43, 26);
-            cursor:grab;
-            &:active { 
-                cursor:grabbing;
-            }
-            .folder_size { 
-                color:rgb(49, 43, 31);
-            }
-            .count { 
-                color:#421f34;
-            }
-        }
-        .count { 
-            color:#e2a7d0;
-        }
-        .folder_size { 
-            color:rgb(169, 120, 197);
-        }
-    }
-}
-
-details[open] > summary {
-        background: rgb(196, 255, 194);
-        &:hover { 
-            cursor:grab;
-            &:active { 
-                cursor:grabbing;
-            }
-            background:rgb(255, 203, 1);
-            color:rgb(10, 10, 7);
-            .folder_size { 
-                color:rgb(39, 35, 27);
-            }
-            .count { 
-                color:#1b1017;
-            }
-        }
-}
-
-
 h1#app_name { 
     color:darkblue;
     text-align:center;
@@ -134,33 +61,32 @@ ul.tree {
         font-size:18px;
         margin:20px;
         width:500px;
-        a { 
-            text-decoration: none;
-            background: #5b23f4;
-            padding: 8px 16px;
-            margin: 4px 0;
-            display: inline-block;
-            border-radius: 7px;
-            color: lightgreen;
-            &:hover { 
-                background:lightgreen;
-                color:#111;
-                .count {
-                    color:darkblue; 
+        // a { 
+        //     text-decoration: none;
+        //     padding: 8px 16px;
+        //     margin: 4px 0;
+        //     display: inline-block;
+        //     border-radius: 7px;
 
-                }
-                .folder_size {
-                    color: rgb(75, 52, 11);
-                }
-            }
-            .count {
-            font-style:italic;
-            color:rgb(82, 115, 126); 
-            }
-            .folder_size {
-                color: rgb(109, 95, 70);
-            }
-        }
+        //     &:hover { 
+        //         background:lightgreen;
+        //         color:#111;
+        //         .count {
+        //             color:darkblue; 
+
+        //         }
+        //         .folder_size {
+        //             color: rgb(75, 52, 11);
+        //         }
+        //     }
+        //     .count {
+        //     font-style:italic;
+        //     color:rgb(82, 115, 126); 
+        //     }
+        //     .folder_size {
+        //         color: rgb(109, 95, 70);
+        //     }
+        // }
         
     }
 }
@@ -353,8 +279,6 @@ aside#sidebar {
             }
         }
 }
-
-
 
 
 @media screen and (max-width:1024px){
