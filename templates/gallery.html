@@ -62,7 +62,19 @@
                     </li>
                 {% endfor %}
             </ul>
- 
+<!-- Upload Button -->
+<form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" id="fileInput" style="display: none;" multiple>
+    <button type="button" id="uploadBtn" onclick="document.getElementById('fileInput').click()">
+        ⬆ Upload
+    </button>
+</form>
+
+<!-- Upload Status -->
+<div id="uploadStatus" style="display: none;"></div>
+
+
+
             <div class="favorites_wrapper">
                 <div class="showing">
                     {% if favorites_only %}
@@ -195,6 +207,7 @@
             {% endif %}
         </div><!-- images_container-->    
     </main>
+
 </div><!-- container -->
 
 <script>
@@ -423,5 +436,51 @@ function renameMedia(btn) {
 }
 </script>
 
+<script>
+    document.getElementById('fileInput').addEventListener('change', async function () {
+        const files = this.files;
+        if (!files.length) return;
+
+        const statusEl = document.getElementById('uploadStatus');
+        statusEl.style.display = 'block';
+        statusEl.textContent = `Uploading ${files.length} file(s)...`;
+
+        const currentFolder = "{{ current_path }}";
+
+        let succeeded = 0, failed = 0;
+
+        for (const file of files) {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("path", currentFolder);
+
+            try {
+                const res = await fetch("/media/upload", { method: "POST", body: formData });
+                const rawText = await res.text(); // Read as text first
+                console.log("Server response:", rawText); // Log the raw response
+                try {
+                    const data = JSON.parse(rawText);
+                    if (data.success) succeeded++;
+                    else { failed++; console.error(`Failed: ${file.name} — ${data.error}`); }
+                } catch (parseErr) {
+                    failed++;
+                    console.error(`Server returned non-JSON for ${file.name}:`, rawText);
+                }
+            } catch (err) {
+                failed++;
+                console.error(`Error uploading ${file.name}:`, err);
+            }
+        }
+
+        statusEl.textContent = `✅ ${succeeded} uploaded${failed ? `, ❌ ${failed} failed` : ""}`;
+
+if (failed === 0) {
+    setTimeout(() => {
+        statusEl.style.display = 'none';
+        location.reload();
+    }, 2000);
+}
+    });
+</script>
 </body>
 </html>

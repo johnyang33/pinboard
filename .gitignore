@@ -9,7 +9,8 @@ media/*.png
 *.mp3
 *.wav
 *.jpeg
-
+ratings.json
+favorites.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

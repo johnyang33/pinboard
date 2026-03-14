@@ -3,6 +3,7 @@ from flask import Flask, render_template, abort, send_from_directory,jsonify,req
 import json
 import shutil
 from dotenv import load_dotenv
+from werkzeug.utils import secure_filename
 
 load_dotenv()
 
@@ -230,6 +231,34 @@ def delete_media():
             save_ratings(ratings)
 
         return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# UPLOAD
+@app.route("/media/upload", methods=["POST"])
+def upload_media():
+    folder = request.form.get("path", "")
+    if "file" not in request.files:
+        return jsonify({"error": "No file provided"}), 400
+
+    file = request.files["file"]
+    if file.filename == "":
+        return jsonify({"error": "Empty filename"}), 400
+
+    filename = secure_filename(file.filename)
+    full_path = os.path.join(MEDIA_ROOT, folder, filename)
+
+    if not is_safe_path(full_path):
+        return jsonify({"error": "Invalid path"}), 400
+
+    if os.path.exists(full_path):
+        return jsonify({"error": "File already exists"}), 409
+
+    try:
+        os.makedirs(os.path.dirname(full_path), exist_ok=True)
+        file.save(full_path)
+        rel_path = os.path.join(folder, filename) if folder else filename
+        return jsonify({"success": True, "path": rel_path})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
