@@ -1,6 +1,7 @@
 /*sass static/scss/main.scss static/css/styles.css --watch */
 @use 'fontface';
 @use 'details';
+@use 'media-item';
 
 $radius: 10px;
 $transition: 0.2s ease;
@@ -28,6 +29,7 @@ button {
     }
 }
 
+
 #bottom_linkz { 
 text-align:center;
     a { 
@@ -50,8 +52,16 @@ text-align:center;
 }
 
 h1#app_name { 
-    color:darkblue;
+    
     text-align:center;
+    a { 
+        color:#111;
+        font-size:1.5em;
+        text-decoration:none;
+        &:hover { 
+            color:lightcoral;
+        }
+    }
 }
 
 ul.tree { 
@@ -181,78 +191,6 @@ aside#sidebar {
 }
 
 
-.media-item.video { 
-    .caption { 
-        width:600px;
-    }
-}
-
-.media-item.image { 
-    .caption { 
-        width:300px;
-    }
-}
-
-.media-item 
-{   
-    video { 
-        width:600px;
-        margin:10px;
-    }
-    a {
-        img { 
-            width:300px;
-            margin-right:10px;
-            display:block;
-        }
-    }
-    .caption { 
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        margin-top:10px;
-        .size { 
-            margin-left:5px;
-            color:#aaa;
-        }
-        .file_name { 
-            width:60%;
-        }
-        .actions {
-            .download_btn { 
-                font-size:20px;
-                color:#111;
-                &:hover { 
-                    color: lightgreen;
-                }
-
-            } 
-            button { 
-                border:none;
-                background:none;
-                padding:0;
-                font-size:16px;
-                &:hover{
-                    color:lightcoral;
-                    cursor:pointer;
-                }
-            }
-        }
-    }
-    .rating { 
-        display:flex;
-        justify-content:flex-end;
-        align-items:center;
-        margin:10px 0;
-        .star { 
-            font-size: 18px;
-            &:hover { 
-                color:#111;
-            }
-        }
-    }
-}
-
 .container { 
     display: flex;
     min-height:80vh;
@@ -261,15 +199,38 @@ aside#sidebar {
             nav#content_bar { 
                 display:flex;
                 justify-content:space-between;
-                width:80%;
+                width:90%;
+                max-width:1200px;
                 .favorites_wrapper { 
                     margin-right:100px;
                     display:flex;
                     align-items:center;
-                    div { 
-                        margin-right:20px;
-                        display:inline-block;
-                    }
+                    .upload_wrapper {    
+    display:flex;
+    #uploadBtn { 
+        border:1px solid #888;
+        background:#ccc;
+        color:#111;
+        border-radius:5px;
+        cursor:pointer;
+        &:hover { 
+            background:darkorange;
+            color:#fff;
+        }
+    }
+     #optimizeBtn { 
+        border:1px solid #888;
+        background:#ccc;
+        color:#111;
+        border-radius:5px;
+        cursor:pointer;
+        margin:0 10px;
+        &:hover { 
+            background:darkorange;
+            color:#fff;
+        }
+    }
+}
                 }
             }
             .image_container { 
@@ -330,12 +291,15 @@ ul.tree {
         img { width:410px;}
     }
 
-    .media-item.image { 
-        .caption { 
-            max-width:420px;
-            width:100%;
-            .actions button { 
-                font-size:16px;
+    .media-item
+    {
+        &.image { 
+            .caption { 
+                max-width:420px;
+                width:100%;
+                .actions button { 
+                    font-size:16px;
+                }
             }
         }
     }

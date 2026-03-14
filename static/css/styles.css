@@ -351,6 +351,126 @@ details[open] > summary:hover .count {
   color: #1b1017;
 }
 
+.media-item {
+  border: 1px solid #fff;
+  padding: 5px;
+  border-radius: 10px;
+}
+.media-item video {
+  width: 600px;
+  margin: 10px;
+}
+.media-item a img {
+  width: 300px;
+  margin-right: 10px;
+  display: block;
+}
+.media-item .caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.media-item .caption .size {
+  margin-left: 5px;
+  color: #eee;
+  font-weight: bold;
+}
+.media-item .caption .file_name {
+  width: 50%;
+  color: #eee;
+}
+.media-item .caption .actions {
+  display: flex;
+}
+.media-item .caption .actions .download_btn {
+  font-size: 20px;
+  color: #eee;
+}
+.media-item .caption .actions .download_btn:hover {
+  color: lightgreen;
+}
+.media-item .caption .actions button {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 20px;
+  color: #eee;
+}
+.media-item .caption .actions button:hover {
+  color: lightcoral;
+  cursor: pointer;
+}
+.media-item .rating {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 10px 0;
+}
+.media-item .rating .star {
+  font-size: 18px;
+  color: #eee;
+}
+.media-item .rating .star .icon-star {
+  color: #eee;
+}
+.media-item.image .caption {
+  width: 300px;
+}
+.media-item.video .caption {
+  width: 600px;
+}
+.media-item:hover {
+  border-color: #ddd;
+}
+.media-item:hover .file_name, .media-item:hover .rating {
+  color: #111;
+}
+.media-item:hover .size {
+  color: #111;
+  text-shadow: 1px 0 10px lightcoral;
+}
+.media-item:hover .actions .download_btn {
+  color: #111;
+}
+.media-item:hover .actions button.fav-btn {
+  color: #111;
+}
+.media-item:hover .actions button.fav-btn:hover {
+  background: rgb(255, 221, 127);
+  color: red;
+}
+.media-item:hover .actions button.clear-rating {
+  color: #111;
+}
+.media-item:hover .actions button.clear-rating:hover {
+  background: rgb(177, 226, 255);
+  color: rgb(255, 251, 3);
+}
+.media-item:hover .actions button.rename-btn {
+  color: #111;
+}
+.media-item:hover .actions button.rename-btn:hover {
+  background: rgb(255, 221, 127);
+  color: rgb(9, 255, 0);
+}
+.media-item:hover .actions button.delete-btn {
+  color: #111;
+}
+.media-item:hover .actions button.delete-btn:hover {
+  background: rgb(190, 179, 255);
+  color: red;
+}
+.media-item:hover .rating .icon-empty-star {
+  color: #111;
+}
+.media-item:hover .rating .icon-empty-star:hover {
+  color: lightcoral;
+}
+.media-item:hover .rating .icon-star {
+  color: lightcoral;
+}
+
 :root {
   --bg: #111;
   --panel: #1b1b1b;
@@ -393,8 +513,15 @@ button.active {
 }
 
 h1#app_name {
-  color: darkblue;
   text-align: center;
+}
+h1#app_name a {
+  color: #111;
+  font-size: 1.5em;
+  text-decoration: none;
+}
+h1#app_name a:hover {
+  color: lightcoral;
 }
 
 ul.tree {
@@ -494,66 +621,6 @@ aside#sidebar .card_wrapper .card {
   margin: 10px 0;
 }
 
-.media-item.video .caption {
-  width: 600px;
-}
-
-.media-item.image .caption {
-  width: 300px;
-}
-
-.media-item video {
-  width: 600px;
-  margin: 10px;
-}
-.media-item a img {
-  width: 300px;
-  margin-right: 10px;
-  display: block;
-}
-.media-item .caption {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-.media-item .caption .size {
-  margin-left: 5px;
-  color: #aaa;
-}
-.media-item .caption .file_name {
-  width: 60%;
-}
-.media-item .caption .actions .download_btn {
-  font-size: 20px;
-  color: #111;
-}
-.media-item .caption .actions .download_btn:hover {
-  color: lightgreen;
-}
-.media-item .caption .actions button {
-  border: none;
-  background: none;
-  padding: 0;
-  font-size: 16px;
-}
-.media-item .caption .actions button:hover {
-  color: lightcoral;
-  cursor: pointer;
-}
-.media-item .rating {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin: 10px 0;
-}
-.media-item .rating .star {
-  font-size: 18px;
-}
-.media-item .rating .star:hover {
-  color: #111;
-}
-
 .container {
   display: flex;
   min-height: 80vh;
@@ -564,16 +631,39 @@ aside#sidebar .card_wrapper .card {
 .container main nav#content_bar {
   display: flex;
   justify-content: space-between;
-  width: 80%;
+  width: 90%;
+  max-width: 1200px;
 }
 .container main nav#content_bar .favorites_wrapper {
   margin-right: 100px;
   display: flex;
   align-items: center;
 }
-.container main nav#content_bar .favorites_wrapper div {
-  margin-right: 20px;
-  display: inline-block;
+.container main nav#content_bar .favorites_wrapper .upload_wrapper {
+  display: flex;
+}
+.container main nav#content_bar .favorites_wrapper .upload_wrapper #uploadBtn {
+  border: 1px solid #888;
+  background: #ccc;
+  color: #111;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.container main nav#content_bar .favorites_wrapper .upload_wrapper #uploadBtn:hover {
+  background: darkorange;
+  color: #fff;
+}
+.container main nav#content_bar .favorites_wrapper .upload_wrapper #optimizeBtn {
+  border: 1px solid #888;
+  background: #ccc;
+  color: #111;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+.container main nav#content_bar .favorites_wrapper .upload_wrapper #optimizeBtn:hover {
+  background: darkorange;
+  color: #fff;
 }
 .container main .image_container {
   display: flex;

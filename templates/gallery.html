@@ -10,7 +10,7 @@
     <link rel="manifest" href="{{ url_for('static', filename='favicons/site.webmanifest') }}">
 </head>
 <body>
-    <h1 id="app_name">{{app_name}}</h1>
+    <h1 id="app_name"><a href="{{url_for('index')}}">{{app_name}}</a></h1>
     <!-- MACRO: START -->
     {% macro render_tree(nodes) %}
     <ul class="tree">
@@ -62,20 +62,25 @@
                     </li>
                 {% endfor %}
             </ul>
-<!-- Upload Button -->
-<form id="uploadForm" enctype="multipart/form-data">
-    <input type="file" id="fileInput" style="display: none;" multiple>
-    <button type="button" id="uploadBtn" onclick="document.getElementById('fileInput').click()">
-        ⬆ Upload
-    </button>
-</form>
-
-<!-- Upload Status -->
-<div id="uploadStatus" style="display: none;"></div>
-
+            
 
 
             <div class="favorites_wrapper">
+                <div class="upload_wrapper">
+                    
+                    <div id="uploadStatus" style="display: none;"></div>
+                    <!-- Upload Button -->
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <input type="file" id="fileInput" style="display: none;" multiple>
+                        <button type="button" id="uploadBtn" onclick="document.getElementById('fileInput').click()">
+                            Upload
+                        </button>
+                    </form>      
+                    <button type="button" id="optimizeBtn" onclick="optimizeFolder()">
+                        🪄 Optimize
+                    </button>
+                    <div id="optimizeStatus" style="display:none;"></div>              
+                </div>
                 <div class="showing">
                     {% if favorites_only %}
                         <p><strong>Currently only showing favorites</strong></p>
@@ -85,7 +90,7 @@
                     {% if favorites_only %}
                         <a href="/gallery/{{ current_path }}"><i class="fontello icon-empty-heart"></i>Show all</a>
                     {% else %}
-                        <a href="/gallery/{{ current_path }}?favorites=1"><i class="fontello icon-heart"></i>Show favorites only</a>
+                        <a href="/gallery/{{ current_path }}?favorites=1"><i class="fontello icon-heart"></i>Show</a>
                     {% endif %}
                 </div>
 
@@ -481,6 +486,34 @@ if (failed === 0) {
     }, 2000);
 }
     });
+</script>
+<script>
+    async function optimizeFolder() {
+        const statusEl = document.getElementById('optimizeStatus');
+        const btn = document.getElementById('optimizeBtn');
+
+        statusEl.style.display = 'block';
+        statusEl.textContent = 'Optimizing images...';
+        btn.disabled = true;
+
+        try {
+            const res = await fetch("/media/optimize", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ path: "{{ current_path }}" })
+            });
+            const data = await res.json();
+            if (data.success) {
+                statusEl.textContent = '✅ Optimization complete!';
+            } else {
+                statusEl.textContent = `❌ Error: ${data.error}`;
+            }
+        } catch (err) {
+            statusEl.textContent = `❌ Request failed: ${err}`;
+        } finally {
+            btn.disabled = false;
+        }
+    }
 </script>
 </body>
 </html>

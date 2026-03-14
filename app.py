@@ -506,6 +506,36 @@ def toggle_favorite():
 
     return jsonify({"favorite": state})
 
+
+import subprocess
+
+@app.route("/media/optimize", methods=["POST"])
+def optimize_media():
+    data = request.json
+    rel_path = data.get("path", "")
+    full_path = os.path.join(MEDIA_ROOT, rel_path)
+
+    if not is_safe_path(full_path):
+        return jsonify({"error": "Invalid path"}), 400
+    if not os.path.isdir(full_path):
+        return jsonify({"error": "Folder not found"}), 404
+
+    try:
+        result = subprocess.run(
+            [
+                "find", ".", "-type", "f",
+                "-iregex", r".*\.\(jpg\|jpeg\|png\|webp\)$",
+                "-exec", "mogrify", "-resize", "999x", "-quality", "85%", "-strip", "{}", "+"
+            ],
+            cwd=full_path,
+            capture_output=True,
+            text=True
+        )
+        if result.returncode != 0:
+            return jsonify({"error": result.stderr}), 500
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 # -------------------------------------------
 # MEDIA
 # -------------------------------------------
