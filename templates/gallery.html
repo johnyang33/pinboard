@@ -69,24 +69,18 @@
                 <div class="upload_wrapper">
                     
                     <div id="uploadStatus" style="display: none;"></div>
-                    <!-- Upload Button -->
-                    <form id="uploadForm" enctype="multipart/form-data">
+
+                    <div id="dropZone">
                         <input type="file" id="fileInput" style="display: none;" multiple>
-                        <button type="button" id="uploadBtn" onclick="document.getElementById('fileInput').click()">
-                            Upload
-                        </button>
-                    </form>      
+                        <span onclick="document.getElementById('fileInput').click()">⬆ Upload / Drop files here</span>
+                    </div> 
+
                     <button type="button" id="optimizeBtn" onclick="optimizeFolder()">
                         🪄 Optimize
                     </button>
                     <div id="optimizeStatus" style="display:none;"></div>              
                 </div>
-                <div class="showing">
-                    {% if favorites_only %}
-                        <p><strong>Currently only showing favorites</strong></p>
-                    {% endif %}
-                </div>
-                <div class="showing">
+                <div class="show_favorites">
                     {% if favorites_only %}
                         <a href="/gallery/{{ current_path }}"><i class="fontello icon-empty-heart"></i>Show all</a>
                     {% else %}
@@ -441,7 +435,7 @@ function renameMedia(btn) {
 }
 </script>
 
-<script>
+<!-- <script>
     document.getElementById('fileInput').addEventListener('change', async function () {
         const files = this.files;
         if (!files.length) return;
@@ -486,7 +480,7 @@ if (failed === 0) {
     }, 2000);
 }
     });
-</script>
+</script> -->
 <script>
     async function optimizeFolder() {
         const statusEl = document.getElementById('optimizeStatus');
@@ -512,6 +506,65 @@ if (failed === 0) {
             statusEl.textContent = `❌ Request failed: ${err}`;
         } finally {
             btn.disabled = false;
+        }
+    }
+</script>
+<script>
+    const dropZone = document.getElementById('dropZone');
+
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('drag-over');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('drag-over');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+        handleFiles(e.dataTransfer.files);
+    });
+
+    document.getElementById('fileInput').addEventListener('change', function () {
+        handleFiles(this.files);
+    });
+
+    async function handleFiles(files) {
+        if (!files.length) return;
+
+        const statusEl = document.getElementById('uploadStatus');
+        statusEl.style.display = 'block';
+        statusEl.textContent = `Uploading ${files.length} file(s)...`;
+
+        const currentFolder = "{{ current_path }}";
+        let succeeded = 0, failed = 0;
+
+        for (const file of files) {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("path", currentFolder);
+
+            try {
+                const res = await fetch("/media/upload", { method: "POST", body: formData });
+                const rawText = await res.text();
+                const data = JSON.parse(rawText);
+                if (data.success) succeeded++;
+                else { failed++; console.error(`Failed: ${file.name} — ${data.error}`); }
+            } catch (err) {
+                failed++;
+                console.error(`Error uploading ${file.name}:`, err);
+            }
+        }
+
+        statusEl.textContent = `✅ ${succeeded} uploaded${failed ? `, ❌ ${failed} failed` : ""}`;
+
+        if (failed === 0) {
+            setTimeout(() => {
+                statusEl.style.display = 'none';
+                location.reload();
+            }, 2000);
         }
     }
 </script>

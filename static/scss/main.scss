@@ -30,6 +30,24 @@ button {
 }
 
 
+#dropZone {
+    border: 2px dashed #aaa;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.1s, border-color 0.2s;
+    &:hover { 
+        background: rgba(54, 255, 64, 0.25);
+        border-color: #41ff7a;
+    }
+    &.drag-over { 
+        background: rgba(255,255,255,0.1);
+        border-color: #4af;
+        color: #4af;
+    }
+}
+
 #bottom_linkz { 
 text-align:center;
     a { 
@@ -206,31 +224,46 @@ aside#sidebar {
                     display:flex;
                     align-items:center;
                     .upload_wrapper {    
-    display:flex;
-    #uploadBtn { 
-        border:1px solid #888;
-        background:#ccc;
-        color:#111;
-        border-radius:5px;
-        cursor:pointer;
-        &:hover { 
-            background:darkorange;
-            color:#fff;
-        }
-    }
-     #optimizeBtn { 
-        border:1px solid #888;
-        background:#ccc;
-        color:#111;
-        border-radius:5px;
-        cursor:pointer;
-        margin:0 10px;
-        &:hover { 
-            background:darkorange;
-            color:#fff;
-        }
-    }
-}
+                        display:flex;
+                        #uploadBtn { 
+                            border:1px solid #888;
+                            color:#111;
+                            border-radius:5px;
+                            cursor:pointer;
+                            &:hover { 
+                                background:darkorange;
+                                color:#fff;
+                            }
+                        }
+                        #optimizeBtn { 
+                            border:1px solid #888;
+                            color:#111;
+                            border-radius:5px;
+                            cursor:pointer;
+                            margin:0 10px;
+                            &:hover { 
+                                background:darkorange;
+                                color:#fff;
+                            }
+                        }
+                    }
+                    .show_favorites { 
+                        
+                        a { 
+                            text-decoration:none;
+                            border: 1px solid #aaa;
+                            padding: 10px 12px;
+                            border-radius: 4px;
+                        &:hover { 
+                            background:darkorange;
+                            color:white;
+                            .fontello { 
+                                color:white;
+                            }
+                        }
+                        }
+
+                    }
                 }
             }
             .image_container { 

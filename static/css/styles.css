@@ -490,6 +490,24 @@ button.active {
   background: var(--accent);
 }
 
+#dropZone {
+  border: 2px dashed #aaa;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.1s, border-color 0.2s;
+}
+#dropZone:hover {
+  background: rgba(54, 255, 64, 0.25);
+  border-color: #41ff7a;
+}
+#dropZone.drag-over {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #4af;
+  color: #4af;
+}
+
 #bottom_linkz {
   text-align: center;
 }
@@ -644,7 +662,6 @@ aside#sidebar .card_wrapper .card {
 }
 .container main nav#content_bar .favorites_wrapper .upload_wrapper #uploadBtn {
   border: 1px solid #888;
-  background: #ccc;
   color: #111;
   border-radius: 5px;
   cursor: pointer;
@@ -655,7 +672,6 @@ aside#sidebar .card_wrapper .card {
 }
 .container main nav#content_bar .favorites_wrapper .upload_wrapper #optimizeBtn {
   border: 1px solid #888;
-  background: #ccc;
   color: #111;
   border-radius: 5px;
   cursor: pointer;
@@ -664,6 +680,19 @@ aside#sidebar .card_wrapper .card {
 .container main nav#content_bar .favorites_wrapper .upload_wrapper #optimizeBtn:hover {
   background: darkorange;
   color: #fff;
+}
+.container main nav#content_bar .favorites_wrapper .show_favorites a {
+  text-decoration: none;
+  border: 1px solid #aaa;
+  padding: 10px 12px;
+  border-radius: 4px;
+}
+.container main nav#content_bar .favorites_wrapper .show_favorites a:hover {
+  background: darkorange;
+  color: white;
+}
+.container main nav#content_bar .favorites_wrapper .show_favorites a:hover .fontello {
+  color: white;
 }
 .container main .image_container {
   display: flex;
