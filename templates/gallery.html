@@ -10,12 +10,13 @@
     <link rel="manifest" href="{{ url_for('static', filename='favicons/site.webmanifest') }}">
 </head>
 <body>
-    <h1 id="app_name"><a href="{{url_for('index')}}">{{app_name}}</a></h1>
+    
 
 <div class="container">
     <main>
         <nav id="content_bar">
             <ul style="list-style:none; padding:0; display:flex; gap:6px;">
+                <li>{{app_name}} > </li>
                 {% for crumb in breadcrumbs %}
                     <li>
                         {% if not loop.last %}
@@ -26,8 +27,6 @@
                     </li>
                 {% endfor %}
             </ul>
-            
-
 
             <div class="favorites_wrapper">
                 <div class="upload_wrapper">
@@ -51,8 +50,8 @@
                         <a href="/gallery/{{ current_path }}?favorites=1"><i class="fontello icon-heart"></i>Show</a>
                     {% endif %}
                 </div>
-
             </div>
+            <a class="home_button" href="/">home</a>
         </nav>
         <div class="image_container">
             {% if images %}
