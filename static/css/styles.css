@@ -534,7 +534,7 @@ h1#app_name {
   text-align: center;
 }
 h1#app_name a {
-  color: #111;
+  color: #889aff;
   font-size: 1.5em;
   text-decoration: none;
 }
@@ -653,7 +653,6 @@ aside#sidebar .card_wrapper .card {
   max-width: 1200px;
 }
 .container main nav#content_bar .favorites_wrapper {
-  margin-right: 100px;
   display: flex;
   align-items: center;
 }
@@ -726,11 +725,18 @@ aside#sidebar .card_wrapper .card {
     max-width: 920px;
   }
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 500px) {
   ul.tree li.folder {
     font-size: 15px;
     margin: 20px;
     width: 380px;
+  }
+  .container main nav#content_bar {
+    flex-direction: column;
+    width: 100%;
+  }
+  .container main nav#content_bar .favorites_wrapper {
+    margin-right: 0;
   }
   .container main .image_container {
     justify-content: center;
