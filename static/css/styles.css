@@ -251,7 +251,7 @@ ul.tree li.folder a .folder_size {
 }
 ul.tree li.folder a .meta .node_name {
   font-size: 1.3em;
-  color: rgb(71, 255, 71);
+  color: yellow;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -260,7 +260,7 @@ ul.tree li.folder a:hover {
   color: #111;
 }
 ul.tree li.folder a:hover .meta .node_name {
-  color: rgb(114, 114, 255);
+  color: rgb(19, 19, 226);
 }
 ul.tree li.folder a:hover .count {
   color: rgb(247, 58, 0);
