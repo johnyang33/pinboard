@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, abort, send_from_directory,jsonify,request
 import json
 import shutil
+import subprocess
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
 
@@ -16,6 +17,7 @@ MEDIA_ROOT = os.path.join(app.root_path, "media")
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
 VIDEO_EXTS = {".mp4", ".webm", ".mov"}
 AUDIO_EXTS = {".mp3", ".wav", ".ogg", ".m4a", ".opus"}
+BOOK_EXTS = { ".pdf", ".epub", ".txt", ".html" }
 FAVORITES_FILE = os.path.join(app.root_path, "favorites.json")
 
 RATINGS_FILE = os.path.join(app.root_path, "ratings.json")
@@ -56,6 +58,7 @@ def list_media(folder_path, rel_path, favorites_only=False):
     images = []
     videos = []
     audios = []
+    books = []
 
     for name in sorted(os.listdir(folder_path)):
         full = os.path.join(folder_path, name)
@@ -76,6 +79,7 @@ def list_media(folder_path, rel_path, favorites_only=False):
         item = {
             "name": name,
             "display_name": display_name,
+            "ext": ext.replace(".", ""),
             "path": rel_file,
             "size": size_display,
             "favorite": is_fav,
@@ -88,6 +92,8 @@ def list_media(folder_path, rel_path, favorites_only=False):
             videos.append(item)
         elif ext in AUDIO_EXTS:
             audios.append(item)
+        elif ext in BOOK_EXTS:
+            books.append(item)
 
     # Sort by rating (high → low), then favorite, then name
     def sort_key(item):
@@ -96,8 +102,9 @@ def list_media(folder_path, rel_path, favorites_only=False):
     images.sort(key=sort_key)
     videos.sort(key=sort_key)
     audios.sort(key=sort_key)
+    books.sort(key=sort_key)
 
-    return images, videos, audios
+    return images, videos, audios, books
 
 def count_media_files(folder):
     count = 0
@@ -105,7 +112,7 @@ def count_media_files(folder):
         full = os.path.join(folder, name)
         if os.path.isfile(full):
             ext = os.path.splitext(name)[1].lower()
-            if ext in IMAGE_EXTS or ext in VIDEO_EXTS or ext in AUDIO_EXTS:
+            if ext in IMAGE_EXTS or ext in VIDEO_EXTS or ext in AUDIO_EXTS or ext in BOOK_EXTS:
                 count += 1
     return count
 
@@ -177,7 +184,7 @@ def format_size(size):
 # -------------------------------
 
 def build_breadcrumbs(*parts):
-    crumbs = [{"name": "Home", "url": "/"}]
+    crumbs = [{"name": app_name, "url": "/"}]
     path = ""
 
     for part in parts:
@@ -446,6 +453,37 @@ def rename_folder():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
+@app.route("/folder/upload", methods=["POST"])
+def upload_folder():
+    # data = request.json
+    # rel_path = data.get("path")
+    files = request.files.getlist("files[]")
+    base_folder = request.form.get("base_path", "")
+
+    if not files:
+        return jsonify({"error": "No files provided"}), 400
+
+    saved = 0
+    errors = []
+
+    for file in files:
+        # webkitRelativePath gives us "FolderName/sub/file.mp3"
+        rel = request.form.getlist("paths[]")[saved] if saved < len(request.form.getlist("paths[]")) else file.filename
+        rel = rel.replace("..", "").lstrip("/")  # basic sanitize
+        full_path = os.path.join(MEDIA_ROOT, base_folder, rel)
+
+        if not is_safe_path(full_path):
+            errors.append(f"Invalid path: {rel}")
+            continue
+        try:
+            os.makedirs(os.path.dirname(full_path), exist_ok=True)
+            file.save(full_path)
+            saved += 1
+        except Exception as e:
+            errors.append(str(e))
+
+    return jsonify({"success": True, "saved": saved, "errors": errors})
+
 # ----------------------------------
 # GALLERY
 # ----------------------------------
@@ -459,7 +497,7 @@ def gallery(folder_path):
 
     favorites_only = request.args.get("favorites") == "1"
 
-    images, videos, audios = list_media(
+    images, videos, audios, books = list_media(
         folder,
         folder_path,
         favorites_only=favorites_only
@@ -476,6 +514,7 @@ def gallery(folder_path):
         images=images,
         videos=videos,
         audios=audios,
+        books =books,
         breadcrumbs=breadcrumbs,
         tree=tree,
         favorites_only=favorites_only,
@@ -506,8 +545,6 @@ def toggle_favorite():
 
     return jsonify({"favorite": state})
 
-
-import subprocess
 
 @app.route("/media/optimize", methods=["POST"])
 def optimize_media():
@@ -554,7 +591,6 @@ def media_file(filename):
     return send_from_directory(
     directory,
     file,
-    mimetype="image/jpeg",
     conditional=False
 )
 

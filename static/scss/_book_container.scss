@@ -1,0 +1,182 @@
+#book_container {
+    margin-top:50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap:20px;
+
+    .media-item {
+        border: 1px solid #fff;
+        padding: 5px;
+        border-radius: 10px;
+        width: 400px;
+
+        a {
+            img {
+                width: 300px;
+                margin-right: 10px;
+                display: block;
+            }
+        }
+
+        .file_name {
+            width: 90%;
+            font-size:18px;
+            color: #222;
+            background:#eee;
+            border-radius:10px;
+            padding:10px 20px;
+            .type { 
+                font-size:.7em;
+                margin:0 5px;
+                text-shadow:1px 0 10px blue;
+            }
+            .size { 
+                font-size:.7em;
+                margin:0 5px;
+                text-shadow:1px 0 10px yellow;
+
+            }
+        }
+
+        .caption {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+
+
+            .meta {
+
+                .download_btn { 
+                    background:#eee;
+                    text-decoration:none;
+                    color:#aaa;
+                    padding:5px 10px;
+                    border-radius:5px;
+                }
+            }
+
+
+            .actions {
+                display: flex;
+
+                .download_btn {
+                    font-size: 20px;
+                    color: #ccc;
+
+                    &:hover {
+                        color: lightgreen;
+                    }
+                }
+
+                button {
+                    border: none;
+                    background: none;
+                    padding: 0;
+                    font-size: 20px;
+                    color: #eee;
+
+                    &:hover {
+                        color: lightcoral;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        .rating {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin: 10px 0;
+
+            .star {
+                font-size: 18px;
+                color: #eee;
+
+                .icon-star {
+                    color: #eee;
+                }
+            }
+        }
+
+
+        &:hover {
+            border-color: #ddd;
+
+            .meta {
+
+                .download_btn { 
+                    background:lightgoldenrodyellow;
+                    text-decoration:none;
+                    color:#444;
+                    padding:5px 10px;
+                    border-radius:5px;
+                    &:hover { 
+                        background:darkorange;
+                        color:#fff;
+                        text-shadow:1px 0 10px rgb(126, 31, 31);
+                    }
+                }
+            }
+
+            .actions {
+                .download_btn {
+                    color: #111;
+                }
+
+                button.fav-btn {
+                    color: #111;
+
+                    &:hover {
+                        background: rgb(255, 221, 127);
+                        color: red;
+                    }
+                }
+
+                button.clear-rating {
+                    color: #111;
+
+                    &:hover {
+                        background: rgb(177, 226, 255);
+                        color: rgb(255, 251, 3);
+                    }
+                }
+
+                button.rename-btn {
+                    color: #111;
+
+                    &:hover {
+                        background: rgb(255, 221, 127);
+                        color: rgb(9, 255, 0);
+                    }
+                }
+
+                button.delete-btn {
+                    color: #111;
+
+                    &:hover {
+                        background: rgb(190, 179, 255);
+                        color: red;
+                    }
+                }
+            }
+
+            .rating {
+                .icon-empty-star {
+                    color: #111;
+
+                    &:hover {
+                        color: lightcoral;
+                    }
+                }
+
+                .icon-star {
+                    color: lightcoral;
+                }
+            }
+        }
+    }
+}

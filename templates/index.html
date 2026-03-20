@@ -9,8 +9,18 @@
     <link rel="icon" type="image/png" sizes="16x16" href="static/favicons/favicon-16x16.png">
     <link rel="manifest" href="static/favicons/site.webmanifest">
 </head>
-<body>
+<body id="index">
+    <nav>
 <h1 id="app_name">{{app_name}}</h1>
+<div id="folderDropZone">
+    <input type="file" id="folderInput" webkitdirectory multiple style="display:none">
+    <button onclick="document.getElementById('folderInput').click()">
+        📁 Drop a folder here to upload
+    </button>
+</div>
+<div id="folderUploadStatus" style="display:none"></div>
+</nav>
+
 {% macro render_tree(nodes) %}
 <ul class="tree">
     
@@ -204,5 +214,103 @@ function renameFolder(oldPath, currentName) {
     });
 }
 </script>
+
+<script>
+const ROUTES = {
+    uploadFolder: "{{ url_for('upload_folder') }}"
+};
+
+const folderDropZone = document.getElementById('folderDropZone');
+
+folderDropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    folderDropZone.classList.add('drag-over');
+});
+
+folderDropZone.addEventListener('dragleave', () => {
+    folderDropZone.classList.remove('drag-over');
+});
+
+folderDropZone.addEventListener('drop', async (e) => {
+    e.preventDefault();
+    folderDropZone.classList.remove('drag-over');
+
+    // Read dropped folder entries via DataTransferItem API
+    const items = [...e.dataTransfer.items];
+    const allFiles = [];
+
+    async function readEntry(entry, path = "") {
+        if (entry.isFile) {
+            return new Promise(resolve => {
+                entry.file(file => {
+                    allFiles.push({ file, path: path + file.name });
+                    resolve();
+                });
+            });
+        } else if (entry.isDirectory) {
+            const reader = entry.createReader();
+            return new Promise(resolve => {
+                reader.readEntries(async (entries) => {
+                    for (const e of entries) {
+                        await readEntry(e, path + entry.name + "/");
+                    }
+                    resolve();
+                });
+            });
+        }
+    }
+
+    for (const item of items) {
+        const entry = item.webkitGetAsEntry();
+        if (entry) await readEntry(entry);
+    }
+
+    await uploadFiles(allFiles);
+});
+
+// Handle click-to-browse (webkitdirectory)
+document.getElementById('folderInput').addEventListener('change', async function () {
+    const allFiles = [...this.files].map(file => ({
+        file,
+        path: file.webkitRelativePath || file.name
+    }));
+    await uploadFiles(allFiles);
+});
+
+async function uploadFiles(allFiles) {
+    if (!allFiles.length) return;
+
+    const statusEl = document.getElementById('folderUploadStatus');
+    statusEl.style.display = 'block';
+    statusEl.textContent = `Uploading ${allFiles.length} file(s)...`;
+
+    const formData = new FormData();
+    const currentFolder = "{{ current_path | default('') }}";
+
+    for (const { file, path } of allFiles) {
+        formData.append("files[]", file);
+        formData.append("paths[]", path);
+    }
+    formData.append("base_path", currentFolder);
+
+    try {
+        const res = await fetch(ROUTES.uploadFolder, { method: "POST", body: formData });
+        const data = await res.json();
+
+        if (data.success) {
+            statusEl.textContent = `✅ ${data.saved} file(s) uploaded${data.errors.length ? `, ❌ ${data.errors.length} failed` : ""}`;
+            setTimeout(() => {
+                statusEl.style.display = 'none';
+                location.reload();
+            }, 2000);
+        } else {
+            statusEl.textContent = `❌ ${data.error}`;
+        }
+    } catch (err) {
+        statusEl.textContent = `❌ Upload failed: ${err}`;
+    }
+}
+</script>
+
 </body>
 </html>
