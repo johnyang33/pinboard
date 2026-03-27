@@ -169,6 +169,68 @@
                         </div>
                     {% endfor %}
                 {% endif %}
+
+        {% if books %}
+        <div id="book_container">
+                {% for book in books %}
+                    <div class="media-item books">
+                        <div class="file_name">{{ book.display_name }}<span class="size">{{ book.size }}</span>
+                                <span class="type">{{book.ext }}</span></div>
+                        <div class="caption">
+                            <div class="meta">
+                                <a class="download_btn" alt="download button"
+                                    href="{{ url_for('media_file', filename=book.path) }}" 
+                                    download="{{ book.name }}"><i class="fontello icon-download"></i>download</a>
+                            </div>
+                            <div class="actions">
+                                
+                                <button class="fav-btn" title="make favorite"
+                                        data-path="{{ book.path }}"
+                                        onclick="toggleFavorite(this)">
+                                    
+                                    {% if book.favorite %}
+                                        <i class="fontello icon-heart"></i>
+                                        {% else %}
+                                        <i class="fontello icon-empty-heart"></i>
+                                    {% endif %}
+                                </button>
+                                <button class="clear-rating" title="clear rating"
+                                    data-path="{{ book.path }}"
+                                    onclick="clearRating(this)">
+                                    <i class="fontello icon-cancel"></i>
+                                </button>
+                                <button class="rename-btn" title="rename"
+                                        data-path="{{ book.path }}"
+                                        data-name="{{ book.name }}"
+                                        onclick="renameMedia(this)">
+                                    <i class="fontello icon-pencil"></i>
+                                </button>
+                                <button class="delete-btn" title="delete"
+                                    data-path="{{ book.path }}"
+                                    onclick="deleteMedia(this)">
+                                    <i class="fontello icon-trashcan"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="rating">
+                            {% for i in range(1, 11) %}
+                                <span class="star"
+                                    data-path="{{ book.path }}"
+                                    data-value="{{ i }}"
+                                    onclick="setRating(this)">
+                                    {% if i <= book.rating %}
+                                        <i class="fontello icon-star"></i>
+                                    {% else %}
+                                        <i class="fontello icon-empty-star"></i>
+                                    {% endif %}
+                                </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+
             </div><!-- images_container-->    
         </div><!-- image wrapper-->
     </main>
