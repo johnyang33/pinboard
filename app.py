@@ -9,8 +9,14 @@ from werkzeug.utils import secure_filename
 load_dotenv()
 
 port = int(os.environ.get("FLASK_PORT", 6001))
-app_name = os.environ.get("APP_NAME","pinz_app") 
+app_name = os.environ.get("APP_NAME","watercolor_pc") 
 app = Flask(__name__)
+
+watercolor_link = os.environ.get("WATERCOLOR_LINK","http://192.168.254.93:8083/") 
+photoz_link = os.environ.get("PHOTOZ_LINK","http://192.168.254.93:8082/") 
+tutz_link = os.environ.get("TUTZ_LINK","http://192.168.254.93:8084/") 
+alchemy_link = os.environ.get("ALCHEMY_LINK","http://192.168.254.93:8081/") 
+bookz_link = os.environ.get("BOOKZ_LINK","http://192.168.254.93:8085/") 
 
 MEDIA_ROOT = os.path.join(app.root_path, "media")
 
@@ -19,7 +25,6 @@ VIDEO_EXTS = {".mp4", ".webm", ".mov"}
 AUDIO_EXTS = {".mp3", ".wav", ".ogg", ".m4a", ".opus"}
 BOOK_EXTS = { ".pdf", ".epub", ".txt", ".html" }
 FAVORITES_FILE = os.path.join(app.root_path, "favorites.json")
-
 RATINGS_FILE = os.path.join(app.root_path, "ratings.json")
 
 # --------------------------------
@@ -204,7 +209,15 @@ def build_breadcrumbs(*parts):
 def index():
     tree = build_media_tree(MEDIA_ROOT)
     mark_active(tree, "")
-    return render_template("index.html", app_name=app_name,tree=tree)
+    return render_template("index.html", 
+                           app_name=app_name,
+                           tree=tree,
+                           alchemy_link=alchemy_link,
+                           bookz_link=bookz_link,
+                           photoz_link=photoz_link,
+                           watercolor_link=watercolor_link,
+                           tutz_link=tutz_link
+                           )
 
 # DELETE 
 @app.route("/media/delete", methods=["POST"])

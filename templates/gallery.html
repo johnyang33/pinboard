@@ -15,43 +15,54 @@
 <div class="container">
     <main>
         <nav id="content_bar">
+<<<<<<< HEAD
             <ul style="list-style:none; padding:0; display:flex; gap:6px;">
                 {% for crumb in breadcrumbs %}
                     <li>
                         {% if not loop.last %}
                             <a href="{{ crumb.url }}">{{ crumb.name }}</a> /
+=======
+            <div class="inner">
+                <ul style="list-style:none; padding:0; display:flex; gap:6px;">
+                    {% for crumb in breadcrumbs %}
+                        <li>
+                            {% if not loop.last %}
+                                <a href="{{ crumb.url }}">{{ crumb.name }}</a> /
+                            {% else %}
+                                <strong>{{ crumb.name }}</strong>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="favorites_wrapper">
+                    <div class="upload_wrapper">
+                        
+                        <div id="uploadStatus" style="display: none;"></div>
+
+                        <div id="dropZone">
+                            <input type="file" id="fileInput" style="display: none;" multiple>
+                            <span onclick="document.getElementById('fileInput').click()">⬆ Upload / Drop files here</span>
+                        </div> 
+
+                        <button type="button" id="optimizeBtn" onclick="optimizeFolder()">
+                            🪄 Optimize
+                        </button>
+                        <div id="optimizeStatus" style="display:none;"></div>              
+                    </div>
+                    <div class="show_favorites">
+                        {% if favorites_only %}
+                            <a href="/gallery/{{ current_path }}"><i class="fontello icon-empty-heart"></i>Show all</a>
+>>>>>>> 95aca6f (upates)
                         {% else %}
-                            <strong>{{ crumb.name }}</strong>
+                            <a href="/gallery/{{ current_path }}?favorites=1"><i class="fontello icon-heart"></i>Show</a>
                         {% endif %}
-                    </li>
-                {% endfor %}
-            </ul>
-
-            <div class="favorites_wrapper">
-                <div class="upload_wrapper">
-                    
-                    <div id="uploadStatus" style="display: none;"></div>
-
-                    <div id="dropZone">
-                        <input type="file" id="fileInput" style="display: none;" multiple>
-                        <span onclick="document.getElementById('fileInput').click()">⬆ Upload / Drop files here</span>
-                    </div> 
-
-                    <button type="button" id="optimizeBtn" onclick="optimizeFolder()">
-                        🪄 Optimize
-                    </button>
-                    <div id="optimizeStatus" style="display:none;"></div>              
+                    </div>
                 </div>
-                <div class="show_favorites">
-                    {% if favorites_only %}
-                        <a href="/gallery/{{ current_path }}"><i class="fontello icon-empty-heart"></i>Show all</a>
-                    {% else %}
-                        <a href="/gallery/{{ current_path }}?favorites=1"><i class="fontello icon-heart"></i>Show</a>
-                    {% endif %}
-                </div>
+                <a class="home_button" href="/">home</a>
             </div>
-            <a class="home_button" href="/">home</a>
         </nav>
+<<<<<<< HEAD
         
             {% if images %}
             <div class="image_container">
@@ -60,39 +71,65 @@
                         <a href="{{ url_for('media_file', filename=img.path) }}">
                             <img src="{{ url_for('media_file', filename=img.path) }}">
                         </a>
+=======
+        <div class="image_container_wrapper">
+            <div class="image_container">
+                {% if images %}
+                    {% for img in images %}
+                        <div class="media-item image">
+                            <a href="{{ url_for('media_file', filename=img.path) }}">
+                                <img src="{{ url_for('media_file', filename=img.path) }}">
+                            </a>
+>>>>>>> 95aca6f (upates)
 
-                        <div class="caption">
-                            <div class="file_name">{{ img.display_name }}<span class="size">{{ img.size }}</span></div>
-                            <div class="actions">
-                                
-                                <button class="fav-btn" title="make favorite"
-                                        data-path="{{ img.path }}"
-                                        onclick="toggleFavorite(this)">
+                            <div class="caption">
+                                <div class="file_name">{{ img.display_name }}<span class="size">{{ img.size }}</span></div>
+                                <div class="actions">
                                     
-                                    {% if img.favorite %}
-                                        <i class="fontello icon-heart"></i>
-                                        {% else %}
-                                        <i class="fontello icon-empty-heart"></i>
-                                    {% endif %}
-                                </button>
-                                <button class="clear-rating" title="clear rating"
-                                    data-path="{{ img.path }}"
-                                    onclick="clearRating(this)">
-                                    <i class="fontello icon-cancel"></i>
-                                </button>
-                                <button class="rename-btn" title="rename"
+                                    <button class="fav-btn" title="make favorite"
+                                            data-path="{{ img.path }}"
+                                            onclick="toggleFavorite(this)">
+                                        
+                                        {% if img.favorite %}
+                                            <i class="fontello icon-heart"></i>
+                                            {% else %}
+                                            <i class="fontello icon-empty-heart"></i>
+                                        {% endif %}
+                                    </button>
+                                    <button class="clear-rating" title="clear rating"
                                         data-path="{{ img.path }}"
-                                        data-name="{{ img.name }}"
-                                        onclick="renameMedia(this)">
-                                    <i class="fontello icon-pencil"></i>
-                                </button>
-                                <button class="delete-btn" title="delete"
-                                    data-path="{{ img.path }}"
-                                    onclick="deleteMedia(this)">
-                                    <i class="fontello icon-trashcan"></i>
-                                </button>
+                                        onclick="clearRating(this)">
+                                        <i class="fontello icon-cancel"></i>
+                                    </button>
+                                    <button class="rename-btn" title="rename"
+                                            data-path="{{ img.path }}"
+                                            data-name="{{ img.name }}"
+                                            onclick="renameMedia(this)">
+                                        <i class="fontello icon-pencil"></i>
+                                    </button>
+                                    <button class="delete-btn" title="delete"
+                                        data-path="{{ img.path }}"
+                                        onclick="deleteMedia(this)">
+                                        <i class="fontello icon-trashcan"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="rating">
+                                {% for i in range(1, 11) %}
+                                    <span class="star"
+                                        data-path="{{ img.path }}"
+                                        data-value="{{ i }}"
+                                        onclick="setRating(this)">
+                                        {% if i <= img.rating %}
+                                            <i class="fontello icon-star"></i>
+                                        {% else %}
+                                            <i class="fontello icon-empty-star"></i>
+                                        {% endif %}
+                                    </span>
+                                {% endfor %}
                             </div>
                         </div>
+<<<<<<< HEAD
                         <div class="rating">
                             {% for i in range(1, 11) %}
                                 <span class="star"
@@ -118,41 +155,66 @@
                     <div class="media-item video">
                         <video class="viddd" preload="none" controls loop data-src="{{ url_for('media_file', filename=vid.path) }}">
                         </video>
+=======
+                    {% endfor %}
+                {% endif %}
+                {% if videos %}
+                    {% for vid in videos %}
+                        <div class="media-item video">
+                            <video class="viddd" preload="none" controls loop data-src="{{ url_for('media_file', filename=vid.path) }}">
+                            </video>
+>>>>>>> 95aca6f (upates)
 
-                        <div class="caption">
-                            <div class="file_name">{{ vid.display_name }}<span class="size">{{ vid.size }}</span></div>
-                            <div class="actions">
-                                <a class="download_btn" alt="download button"
-                                    href="{{ url_for('media_file', filename=vid.path) }}" 
-                                    download="{{ vid.name }}"><i class="fontello icon-download"></i></a>
-                                <button class="fav-btn" title="make favorite"
+                            <div class="caption">
+                                <div class="file_name">{{ vid.display_name }}<span class="size">{{ vid.size }}</span></div>
+                                <div class="actions">
+                                    <a class="download_btn" alt="download button"
+                                        href="{{ url_for('media_file', filename=vid.path) }}" 
+                                        download="{{ vid.name }}"><i class="fontello icon-download"></i></a>
+                                    <button class="fav-btn" title="make favorite"
+                                            data-path="{{ vid.path }}"
+                                            onclick="toggleFavorite(this)">
+                                        
+                                        {% if vid.favorite %}
+                                            <i class="fontello icon-heart"></i>
+                                            {% else %}
+                                            <i class="fontello icon-empty-heart"></i>
+                                        {% endif %}
+                                    </button>
+                                    <button class="clear-rating" title="clear rating"
                                         data-path="{{ vid.path }}"
-                                        onclick="toggleFavorite(this)">
-                                    
-                                    {% if vid.favorite %}
-                                        <i class="fontello icon-heart"></i>
+                                        onclick="clearRating(this)">
+                                        <i class="fontello icon-cancel"></i>
+                                    </button>
+                                    <button class="rename-btn" title="rename"
+                                            data-path="{{ vid.path }}"
+                                            data-name="{{ vid.name }}"
+                                            onclick="renameMedia(this)">
+                                        <i class="fontello icon-pencil"></i>
+                                    </button>
+                                    <button class="delete-btn" title="delete"
+                                        data-path="{{ vid.path }}"
+                                        onclick="deleteMedia(this)">
+                                        <i class="fontello icon-trashcan"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="rating">
+                                {% for i in range(1, 11) %}
+                                    <span class="star"
+                                        data-path="{{ vid.path }}"
+                                        data-value="{{ i }}"
+                                        onclick="setRating(this)">
+                                        {% if i <= vid.rating %}
+                                            <i class="fontello icon-star"></i>
                                         {% else %}
-                                        <i class="fontello icon-empty-heart"></i>
-                                    {% endif %}
-                                </button>
-                                <button class="clear-rating" title="clear rating"
-                                    data-path="{{ vid.path }}"
-                                    onclick="clearRating(this)">
-                                    <i class="fontello icon-cancel"></i>
-                                </button>
-                                <button class="rename-btn" title="rename"
-                                        data-path="{{ vid.path }}"
-                                        data-name="{{ vid.name }}"
-                                        onclick="renameMedia(this)">
-                                    <i class="fontello icon-pencil"></i>
-                                </button>
-                                <button class="delete-btn" title="delete"
-                                    data-path="{{ vid.path }}"
-                                    onclick="deleteMedia(this)">
-                                    <i class="fontello icon-trashcan"></i>
-                                </button>
+                                            <i class="fontello icon-empty-star"></i>
+                                        {% endif %}
+                                    </span>
+                                {% endfor %}
                             </div>
                         </div>
+<<<<<<< HEAD
                         <div class="rating">
                             {% for i in range(1, 11) %}
                                 <span class="star"
@@ -234,6 +296,12 @@
                 {% endfor %}
                 </div>
             {% endif %}
+=======
+                    {% endfor %}
+                {% endif %}
+            </div><!-- images_container-->    
+        </div><!-- image wrapper-->
+>>>>>>> 95aca6f (upates)
     </main>
 
 </div><!-- container -->

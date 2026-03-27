@@ -92,7 +92,7 @@ details {
 
             background: rgb(255, 203, 1);
             color: rgb(43, 43, 26);
-            cursor: grab;
+            cursor: pointer;
 
             .icon-pencil {
                 color: rgb(159, 157, 241);
@@ -103,7 +103,7 @@ details {
             }
 
             &:active {
-                cursor: grabbing;
+                cursor: pointer;
             }
 
             .folder_size {
@@ -137,10 +137,10 @@ details[open]>summary {
     background: rgb(196, 255, 194);
 
     &:hover {
-        cursor: grab;
+        cursor: pointer;
 
         &:active {
-            cursor: grabbing;
+            cursor: pointer;
         }
 
         background:rgb(255, 203, 1);
