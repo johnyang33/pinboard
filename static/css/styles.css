@@ -1087,6 +1087,9 @@ main#index .card_wrapper .card a:hover {
   }
 }
 @media screen and (max-width: 500px) {
+  nav#main .links_wrapper {
+    flex-wrap: wrap;
+  }
   #book_container .media-item {
     width: 400px;
   }
@@ -1098,7 +1101,7 @@ main#index .card_wrapper .card a:hover {
     width: 90%;
   }
   #index nav#main .inner {
-    width: 460px;
+    width: 100%;
   }
   #index nav#main #folderDropZone {
     display: none;

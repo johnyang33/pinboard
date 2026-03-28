@@ -82,7 +82,7 @@ button {
 #dropZone {
     border: 2px dashed #eee;
     border-radius: 6px;
-    color:#ddd;
+    color: #ddd;
     padding: 6px 12px;
     cursor: pointer;
     font-size: 16px;
@@ -91,7 +91,7 @@ button {
     &:hover {
         background: rgba(54, 255, 64, 0.25);
         border-color: #41ff7a;
-        color:#222;
+        color: #222;
     }
 
     &.drag-over {
@@ -200,8 +200,8 @@ main#index {
             display: flex;
             justify-content: center;
             margin-top: 50px;
-            flex-direction:column;
-            align-items:center;
+            flex-direction: column;
+            align-items: center;
         }
 
         .image_container {
@@ -210,13 +210,14 @@ main#index {
             flex-wrap: wrap;
             width: 980px;
         }
+
         .video_container {
             display: flex;
             justify-content: center;
-            align-items:center;
+            align-items: center;
             flex-wrap: wrap;
-            width:100%;
-            flex-direction:column;
+            width: 100%;
+            flex-direction: column;
         }
 
     }
@@ -264,6 +265,10 @@ main#index {
 @media screen and (max-width:500px) {
 
 
+    nav#main .links_wrapper {
+        flex-wrap: wrap;
+    }
+
     #book_container .media-item {
         width: 400px;
     }
@@ -279,7 +284,7 @@ main#index {
 
     #index nav#main {
         .inner {
-            width: 460px;
+            width: 100%;
         }
 
         #folderDropZone {
@@ -310,20 +315,20 @@ main#index {
 
     .container main .image_container {
         justify-content: center;
-         flex-direction:column;
-         width:100%;
+        flex-direction: column;
+        width: 100%;
     }
 
-    nav#content_bar .inner { 
-        width:100%;
-        flex-direction:column;
+    nav#content_bar .inner {
+        width: 100%;
+        flex-direction: column;
 
-        .favorites_wrapper { 
-            display:column;
+        .favorites_wrapper {
+            display: column;
         }
 
-        #dropZone { 
-            display:none;
+        #dropZone {
+            display: none;
         }
     }
 
