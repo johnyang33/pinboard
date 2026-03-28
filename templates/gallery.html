@@ -131,7 +131,7 @@
                                         {% if vid.favorite %}
                                             <i class="fontello icon-heart-filled"></i>
                                             {% else %}
-                                            <i class="fontello icon-empyt-heart"></i>
+                                            <i class="fontello icon-heart-empty"></i>
                                         {% endif %}
                                     </button>
                                     <button class="clear-rating" title="clear rating"
@@ -174,16 +174,17 @@
         <div id="book_container">
                 {% for book in books %}
                     <div class="media-item books">
-                        <div class="file_name">{{ book.display_name }}<span class="size">{{ book.size }}</span>
-                                <span class="type">{{book.ext }}</span></div>
+                        <div class="file_name">{{ book.display_name }}</div>
                         <div class="caption">
                             <div class="meta">
-                                <a class="download_btn" alt="download button"
-                                    href="{{ url_for('media_file', filename=book.path) }}" 
-                                    download="{{ book.name }}"><i class="fontello icon-download"></i>download</a>
+                                <span class="size">{{ book.size }}</span>
+                                <span class="type">{{book.ext }}</span>
                             </div>
                             <div class="actions">
                                 
+                                <a class="download_btn" alt="download button"
+                                    href="{{ url_for('media_file', filename=book.path) }}" 
+                                    download="{{ book.name }}"><i class="fontello icon-download"></i>download</a>
                                 <button class="fav-btn" title="make favorite"
                                         data-path="{{ book.path }}"
                                         onclick="toggleFavorite(this)">

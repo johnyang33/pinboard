@@ -255,6 +255,10 @@
   content: "\e852";
 }
 
+.icon-heart-filled {
+  color: rgb(247, 192, 192);
+}
+
 .icon-heart-empty::before {
   content: "\e853";
 }
@@ -324,7 +328,7 @@ details ul.tree li.folder a .meta .node_name {
   color: rgb(197, 26, 197);
 }
 details summary {
-  background: rgb(54, 69, 112);
+  background: rgb(15, 21, 108);
   padding: 5px 12px;
   border-radius: 5px;
   margin-top: 10px;
@@ -372,7 +376,7 @@ details[open] ul.tree {
 }
 
 details[open] > summary {
-  background: rgb(212, 239, 255);
+  background: rgb(204, 207, 248);
 }
 details[open] > summary .node_name {
   color: rgb(14, 49, 20);
@@ -546,22 +550,12 @@ details[open] > summary:hover .count {
   display: block;
 }
 #book_container .media-item .file_name {
-  width: 100%;
+  width: 95%;
   font-size: 16px;
   color: #222;
-  background: #eee;
+  background: #f8f8f8;
   border-radius: 10px;
   padding: 10px 20px;
-}
-#book_container .media-item .file_name .type {
-  font-size: 0.7em;
-  margin: 0 5px;
-  text-shadow: 1px 0 10px blue;
-}
-#book_container .media-item .file_name .size {
-  font-size: 0.7em;
-  margin: 0 5px;
-  text-shadow: 1px 0 10px yellow;
 }
 #book_container .media-item .caption {
   display: flex;
@@ -569,27 +563,43 @@ details[open] > summary:hover .count {
   justify-content: space-between;
   margin-top: 10px;
 }
-#book_container .media-item .caption .meta .download_btn {
-  background: #eee;
-  text-decoration: none;
-  color: #aaa;
-  padding: 5px 10px;
-  border-radius: 5px;
+#book_container .media-item .caption .meta {
+  color: #555;
+}
+#book_container .media-item .caption .meta .type {
+  font-size: 1em;
+  margin: 0 5px;
+  text-shadow: 1px 0 10px blue;
+}
+#book_container .media-item .caption .meta .size {
+  font-size: 1em;
+  margin: 0 5px;
+  text-shadow: 1px 0 10px yellow;
+  color: #555;
 }
 #book_container .media-item .caption .actions {
   display: flex;
 }
 #book_container .media-item .caption .actions .download_btn {
-  font-size: 20px;
-  color: #ccc;
+  background: #f8f8f8;
+  text-decoration: none;
+  color: #ddd;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 13px;
+}
+#book_container .media-item .caption .actions .download_btn i:before {
+  margin-right: 5px;
 }
 #book_container .media-item .caption .actions .download_btn:hover {
-  color: lightgreen;
+  background: darkorange;
+  color: #fff;
+  text-shadow: 1px 0 10px rgb(126, 31, 31);
 }
 #book_container .media-item .caption .actions button {
   border: none;
   background: none;
-  padding: 0;
+  padding: 2px 8px;
   font-size: 20px;
   color: #eee;
 }
@@ -611,22 +621,21 @@ details[open] > summary:hover .count {
   color: #eee;
 }
 #book_container .media-item:hover {
-  border-color: #ddd;
+  border-color: #eee;
+  background: #f8f8f8;
 }
-#book_container .media-item:hover .meta .download_btn {
-  background: lightgoldenrodyellow;
-  text-decoration: none;
-  color: #444;
-  padding: 5px 10px;
-  border-radius: 5px;
+#book_container .media-item:hover .file_name {
+  background: rgb(230, 249, 255);
 }
-#book_container .media-item:hover .meta .download_btn:hover {
-  background: darkorange;
-  color: #fff;
-  text-shadow: 1px 0 10px rgb(126, 31, 31);
+#book_container .media-item:hover .meta {
+  color: #111;
+}
+#book_container .media-item:hover .meta .size {
+  color: #111;
 }
 #book_container .media-item:hover .actions .download_btn {
   color: #111;
+  background: #ccc;
 }
 #book_container .media-item:hover .actions button.fav-btn {
   color: #111;
@@ -816,7 +825,7 @@ nav#content_bar .button {
   background: none;
   cursor: pointer;
   font-size: 15px;
-  color: #222;
+  color: #bbb;
   background: #eee;
   padding: 5px;
   text-decoration: none;
@@ -829,7 +838,7 @@ nav#content_bar .button {
 }
 nav#content_bar button:hover,
 nav#content_bar .button:hover {
-  color: #222;
+  color: #111;
   text-shadow: 1px 0 10px darkorange;
   background: rgb(255, 219, 153);
 }
@@ -969,12 +978,12 @@ h1#app_name {
   text-align: center;
 }
 h1#app_name a {
-  color: #889aff;
+  color: #ff8888;
   font-size: 1.5em;
   text-decoration: none;
 }
 h1#app_name a:hover {
-  color: lightcoral;
+  color: rgb(245, 59, 59);
 }
 
 ul.tree {

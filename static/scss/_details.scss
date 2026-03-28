@@ -81,7 +81,7 @@ details {
     }
 
     summary {
-        background: rgb(54, 69, 112);
+        background: rgb(15, 21, 108);
         padding: 5px 12px;
         border-radius: 5px;
         margin-top: 10px;
@@ -149,7 +149,7 @@ details[open] {
 }
 
 details[open]>summary {
-    background: rgb(212, 239, 255);
+    background: rgb(204, 207, 248);
 
     .node_name {
         color: rgb(14, 49, 20);

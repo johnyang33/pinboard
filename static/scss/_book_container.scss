@@ -1,10 +1,10 @@
 #book_container {
-    margin-top:50px;
+    margin-top: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap:20px;
+    gap: 20px;
 
     .media-item {
         border: 1px solid #fff;
@@ -21,23 +21,13 @@
         }
 
         .file_name {
-            width: 100%;
-            font-size:16px;
+            width: 95%;
+            font-size: 16px;
             color: #222;
-            background:#eee;
-            border-radius:10px;
-            padding:10px 20px;
-            .type { 
-                font-size:.7em;
-                margin:0 5px;
-                text-shadow:1px 0 10px blue;
-            }
-            .size { 
-                font-size:.7em;
-                margin:0 5px;
-                text-shadow:1px 0 10px yellow;
+            background: #f8f8f8;
+            border-radius: 10px;
+            padding: 10px 20px;
 
-            }
         }
 
         .caption {
@@ -49,12 +39,21 @@
 
             .meta {
 
-                .download_btn { 
-                    background:#eee;
-                    text-decoration:none;
-                    color:#aaa;
-                    padding:5px 10px;
-                    border-radius:5px;
+                color: #555;
+
+                .type {
+                    font-size: 1em;
+                    margin: 0 5px;
+                    text-shadow: 1px 0 10px blue;
+                   
+                }
+
+                .size {
+                    font-size: 1em;
+                    margin: 0 5px;
+                    text-shadow: 1px 0 10px yellow;
+                     color:#555;
+
                 }
             }
 
@@ -63,18 +62,28 @@
                 display: flex;
 
                 .download_btn {
-                    font-size: 20px;
-                    color: #ccc;
+                    background: #f8f8f8;
+                    text-decoration: none;
+                    color: #ddd;
+                    padding: 5px 10px;
+                    border-radius: 5px;
+                    font-size: 13px;
+
+                    i:before {
+                        margin-right: 5px;
+                    }
 
                     &:hover {
-                        color: lightgreen;
+                        background: darkorange;
+                        color: #fff;
+                        text-shadow: 1px 0 10px rgb(126, 31, 31);
                     }
                 }
 
                 button {
                     border: none;
                     background: none;
-                    padding: 0;
+                    padding: 2px 8px;
                     font-size: 20px;
                     color: #eee;
 
@@ -103,79 +112,76 @@
         }
 
 
-        &:hover {
-            border-color: #ddd;
 
-            .meta {
+    }
 
-                .download_btn { 
-                    background:lightgoldenrodyellow;
-                    text-decoration:none;
-                    color:#444;
-                    padding:5px 10px;
-                    border-radius:5px;
-                    &:hover { 
-                        background:darkorange;
-                        color:#fff;
-                        text-shadow:1px 0 10px rgb(126, 31, 31);
-                    }
+    .media-item:hover {
+        border-color: #eee;
+        background: #f8f8f8;
+
+        .file_name {
+            background: rgb(230, 249, 255);
+        }
+
+        .meta {
+            color: #111;
+            .size { color: #111; }
+        }
+
+        .actions {
+            .download_btn {
+                color: #111;
+                background: #ccc;
+            }
+
+            button.fav-btn {
+                color: #111;
+
+                &:hover {
+                    background: rgb(255, 221, 127);
+                    color: red;
                 }
             }
 
-            .actions {
-                .download_btn {
-                    color: #111;
-                }
+            button.clear-rating {
+                color: #111;
 
-                button.fav-btn {
-                    color: #111;
-
-                    &:hover {
-                        background: rgb(255, 221, 127);
-                        color: red;
-                    }
-                }
-
-                button.clear-rating {
-                    color: #111;
-
-                    &:hover {
-                        background: rgb(177, 226, 255);
-                        color: rgb(255, 251, 3);
-                    }
-                }
-
-                button.rename-btn {
-                    color: #111;
-
-                    &:hover {
-                        background: rgb(255, 221, 127);
-                        color: rgb(9, 255, 0);
-                    }
-                }
-
-                button.delete-btn {
-                    color: #111;
-
-                    &:hover {
-                        background: rgb(190, 179, 255);
-                        color: red;
-                    }
+                &:hover {
+                    background: rgb(177, 226, 255);
+                    color: rgb(255, 251, 3);
                 }
             }
 
-            .rating {
-                .icon-empty-star {
-                    color: #111;
+            button.rename-btn {
+                color: #111;
 
-                    &:hover {
-                        color: lightcoral;
-                    }
+                &:hover {
+                    background: rgb(255, 221, 127);
+                    color: rgb(9, 255, 0);
                 }
+            }
 
-                .icon-star {
+            button.delete-btn {
+                color: #111;
+
+                &:hover {
+                    background: rgb(190, 179, 255);
+                    color: red;
+                }
+            }
+        }
+
+        .rating {
+            .icon-empty-star {
+                color: #111;
+
+                &:hover {
                     color: lightcoral;
                 }
+            }
+
+            .icon-star {
+                color: lightcoral;
             }
         }
     }
