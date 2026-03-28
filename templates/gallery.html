@@ -54,7 +54,7 @@
                 <a class="button" href="/"><i class="icon-home-1 fontello"></i>home</a>
             </div>
         </nav>
-        <div class="image_container_wrapper">
+        <div class="media_container_wrapper">
             <div class="image_container">
                 {% if images %}
                     {% for img in images %}
@@ -111,7 +111,9 @@
                             </div>
                         </div>
                     {% endfor %}
+                    </div><!-- images_container-->  
                 {% endif %}
+                <div class="video_container">
                 {% if videos %}
                     {% for vid in videos %}
                         <div class="media-item video">
@@ -173,6 +175,7 @@
                             </div>
                         </div>
                     {% endfor %}
+                    </div><!-- video container -->
                 {% endif %}
 
         {% if books %}
@@ -237,7 +240,7 @@
                 </div>
             {% endif %}
 
-            </div><!-- images_container-->    
+              
         </div><!-- image wrapper-->
     </main>
 

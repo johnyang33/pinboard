@@ -411,7 +411,7 @@ details[open] > summary:hover .count {
   border-radius: 10px;
 }
 .media-item video {
-  width: 800px;
+  width: 100%;
   margin: 10px;
 }
 .media-item a img {
@@ -1038,16 +1038,26 @@ main#index .card_wrapper .card a:hover {
 .container main {
   width: 100%;
 }
-.container main .image_container_wrapper {
+.container main .media_container_wrapper {
   display: flex;
   justify-content: center;
   margin-top: 50px;
+  flex-direction: column;
+  align-items: center;
 }
 .container main .image_container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   width: 980px;
+}
+.container main .video_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  flex-direction: column;
 }
 
 @media screen and (max-width: 1024px) {
@@ -1081,7 +1091,7 @@ main#index .card_wrapper .card a:hover {
     width: 400px;
   }
   .media-item video {
-    width: 420px;
+    width: 100%;
     margin: 10px;
   }
   #book_container .media-item .file_name {
@@ -1110,6 +1120,18 @@ main#index .card_wrapper .card a:hover {
   }
   .container main .image_container {
     justify-content: center;
+    flex-direction: column;
+    width: 100%;
+  }
+  nav#content_bar .inner {
+    width: 100%;
+    flex-direction: column;
+  }
+  nav#content_bar .inner .favorites_wrapper {
+    display: column;
+  }
+  nav#content_bar .inner #dropZone {
+    display: none;
   }
   .container main .media-item a img {
     width: 410px;
