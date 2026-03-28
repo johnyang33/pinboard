@@ -487,7 +487,11 @@ details[open] > summary:hover .count {
 }
 .media-item:hover .size {
   color: #111;
-  text-shadow: 1px 0 10px lightcoral;
+  text-shadow: 1px 0 10px lightblue;
+}
+.media-item:hover .type {
+  color: #111;
+  text-shadow: 1px 0 10px orangered;
 }
 .media-item:hover .actions .download_btn {
   color: #111;
