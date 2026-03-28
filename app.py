@@ -21,7 +21,7 @@ bookz_link = os.environ.get("BOOKZ_LINK","http://192.168.254.93:8085/")
 MEDIA_ROOT = os.path.join(app.root_path, "media")
 
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
-VIDEO_EXTS = {".mp4", ".webm", ".mov"}
+VIDEO_EXTS = {".mp4", ".webm", ".mov", ".mkv", ".avi"}
 AUDIO_EXTS = {".mp3", ".wav", ".ogg", ".m4a", ".opus"}
 BOOK_EXTS = { ".pdf", ".epub", ".txt", ".html" }
 FAVORITES_FILE = os.path.join(app.root_path, "favorites.json")
@@ -147,7 +147,23 @@ def get_folder_size(path):
                 pass  # skip unreadable files
     return total
 
-def build_media_tree(base_path, rel_path=""):
+
+def filter_favorites(tree):
+    filtered = []
+
+    for node in tree:
+        children = filter_favorites(node["children"])
+
+        if node["favorite"] or children:
+            node["children"] = children
+            filtered.append(node)
+
+    return filtered
+
+def build_media_tree(base_path, rel_path="", favorites=None):
+    if favorites is None:
+        favorites = load_favorites()
+
     abs_path = os.path.join(base_path, rel_path)
     tree = []
 
@@ -157,23 +173,28 @@ def build_media_tree(base_path, rel_path=""):
             continue
 
         sub_rel = os.path.join(rel_path, name) if rel_path else name
+        sub_rel = sub_rel.replace("\\", "/")
 
-        children = build_media_tree(base_path, sub_rel)
+        children = build_media_tree(base_path, sub_rel, favorites)
 
         size = get_folder_size(full)
 
         node = {
             "name": name,
-            "path": sub_rel.replace("\\", "/"),
+            "path": sub_rel,
             "file_count": count_media_files(full),
             "folder_count": len(children),
-            "size_bytes": get_folder_size(full),
+            "size_bytes": size,
             "size": format_bytes(size),
             "children": children,
-            "active": False
+            "active": False,
+            "favorite": sub_rel in favorites
         }
 
         tree.append(node)
+
+    # 👇 THIS is the only new part
+    tree.sort(key=lambda n: (not n["favorite"], n["name"].lower()))
 
     return tree
 
@@ -207,17 +228,25 @@ def build_breadcrumbs(*parts):
 
 @app.route("/")
 def index():
+    favorites = load_favorites()
     tree = build_media_tree(MEDIA_ROOT)
+    favorites_only = request.args.get("favorites")
     mark_active(tree, "")
-    return render_template("index.html", 
-                           app_name=app_name,
-                           tree=tree,
-                           alchemy_link=alchemy_link,
-                           bookz_link=bookz_link,
-                           photoz_link=photoz_link,
-                           watercolor_link=watercolor_link,
-                           tutz_link=tutz_link
-                           )
+
+    if favorites_only:
+        tree = filter_favorites(tree)
+
+    return render_template(
+        "index.html", 
+        favorites_only=favorites_only,
+        app_name=app_name,
+        tree=tree,
+        alchemy_link=alchemy_link,
+        bookz_link=bookz_link,
+        photoz_link=photoz_link,
+        watercolor_link=watercolor_link,
+        tutz_link=tutz_link
+    )
 
 # DELETE 
 @app.route("/media/delete", methods=["POST"])
@@ -307,7 +336,6 @@ def set_rating():
     save_ratings(ratings)
 
     return jsonify({"success": True, "rating": rating})
-
 
 # RENAME 
 @app.route("/media/rename", methods=["POST"])

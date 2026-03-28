@@ -34,7 +34,7 @@ ul.tree li.folder a {
     }
 
     &:hover {
-        background: lightgreen;
+        background: rgb(192, 243, 192);
         color: #111;
 
         .meta {
@@ -58,19 +58,20 @@ details {
     color: #aaa;
 
     .node_name {
-        color: rgb(0, 60, 255);
+        color: rgb(255, 255, 255);
         font-size: 1.3em;
         text-transform: uppercase;
         letter-spacing: 1px;
-        text-shadow: 1px 0 10px yellow;
+        //text-shadow: 1px 0 10px yellow;
     }
 
     .icon-left-open {
-        color: darkblue;
+        color: rgb(230, 255, 8);
     }
 
+
     ul.tree li.folder a {
-        background: #29da23;
+        background: #c3f1c1;
 
         .meta {
             .node_name {
@@ -80,7 +81,7 @@ details {
     }
 
     summary {
-        background: rgb(191, 207, 255);
+        background: rgb(54, 69, 112);
         padding: 5px 12px;
         border-radius: 5px;
         margin-top: 10px;
@@ -90,7 +91,7 @@ details {
 
         &:hover {
 
-            background: rgb(255, 203, 1);
+            background: rgb(255, 236, 160);
             color: rgb(43, 43, 26);
             cursor: pointer;
 
@@ -123,18 +124,43 @@ details {
             color: rgb(120, 132, 197);
         }
     }
+
+    &:hover {
+        summary {
+            .node_name {
+                color: rgb(10, 10, 7);
+            }
+        }
+
+        .icon-left-open {
+            color: rgb(230, 255, 8);
+        }
+    }
 }
 
 details[open] {
     ul.tree {
-        background: #eee;
+        background: #f8f8f8;
         padding: 5px 0;
         border-radius: 0 0 10px 10px;
+
+
     }
 }
 
 details[open]>summary {
-    background: rgb(196, 255, 194);
+    background: rgb(212, 239, 255);
+
+    .node_name {
+        color: rgb(14, 49, 20);
+    }
+
+
+    .icon-down-open {
+        color: rgb(230, 255, 8);
+        text-shadow: 1px 0 10px rgb(31, 7, 7);
+    }
+
 
     &:hover {
         cursor: pointer;
@@ -143,8 +169,12 @@ details[open]>summary {
             cursor: pointer;
         }
 
-        background:rgb(255, 203, 1);
+        background:rgb(255, 236, 162);
         color:rgb(10, 10, 7);
+
+        .icon-down-open {
+            color: rgb(230, 255, 8);
+        }
 
         .folder_size {
             color: rgb(39, 35, 27);

@@ -1,129 +1,162 @@
+.media-item {
+    border: 1px solid #fff;
+    padding: 5px;
+    border-radius: 10px;
 
-.media-item 
-{   
-    border:1px solid #fff;
-    padding:5px;
-    border-radius:10px;
-    video { 
-        width:600px;
-        margin:10px;
+    video {
+        width: 800px;
+        margin: 10px;
     }
+
     a {
-        img { 
-            width:300px;
-            margin-right:10px;
-            display:block;
+        img {
+            width: 300px;
+            margin-right: 10px;
+            display: block;
         }
     }
-    .caption { 
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        margin-top:10px;
-        .size { 
-            margin-left:5px;
-            color:#eee;
-            font-weight:bold;
+
+    .caption {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+
+        .size {
+            margin-left: 5px;
+            color: #eee;
+            font-weight: bold;
         }
-        .file_name { 
-            width:50%;
-            color:#eee;
+
+        .file_name {
+            width: 50%;
+            color: #eee;
         }
+
         .actions {
-            display:flex;
-            .download_btn { 
-                font-size:20px;
-                color:#eee;
-                &:hover { 
+            display: flex;
+
+            .download_btn {
+                font-size: 20px;
+                color: #eee;
+
+                &:hover {
                     color: lightgreen;
                 }
-            } 
-            button { 
-                border:none;
-                background:none;
-                padding:0;
-                font-size:20px;
-                color:#eee;
-                &:hover{
-                    color:lightcoral;
-                    cursor:pointer;
+            }
+
+            button {
+                border: none;
+                background: none;
+                padding: 0;
+                font-size: 20px;
+                color: #eee;
+                padding: 2px 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &:hover {
+                    color: lightcoral;
+                    cursor: pointer;
                 }
             }
         }
     }
-    .rating { 
-        display:flex;
-        justify-content:flex-end;
-        align-items:center;
-        margin:10px 0;
-        .star { 
+
+    .rating {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin: 10px 0;
+
+        .star {
             font-size: 18px;
-            color:#eee;
-            .icon-star { 
+            color: #eee;
+
+            .icon-star {
                 color: #eee;
             }
         }
     }
-    &.image { 
-        .caption { 
-            width:300px;
+
+    &.image {
+        .caption {
+            width: 300px;
         }
     }
-    &.video { 
-        .caption { 
-        width:600px;
-    }
-    }
-    &:hover { 
-        border-color:#ddd;
-        .file_name,.rating {
-            color:#111;
+
+    &.video {
+        .caption {
+            width: 600px;
         }
-        .size{ 
+    }
+
+    &:hover {
+        border-color: #f8f8f8;
+
+        .file_name,
+        .rating {
             color: #111;
-            text-shadow:1px 0 10px lightcoral;
         }
-        .actions { 
-            .download_btn { 
+
+        .size {
+            color: #111;
+            text-shadow: 1px 0 10px lightcoral;
+        }
+
+        .actions {
+            .download_btn {
                 color: #111;
             }
-            button.fav-btn { 
-                color:#111;
-                &:hover { 
-                    background:rgb(255, 221, 127);
-                    color:red;
+
+            button.fav-btn {
+                color: #111;
+
+                &:hover {
+                    background: rgb(255, 221, 127);
+                    color: red;
                 }
             }
-            button.clear-rating { 
-                color:#111;
-                &:hover { 
-                    background:rgb(177, 226, 255);
-                    color:rgb(255, 251, 3);
+
+            button.clear-rating {
+                color: #111;
+
+                &:hover {
+                    background: rgb(177, 226, 255);
+                    color: rgb(255, 251, 3);
                 }
             }
-            button.rename-btn { 
-                color:#111;
-                &:hover { 
-                    background:rgb(255, 221, 127);
-                    color:rgb(9, 255, 0);
+
+            button.rename-btn {
+                color: #111;
+
+                &:hover {
+                    background: rgb(255, 221, 127);
+                    color: rgb(9, 255, 0);
                 }
             }
-            button.delete-btn { 
-                color:#111;
-                &:hover { 
-                    background:rgb(190, 179, 255);
-                    color:red;
+
+            button.delete-btn {
+                color: #111;
+
+                &:hover {
+                    background: rgb(190, 179, 255);
+                    color: red;
                 }
             }
         }
-        .rating { 
-            .icon-empty-star { 
-                color:#111;
-                &:hover{
-                    color:lightcoral;
+
+        .rating {
+            .icon-empty-star {
+                color: #111;
+
+                &:hover {
+                    color: lightcoral;
                 }
             }
-            .icon-star { 
+
+            .icon-star {
                 color: lightcoral;
             }
         }

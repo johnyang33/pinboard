@@ -21,6 +21,11 @@
                 <a href="{{photoz_link}}">photoz</a>
                 <a href="{{tutz_link}}">tutz</a>
                 <a href="{{watercolor_link}}">watercolor</a>
+                <a class="mac" href="http://192.168.254.68:8004">photoz <i class="fontello icon-apple"></i></a>
+                <a class="mac" href="http://192.168.254.68:8002">tutz<i class="fontello icon-apple"></i></a>
+                <a class="mac" href="http://192.168.254.68:8003">completez<i class="fontello icon-apple"></i></a>
+                <a class="mac" href="http://192.168.254.68:8001">watercolor<i class="fontello icon-apple"></i></a>
+
             </div>
             <div class="upload_wrapper">
                 <div id="folderDropZone">
@@ -31,6 +36,13 @@
                 </div>
                 <div id="folderUploadStatus" style="display:none"></div>
             </div>
+        </div>
+        <div class="show_favorites">
+            {% if favorites_only %}
+            <a href="/"><i class="fontello icon-empty-star"></i> Show all</a>
+            {% else %}
+            <a href="/?favorites=1"><i class="fontello icon-star"></i> Show favorites</a>
+            {% endif %}
         </div>
     </nav>
 
@@ -66,7 +78,7 @@
                     {% endif %}
                     <div class="name">(
                         <span class="count">{{ node.folder_count }} folders </span>)
-                        <i class="fontello icon-left-open"></i><span class="node_name">{{ node.name }}</span>
+                        <span class="node_name">{{ node.name }}</span><i class="fontello icon-left-open"></i>
                     </div>
                     {% else %}
                     <!-- no files -->
@@ -90,10 +102,11 @@
                                 </span>
                                 {% endif %}
                                 )
-                                <i class="fontello icon-left-open"></i>
+                               
                                 <span class="node_name">
                                     {{ node.name }}
                                 </span>
+                                <i class="fontello icon-left-open"></i>
 
                             </div>
                             {% endif %}
@@ -119,6 +132,15 @@
                         </button>
                         <button class="delete-folder" onclick="deleteFolder('{{ node.path }}')">
                             <i class="fontello icon-trashcan"></i>
+                        </button>
+                        <button class="fav-btn" title="favorite folder" data-path="{{ node.path }}"
+                            onclick="toggleFavorite(this)">
+
+                            {% if node.favorite %}
+                            <i class="fontello icon-star"></i>
+                            {% else %}
+                            <i class="fontello icon-empty-star"></i>
+                            {% endif %}
                         </button>
                     </div>
                     {% endif %}
@@ -324,6 +346,25 @@
         }
     </script>
 
+    <script>
+        function toggleFavorite(btn) {
+            const path = btn.dataset.path;
+
+            fetch("/favorite/toggle", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ path })
+            })
+
+                .then(r => r.json())
+                .then(data => {
+                    const icon = btn.querySelector("i");
+
+                    icon.classList.toggle("icon-empty-star", !data.favorite);
+                    icon.classList.toggle("icon-star", data.favorite);
+                });
+        }
+    </script>
 </body>
 
 </html>

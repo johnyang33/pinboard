@@ -13,8 +13,6 @@
   font-weight: normal;
   display: inline-block;
   text-decoration: inherit;
-  width: 1em;
-  margin-right: 0.2em;
   text-align: center;
   /* opacity: .8; */
   /* For safety - reset parent styles, that can break glyph codes*/
@@ -24,7 +22,6 @@
   line-height: 1em;
   /* Animation center compensation - margins should be symmetric */
   /* remove if not needed */
-  margin-left: 0.2em;
   /* You can be more comfortable with increased icons size */
   /* font-size: 120%; */
   /* Font smoothing. That was taken from TWBS */
@@ -34,43 +31,43 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
-.icon-star-empty:before {
+.icon-empty-star:before {
   content: "\e800";
 } /* '' */
-.icon-trash-empty:before {
+.icon-trashcan:before {
   content: "\e801";
 } /* '' */
 .icon-star:before {
   content: "\e802";
 } /* '' */
-.icon-cancel-circled:before {
+.icon-headphones:before {
   content: "\e803";
 } /* '' */
-.icon-cancel-circled-outline:before {
+.icon-floppy:before {
   content: "\e804";
 } /* '' */
-.icon-trash-1:before {
+.icon-retweet:before {
   content: "\e805";
 } /* '' */
 .icon-trash-2:before {
   content: "\e806";
 } /* '' */
-.icon-link:before {
+.icon-home-1:before {
   content: "\e807";
 } /* '' */
-.icon-link-2:before {
+.icon-picture:before {
   content: "\e808";
 } /* '' */
-.icon-heart-empty:before {
+.icon-camera:before {
   content: "\e809";
 } /* '' */
-.icon-heart:before {
+.icon-headphones-1:before {
   content: "\e80a";
 } /* '' */
 .icon-attach:before {
   content: "\e80b";
 } /* '' */
-.icon-music-outline:before {
+.icon-keyboard:before {
   content: "\e80c";
 } /* '' */
 .icon-brush:before {
@@ -79,72 +76,54 @@
 .icon-ok:before {
   content: "\e80e";
 } /* '' */
-.icon-camera-1:before {
+.icon-up-hand:before {
   content: "\e80f";
 } /* '' */
-.icon-camera-2:before {
+.icon-left-hand:before {
   content: "\e810";
 } /* '' */
-.icon-camera-alt:before {
+.icon-forward:before {
   content: "\e811";
 } /* '' */
 .icon-tools:before {
   content: "\e812";
 } /* '' */
-.icon-sound:before {
+.icon-right-hand:before {
   content: "\e813";
 } /* '' */
-.icon-bell:before {
+.icon-down-hand:before {
   content: "\e814";
 } /* '' */
-.icon-play:before {
+.icon-arrows-cw:before {
   content: "\e815";
 } /* '' */
-.icon-stop:before {
+.icon-cancel-1:before {
   content: "\e816";
 } /* '' */
-.icon-target:before {
+.icon-th-list:before {
   content: "\e817";
 } /* '' */
-.icon-pause:before {
+.icon-th-large:before {
   content: "\e818";
 } /* '' */
-.icon-to-end:before {
+.icon-star-1:before {
   content: "\e819";
 } /* '' */
-.icon-to-start:before {
+.icon-buffer:before {
   content: "\e81a";
 } /* '' */
-.icon-to-end-alt:before {
+.icon-pinboard:before {
   content: "\e81b";
 } /* '' */
-.icon-to-start-alt:before {
+.icon-download:before {
   content: "\e81c";
 } /* '' */
-.icon-fast-fw:before {
+.icon-upload:before {
   content: "\e81d";
 } /* '' */
-.icon-fast-bw:before {
-  content: "\e81e";
-} /* '' */
-.icon-eject:before {
-  content: "\e81f";
-} /* '' */
-.icon-plus:before {
-  content: "\e820";
-} /* '' */
-.icon-minus:before {
-  content: "\e821";
-} /* '' */
 .icon-cancel:before {
   content: "\e822";
 } /* '' */
-.icon-download:before {
-  content: "\e823";
-} /* '' */
-.icon-download-alt:before {
-  content: "\e824";
-} /* '' */
 .icon-down-open:before {
   content: "\e825";
 } /* '' */
@@ -154,82 +133,138 @@
 .icon-left-open:before {
   content: "\e827";
 } /* '' */
-.icon-down-open-big:before {
-  content: "\e828";
-} /* '' */
-.icon-up-open-big:before {
-  content: "\e829";
-} /* '' */
 .icon-up-open:before {
   content: "\e82a";
 } /* '' */
-.icon-right-open-big:before {
-  content: "\e82b";
-} /* '' */
-.icon-left-open-big:before {
-  content: "\e82c";
-} /* '' */
+.icon-tag:before {
+  content: "\e82d";
+} /* '' */
+.icon-tags:before {
+  content: "\e82e";
+} /* '' */
+.icon-tag-1:before {
+  content: "\e82f";
+} /* '' */
+.icon-tags-1:before {
+  content: "\e830";
+} /* '' */
+.icon-bookmark:before {
+  content: "\e834";
+} /* '' */
 .icon-feather:before {
   content: "\e835";
 } /* '' */
 .icon-pencil:before {
   content: "\e836";
 } /* '' */
+.icon-bookmarks:before {
+  content: "\e837";
+} /* '' */
+.icon-book-1:before {
+  content: "\e838";
+} /* '' */
+.icon-video:before {
+  content: "\e839";
+} /* '' */
+.icon-video-2:before {
+  content: "\e83b";
+} /* '' */
+.icon-pin-1:before {
+  content: "\e83d";
+} /* '' */
+.icon-brush-1:before {
+  content: "\e841";
+} /* '' */
+.icon-layers:before {
+  content: "\e842";
+} /* '' */
+.icon-layers-alt:before {
+  content: "\e843";
+} /* '' */
+.icon-heart-filled:before {
+  content: "\e852";
+} /* '' */
+.icon-heart-1:before {
+  content: "\e853";
+} /* '' */
+.icon-magnet:before {
+  content: "\e856";
+} /* '' */
+.icon-chart:before {
+  content: "\e858";
+} /* '' */
+.icon-pitch:before {
+  content: "\e859";
+} /* '' */
+.icon-infinity:before {
+  content: "\e85a";
+} /* '' */
+.icon-pi:before {
+  content: "\e85c";
+} /* '' */
+.icon-glass:before {
+  content: "\e864";
+} /* '' */
+.icon-music:before {
+  content: "\e865";
+} /* '' */
+.icon-waves:before {
+  content: "\e86d";
+} /* '' */
 .icon-link-1:before {
   content: "\f07b";
 } /* '' */
-.icon-envira:before {
-  content: "\f299";
-} /* '' */
+.icon-angle-double-left:before {
+  content: "\f100";
+} /* '' */
+.icon-angle-double-right:before {
+  content: "\f101";
+} /* '' */
+.icon-angle-double-up:before {
+  content: "\f102";
+} /* '' */
+.icon-angle-double-down:before {
+  content: "\f103";
+} /* '' */
+.icon-laptop:before {
+  content: "\f109";
+} /* '' */
+.icon-github:before {
+  content: "\f113";
+} /* '' */
+.icon-code:before {
+  content: "\f121";
+} /* '' */
+.icon-apple:before {
+  content: "\f179";
+} /* '' */
+.icon-windows:before {
+  content: "\f17a";
+} /* '' */
+.icon-gwallet:before {
+  content: "\f1ee";
+} /* '' */
+.icon-win8:before {
+  content: "\f325";
+} /* '' */
 .fontello::before {
-  display: inline-block;
+  display: indline-block;
 }
 
-.icon-heart::before {
-  content: "\e80a";
+.icon-heart-filled::before {
+  content: "\e852";
 }
 
-.icon-heart {
-  color: lightcoral;
-}
-
-.icon-empty-heart::before {
-  content: "\e809";
-}
-
-.icon-trashcan::before {
-  content: "\e801";
-}
-
-.icon-empty-star::before {
-  content: "\e800";
-}
-
-.icon-empty-star {
-  color: #eee;
-}
-.icon-empty-star:hover {
-  color: lightblue;
-  cursor: pointer;
+.icon-heart-empty::before {
+  content: "\e853";
 }
 
 .icon-star::before {
-  content: "\e802";
+  color: rgb(255, 251, 0);
 }
 
-.icon-star {
-  color: lightblue;
-}
-.icon-star:hover {
-  cursor: pointer;
-}
-
-.icon-pencil::before {
-  content: "\e836";
-}
-
-.icon-cancel::before {
-  content: "\e804";
+.icon-cancel-1 {
+  font-size: 0.7em;
 }
 
 ul.tree li.folder a {
@@ -256,7 +291,7 @@ ul.tree li.folder a .meta .node_name {
   letter-spacing: 1px;
 }
 ul.tree li.folder a:hover {
-  background: lightgreen;
+  background: rgb(192, 243, 192);
   color: #111;
 }
 ul.tree li.folder a:hover .meta .node_name {
@@ -274,23 +309,22 @@ details {
   color: #aaa;
 }
 details .node_name {
-  color: rgb(0, 60, 255);
+  color: rgb(255, 255, 255);
   font-size: 1.3em;
   text-transform: uppercase;
   letter-spacing: 1px;
-  text-shadow: 1px 0 10px yellow;
 }
 details .icon-left-open {
-  color: darkblue;
+  color: rgb(230, 255, 8);
 }
 details ul.tree li.folder a {
-  background: #29da23;
+  background: #c3f1c1;
 }
 details ul.tree li.folder a .meta .node_name {
   color: rgb(197, 26, 197);
 }
 details summary {
-  background: rgb(191, 207, 255);
+  background: rgb(54, 69, 112);
   padding: 5px 12px;
   border-radius: 5px;
   margin-top: 10px;
@@ -299,7 +333,7 @@ details summary {
   justify-content: space-between;
 }
 details summary:hover {
-  background: rgb(255, 203, 1);
+  background: rgb(255, 236, 160);
   color: rgb(43, 43, 26);
   cursor: pointer;
 }
@@ -324,15 +358,28 @@ details summary .count {
 details summary .folder_size {
   color: rgb(120, 132, 197);
 }
+details:hover summary .node_name {
+  color: rgb(10, 10, 7);
+}
+details:hover .icon-left-open {
+  color: rgb(230, 255, 8);
+}
 
 details[open] ul.tree {
-  background: #eee;
+  background: #f8f8f8;
   padding: 5px 0;
   border-radius: 0 0 10px 10px;
 }
 
 details[open] > summary {
-  background: rgb(196, 255, 194);
+  background: rgb(212, 239, 255);
+}
+details[open] > summary .node_name {
+  color: rgb(14, 49, 20);
+}
+details[open] > summary .icon-down-open {
+  color: rgb(230, 255, 8);
+  text-shadow: 1px 0 10px rgb(31, 7, 7);
 }
 details[open] > summary:hover {
   cursor: pointer;
@@ -341,8 +388,11 @@ details[open] > summary:hover:active {
   cursor: pointer;
 }
 details[open] > summary:hover {
-  background: rgb(255, 203, 1);
+  background: rgb(255, 236, 162);
   color: rgb(10, 10, 7);
+}
+details[open] > summary:hover .icon-down-open {
+  color: rgb(230, 255, 8);
 }
 details[open] > summary:hover .folder_size {
   color: rgb(39, 35, 27);
@@ -357,7 +407,7 @@ details[open] > summary:hover .count {
   border-radius: 10px;
 }
 .media-item video {
-  width: 600px;
+  width: 800px;
   margin: 10px;
 }
 .media-item a img {
@@ -396,6 +446,10 @@ details[open] > summary:hover .count {
   padding: 0;
   font-size: 20px;
   color: #eee;
+  padding: 2px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .media-item .caption .actions button:hover {
   color: lightcoral;
@@ -421,9 +475,10 @@ details[open] > summary:hover .count {
   width: 600px;
 }
 .media-item:hover {
-  border-color: #ddd;
+  border-color: #f8f8f8;
 }
-.media-item:hover .file_name, .media-item:hover .rating {
+.media-item:hover .file_name,
+.media-item:hover .rating {
   color: #111;
 }
 .media-item:hover .size {
@@ -483,7 +538,7 @@ details[open] > summary:hover .count {
   border: 1px solid #fff;
   padding: 5px;
   border-radius: 10px;
-  width: 400px;
+  width: 800px;
 }
 #book_container .media-item a img {
   width: 300px;
@@ -491,8 +546,8 @@ details[open] > summary:hover .count {
   display: block;
 }
 #book_container .media-item .file_name {
-  width: 90%;
-  font-size: 18px;
+  width: 100%;
+  font-size: 16px;
   color: #222;
   background: #eee;
   border-radius: 10px;
@@ -611,6 +666,205 @@ details[open] > summary:hover .count {
   color: lightcoral;
 }
 
+nav#main .show_favorites a {
+  background: #eee;
+  padding: 5px 8px;
+  display: inline-block;
+  margin-top: 10px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+nav#main .show_favorites a:hover {
+  background: rgb(255, 227, 174);
+  color: #111;
+}
+nav#main .show_favorites a:hover .fontello {
+  color: orangered;
+}
+nav#main .show_favorites a .fontello {
+  color: rgb(255, 222, 160);
+}
+nav#main .links_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+nav#main .links_wrapper a {
+  background: #eee;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 4px 8px;
+  color: blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+nav#main .links_wrapper a.mac {
+  color: rgb(11, 114, 66);
+}
+nav#main .links_wrapper a.mac:hover {
+  background: rgb(216, 255, 213);
+  color: rgb(17, 53, 25);
+}
+nav#main .links_wrapper a i {
+  font-size: 12px;
+  color: #bbb;
+}
+nav#main .links_wrapper a i:before {
+  margin-left: 5px;
+}
+nav#main .links_wrapper a:hover {
+  background: rgb(214, 240, 252);
+  color: blue;
+}
+nav#main .upload_wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+main#index .fav-btn {
+  background: none;
+}
+main#index .fav-btn .fontello:hover {
+  color: orange;
+}
+main#index .fav-btn:hover {
+  color: yellow;
+  background: none;
+}
+main#index .fav-btn:hover .fontello {
+  color: yellow;
+}
+main#index button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 25px;
+  color: #eee;
+  background: #f9f9f9;
+  padding: 2px 8px;
+}
+main#index button:hover {
+  color: #222;
+  text-shadow: 1px 0 10px darkorange;
+  background: rgb(255, 219, 153);
+}
+main#index button:hover .fontello {
+  color: #222;
+}
+main#index details summary button {
+  background: rgb(70, 71, 87);
+  padding: 2px 8px;
+}
+main#index details summary button:hover {
+  background: yellow;
+}
+main#index details summary:hover {
+  cursor: n-resize;
+}
+main#index details[open] summary button {
+  background: #eee;
+  color: #ddd;
+  padding: 2px 8px;
+}
+main#index details[open] summary button:hover {
+  color: blue;
+}
+main#index details[open] summary button .fav-btn .fontello {
+  color: #f9f9f9;
+}
+main#index details[open] summary:hover button:hover {
+  background: rgb(238, 162, 134);
+}
+main#index details[open] button {
+  color: #ddd;
+  background: #eee;
+  padding: 2px 8px;
+}
+main#index details[open] button.fav-btn {
+  background: none;
+}
+main#index details[open] button.fav-btn:hover {
+  color: #aaa;
+  background: none;
+}
+main#index details[open] button:hover {
+  background: rgb(255, 228, 179);
+}
+main#index details[open] ul.tree li.folder a {
+  background: #5b23f4;
+}
+main#index details[open] ul.tree li.folder a .node_name {
+  color: rgb(255, 215, 0);
+}
+main#index details[open] ul.tree li.folder a:hover {
+  background: rgb(192, 243, 192);
+}
+main#index details[open] ul.tree li.folder a:hover .node_name {
+  color: darkblue;
+}
+
+nav#content_bar {
+  display: flex;
+  justify-content: center;
+}
+nav#content_bar button,
+nav#content_bar .button {
+  background: none;
+  cursor: pointer;
+  font-size: 15px;
+  color: #222;
+  background: #eee;
+  padding: 5px;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+nav#content_bar button:hover,
+nav#content_bar .button:hover {
+  color: #222;
+  text-shadow: 1px 0 10px darkorange;
+  background: rgb(255, 219, 153);
+}
+nav#content_bar button:hover .fontello,
+nav#content_bar .button:hover .fontello {
+  color: #222;
+}
+nav#content_bar .inner {
+  width: 940px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+nav#content_bar ul li {
+  font-size: 18px;
+}
+nav#content_bar ul li a {
+  text-decoration: none;
+  color: orangered;
+}
+nav#content_bar ul li a:hover {
+  color: orange;
+  text-shadow: 1px 0 10px yellow;
+}
+nav#content_bar .favorites_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+nav#content_bar .favorites_wrapper .upload_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 :root {
   --bg: #111;
   --panel: #1b1b1b;
@@ -627,29 +881,6 @@ details[open] > summary:hover .count {
 }
 #index nav#main .inner {
   width: 800px;
-}
-#index nav#main .inner .links_wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-#index nav#main .inner .links_wrapper a {
-  background: #ddd;
-  text-decoration: none;
-  font-size: 18px;
-  border-radius: 5px;
-  padding: 4px 8px;
-  color: blue;
-}
-#index nav#main .inner .links_wrapper a:hover {
-  background: lightgreen;
-  color: blue;
-}
-#index nav#main .inner .upload_wrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
 }
 
 #folderDropZone {
@@ -693,8 +924,9 @@ button.active {
 }
 
 #dropZone {
-  border: 2px dashed #aaa;
+  border: 2px dashed #eee;
   border-radius: 6px;
+  color: #ddd;
   padding: 6px 12px;
   cursor: pointer;
   font-size: 16px;
@@ -703,6 +935,7 @@ button.active {
 #dropZone:hover {
   background: rgba(54, 255, 64, 0.25);
   border-color: #41ff7a;
+  color: #222;
 }
 #dropZone.drag-over {
   background: rgba(255, 255, 255, 0.1);
@@ -760,17 +993,6 @@ main#index {
   margin-top: 50px;
   max-width: 1000px;
 }
-main#index button {
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 25px;
-  color: #ddd;
-}
-main#index button:hover {
-  color: #222;
-  text-shadow: 1px 0 10px darkorange;
-}
 main#index .card_wrapper {
   width: 400px;
   padding: 40px;
@@ -802,81 +1024,6 @@ main#index .card_wrapper .card a:hover {
 }
 .container main {
   width: 100%;
-}
-.container main nav#content_bar {
-  display: flex;
-  justify-content: center;
-}
-.container main nav#content_bar .inner {
-  width: 940px;
-  display: flex;
-  justify-content: space-between;
-}
-.container main nav#content_bar ul li {
-  font-size: 18px;
-}
-.container main nav#content_bar ul li a {
-  text-decoration: none;
-  color: lightblue;
-}
-.container main nav#content_bar ul li a:hover {
-  color: orange;
-}
-.container main nav#content_bar .favorites_wrapper {
-  display: flex;
-  align-items: center;
-}
-.container main nav#content_bar .favorites_wrapper .upload_wrapper {
-  display: flex;
-}
-.container main nav#content_bar .favorites_wrapper .upload_wrapper #uploadBtn {
-  border: 1px solid #888;
-  color: #111;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.container main nav#content_bar .favorites_wrapper .upload_wrapper #uploadBtn:hover {
-  background: darkorange;
-  color: #fff;
-}
-.container main nav#content_bar .favorites_wrapper .upload_wrapper #optimizeBtn {
-  border: 1px solid #888;
-  color: #111;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 0 10px;
-}
-.container main nav#content_bar .favorites_wrapper .upload_wrapper #optimizeBtn:hover {
-  background: darkorange;
-  color: #fff;
-}
-.container main nav#content_bar .favorites_wrapper .show_favorites a {
-  text-decoration: none;
-  border: 1px solid #aaa;
-  padding: 10px 12px;
-  border-radius: 4px;
-}
-.container main nav#content_bar .favorites_wrapper .show_favorites a:hover {
-  background: darkorange;
-  color: white;
-}
-.container main nav#content_bar .favorites_wrapper .show_favorites a:hover .fontello {
-  color: white;
-}
-.container main nav#content_bar a.home_button {
-  text-decoration: none;
-  border: 1px solid #ccc;
-  display: flex;
-  align-items: center;
-  padding: 4px 12px;
-  border-radius: 5px;
-  color: #ccc;
-  text-transform: capitalize;
-}
-.container main nav#content_bar a.home_button:hover {
-  background: darkorange;
-  color: #111;
-  border-color: darkorange;
 }
 .container main .image_container_wrapper {
   display: flex;
@@ -917,6 +1064,16 @@ main#index .card_wrapper .card a:hover {
   }
 }
 @media screen and (max-width: 500px) {
+  #book_container .media-item {
+    width: 400px;
+  }
+  .media-item video {
+    width: 420px;
+    margin: 10px;
+  }
+  #book_container .media-item .file_name {
+    width: 90%;
+  }
   #index nav#main .inner {
     width: 460px;
   }

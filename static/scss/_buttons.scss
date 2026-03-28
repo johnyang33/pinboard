@@ -1,0 +1,198 @@
+        nav#main {
+
+            .show_favorites {
+                a {
+                    background: #eee;
+                    padding: 5px 8px;
+                    display: inline-block;
+                    margin-top: 10px;
+                    border-radius: 6px;
+                    text-decoration: none;
+
+                    &:hover {
+                        background: rgb(255, 227, 174);
+                        color: #111;
+
+                        .fontello {
+                            color: orangered;
+                        }
+                    }
+
+                    .fontello {
+                        color: rgb(255, 222, 160);
+                    }
+                }
+            }
+
+            .links_wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+
+                a {
+                    background: #eee;
+                    text-decoration: none;
+                    font-size: 14px;
+                    border-radius: 5px;
+                    padding: 4px 8px;
+                    color: blue;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    &.mac {
+                        color: rgb(11, 114, 66);
+
+                        &:hover {
+                            background: rgb(216, 255, 213);
+                            color: rgb(17, 53, 25);
+                        }
+                    }
+
+                    i {
+                        font-size: 12px;
+                        color: #bbb;
+                    }
+                    i:before { 
+                        margin-left:5px;
+                    }
+
+                    &:hover {
+                        background: rgb(214, 240, 252);
+                        color: blue;
+                    }
+                }
+            }
+
+            .upload_wrapper {
+                display: flex;
+                justify-content: center;
+                margin-top: 10px;
+            }
+        }
+
+        main#index {
+
+            .fav-btn { background:none;
+
+                .fontello { 
+                    &:hover { color: orange;}
+                }
+            
+            &:hover { 
+                color:yellow;
+                background:none;
+                .fontello { 
+                    color:yellow;
+                }
+            }}
+
+            button {
+                border: none;
+                background: none;
+                cursor: pointer;
+                font-size: 25px;
+                color: #eee;
+                background: #f9f9f9;
+                padding:2px 8px;
+
+
+                &:hover {
+                    color: #222;
+                    text-shadow: 1px 0 10px darkorange;
+                    background: rgb(255, 219, 153);
+
+                    .fontello {
+                        color: #222;
+                    }
+                }
+            }
+
+            details {
+                summary {
+                    button {
+                        background: rgb(70, 71, 87);
+                        padding:2px 8px;
+
+                        &:hover {
+                            background: yellow;
+                        }
+                    }
+
+                    &:hover {
+                        cursor: n-resize;
+                    }
+                }
+            }
+
+            details[open] {
+
+
+                summary {
+                    button {
+                        background: #eee;
+                        color: #ddd;
+                        padding:2px 8px;
+
+                        &:hover {
+                            color: blue;
+                        }
+
+                        .fav-btn {
+                            .fontello {
+                                color: #f9f9f9;
+                            }
+                        }
+                    }
+
+                    &:hover {
+                        button {
+                            &:hover {
+                                background: rgb(238, 162, 134);
+                            }
+                        }
+                    }
+                }
+
+                button {
+                    color: #ddd;
+                    background: #eee;
+                    padding:2px 8px;
+
+                    &.fav-btn { 
+                        background:none;
+                        &:hover { 
+                            color: #aaa;
+                            background:none;
+                        }
+                    }
+
+                    &:hover {
+                        background: rgb(255, 228, 179);
+                    }
+                }
+
+                
+
+                ul.tree li.folder a {
+                    background: #5b23f4;
+
+                    .node_name {
+                        color: rgb(255, 215, 0);
+                    }
+
+                    &:hover {
+                        background: rgb(192, 243, 192);
+
+                        .node_name {
+                            color: darkblue;
+                        }
+                    }
+
+
+                }
+
+            }
+
+        }

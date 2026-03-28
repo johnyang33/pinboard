@@ -39,19 +39,19 @@
                         </div> 
 
                         <button type="button" id="optimizeBtn" onclick="optimizeFolder()">
-                            🪄 Optimize
+                            <i class="fontello icon-arrows-cw"></i> Optimize
                         </button>
                         <div id="optimizeStatus" style="display:none;"></div>              
                     </div>
                     <div class="show_favorites">
                         {% if favorites_only %}
-                            <a href="/gallery/{{ current_path }}"><i class="fontello icon-empty-heart"></i>Show all</a>
+                            <a class="button" href="/gallery/{{ current_path }}"><i class="fontello icon-empty-star"></i>Show all</a>
                         {% else %}
-                            <a href="/gallery/{{ current_path }}?favorites=1"><i class="fontello icon-heart"></i>Show</a>
+                            <a class="button" href="/gallery/{{ current_path }}?favorites=1"><i class="fontello icon-star"></i>Show</a>
                         {% endif %}
                     </div>
                 </div>
-                <a class="home_button" href="/">home</a>
+                <a class="button" href="/"><i class="icon-home-1 fontello"></i>home</a>
             </div>
         </nav>
         <div class="image_container_wrapper">
@@ -72,15 +72,15 @@
                                             onclick="toggleFavorite(this)">
                                         
                                         {% if img.favorite %}
-                                            <i class="fontello icon-heart"></i>
+                                            <i class="fontello icon-heart-filled"></i>
                                             {% else %}
-                                            <i class="fontello icon-empty-heart"></i>
+                                            <i class="fontello icon-heart-empty"></i>
                                         {% endif %}
                                     </button>
                                     <button class="clear-rating" title="clear rating"
                                         data-path="{{ img.path }}"
                                         onclick="clearRating(this)">
-                                        <i class="fontello icon-cancel"></i>
+                                        <i class="fontello icon-cancel-1"></i>
                                     </button>
                                     <button class="rename-btn" title="rename"
                                             data-path="{{ img.path }}"
@@ -129,15 +129,15 @@
                                             onclick="toggleFavorite(this)">
                                         
                                         {% if vid.favorite %}
-                                            <i class="fontello icon-heart"></i>
+                                            <i class="fontello icon-heart-filled"></i>
                                             {% else %}
-                                            <i class="fontello icon-empty-heart"></i>
+                                            <i class="fontello icon-empyt-heart"></i>
                                         {% endif %}
                                     </button>
                                     <button class="clear-rating" title="clear rating"
                                         data-path="{{ vid.path }}"
                                         onclick="clearRating(this)">
-                                        <i class="fontello icon-cancel"></i>
+                                        <i class="fontello icon-cancel-1"></i>
                                     </button>
                                     <button class="rename-btn" title="rename"
                                             data-path="{{ vid.path }}"
@@ -189,15 +189,15 @@
                                         onclick="toggleFavorite(this)">
                                     
                                     {% if book.favorite %}
-                                        <i class="fontello icon-heart"></i>
+                                        <i class="fontello icon-heart-filled"></i>
                                         {% else %}
-                                        <i class="fontello icon-empty-heart"></i>
+                                        <i class="fontello icon-heart-empty"></i>
                                     {% endif %}
                                 </button>
                                 <button class="clear-rating" title="clear rating"
                                     data-path="{{ book.path }}"
                                     onclick="clearRating(this)">
-                                    <i class="fontello icon-cancel"></i>
+                                    <i class="fontello icon-cancel-1"></i>
                                 </button>
                                 <button class="rename-btn" title="rename"
                                         data-path="{{ book.path }}"
@@ -236,6 +236,26 @@
     </main>
 
 </div><!-- container -->
+
+<script>
+        function toggleFavorite(btn) {
+        const path = btn.dataset.path;
+
+        fetch("/favorite/toggle", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ path })
+        })
+
+        .then(r => r.json())
+        .then(data => {
+            const icon = btn.querySelector("i");
+            icon.classList.toggle("icon-heart-empty", !data.favorite);
+            icon.classList.toggle("icon-heart-filled", data.favorite);
+        });
+    }
+    </script>
+
 
 <script>
     document.querySelectorAll('video.viddd').forEach(video => {
@@ -301,23 +321,6 @@ document.querySelectorAll('video.viddd').forEach(video => {
 </script>
 
 <script>
-    function toggleFavorite(btn) {
-        const path = btn.dataset.path;
-
-        fetch("/favorite/toggle", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ path })
-        })
-
-        .then(r => r.json())
-        .then(data => {
-            const icon = btn.querySelector("i");
-
-            icon.classList.toggle("icon-empty-heart", !data.favorite);
-            icon.classList.toggle("icon-heart", data.favorite);
-        });
-    }
 
     function setRating(el) {
     const path = el.dataset.path;
@@ -463,52 +466,6 @@ function renameMedia(btn) {
 }
 </script>
 
-<!-- <script>
-    document.getElementById('fileInput').addEventListener('change', async function () {
-        const files = this.files;
-        if (!files.length) return;
-
-        const statusEl = document.getElementById('uploadStatus');
-        statusEl.style.display = 'block';
-        statusEl.textContent = `Uploading ${files.length} file(s)...`;
-
-        const currentFolder = "{{ current_path }}";
-
-        let succeeded = 0, failed = 0;
-
-        for (const file of files) {
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("path", currentFolder);
-
-            try {
-                const res = await fetch("/media/upload", { method: "POST", body: formData });
-                const rawText = await res.text(); // Read as text first
-                console.log("Server response:", rawText); // Log the raw response
-                try {
-                    const data = JSON.parse(rawText);
-                    if (data.success) succeeded++;
-                    else { failed++; console.error(`Failed: ${file.name} — ${data.error}`); }
-                } catch (parseErr) {
-                    failed++;
-                    console.error(`Server returned non-JSON for ${file.name}:`, rawText);
-                }
-            } catch (err) {
-                failed++;
-                console.error(`Error uploading ${file.name}:`, err);
-            }
-        }
-
-        statusEl.textContent = `✅ ${succeeded} uploaded${failed ? `, ❌ ${failed} failed` : ""}`;
-
-if (failed === 0) {
-    setTimeout(() => {
-        statusEl.style.display = 'none';
-        location.reload();
-    }, 2000);
-}
-    });
-</script> -->
 <script>
     async function optimizeFolder() {
         const statusEl = document.getElementById('optimizeStatus');
