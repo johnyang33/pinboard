@@ -701,6 +701,7 @@ nav#main .links_wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   gap: 10px;
 }
 nav#main .links_wrapper a {
@@ -714,24 +715,34 @@ nav#main .links_wrapper a {
   align-items: center;
   justify-content: center;
 }
-nav#main .links_wrapper a.mac {
-  color: rgb(11, 73, 44);
-  background: rgb(218, 255, 218);
-}
-nav#main .links_wrapper a.mac:hover {
-  background: rgb(179, 252, 174);
-  color: rgb(17, 53, 25);
-}
-nav#main .links_wrapper a i {
-  font-size: 12px;
-  color: #00aa93;
-}
-nav#main .links_wrapper a i:before {
-  margin-left: 5px;
-}
 nav#main .links_wrapper a:hover {
   background: rgb(176, 228, 252);
   color: blue;
+}
+nav#main .links_wrapper .local {
+  display: flex;
+  gap: 5px;
+}
+nav#main .links_wrapper .mac {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+nav#main .links_wrapper .mac i {
+  font-size: 16px;
+  color: #00aa93;
+}
+nav#main .links_wrapper .mac i:before {
+  margin-left: 5px;
+}
+nav#main .links_wrapper .mac a {
+  color: rgb(11, 73, 44);
+  background: rgb(218, 255, 218);
+}
+nav#main .links_wrapper .mac a:hover {
+  background: rgb(179, 252, 174);
+  color: rgb(17, 53, 25);
 }
 nav#main .upload_wrapper {
   display: flex;

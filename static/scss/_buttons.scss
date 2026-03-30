@@ -28,6 +28,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                flex-direction: column;
                 gap: 10px;
 
                 a {
@@ -41,29 +42,50 @@
                     align-items: center;
                     justify-content: center;
 
-                    &.mac {
-                        color: rgb(11, 73, 44);
-                        background:rgb(218, 255, 218);
-
-                        &:hover {
-                            background: rgb(179, 252, 174);
-                            color: rgb(17, 53, 25);
-                        }
-                    }
-
-                    i {
-                        font-size: 12px;
-                        color: #00aa93;
-                    }
-                    i:before { 
-                        margin-left:5px;
-                    }
 
                     &:hover {
                         background: rgb(176, 228, 252);
                         color: blue;
                     }
                 }
+
+
+
+                .local {
+                    display:flex;
+                    gap:5px;
+
+                }
+
+                .mac {
+                    display:flex;
+                    gap:5px;
+                    align-items:center;
+                    justify-content:center;
+
+                     i {
+                            font-size: 16px;
+                            color: #00aa93;
+                        }
+
+                        i:before {
+                            margin-left: 5px;
+                        }
+                    a {
+                        color: rgb(11, 73, 44);
+                        background: rgb(218, 255, 218);
+
+                        &:hover {
+                            background: rgb(179, 252, 174);
+                            color: rgb(17, 53, 25);
+                        }
+
+
+                       
+                    }
+                }
+
+
             }
 
             .upload_wrapper {
@@ -75,19 +97,24 @@
 
         main#index {
 
-            .fav-btn { background:none;
+            .fav-btn {
+                background: none;
 
-                .fontello { 
-                    &:hover { color: orange;}
+                .fontello {
+                    &:hover {
+                        color: orange;
+                    }
                 }
-            
-            &:hover { 
-                color:yellow;
-                background:none;
-                .fontello { 
-                    color:yellow;
+
+                &:hover {
+                    color: yellow;
+                    background: none;
+
+                    .fontello {
+                        color: yellow;
+                    }
                 }
-            }}
+            }
 
             button {
                 border: none;
@@ -96,7 +123,7 @@
                 font-size: 25px;
                 color: #eee;
                 background: #f9f9f9;
-                padding:2px 8px;
+                padding: 2px 8px;
 
 
                 &:hover {
@@ -114,7 +141,7 @@
                 summary {
                     button {
                         background: rgb(70, 71, 87);
-                        padding:2px 8px;
+                        padding: 2px 8px;
 
                         &:hover {
                             background: yellow;
@@ -134,7 +161,7 @@
                     button {
                         background: #eee;
                         color: #ddd;
-                        padding:2px 8px;
+                        padding: 2px 8px;
 
                         &:hover {
                             color: blue;
@@ -159,13 +186,14 @@
                 button {
                     color: #ddd;
                     background: #eee;
-                    padding:2px 8px;
+                    padding: 2px 8px;
 
-                    &.fav-btn { 
-                        background:none;
-                        &:hover { 
+                    &.fav-btn {
+                        background: none;
+
+                        &:hover {
                             color: #aaa;
-                            background:none;
+                            background: none;
                         }
                     }
 
@@ -174,7 +202,7 @@
                     }
                 }
 
-                
+
 
                 ul.tree li.folder a {
                     background: #5b23f4;
