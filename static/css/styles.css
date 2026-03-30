@@ -272,8 +272,8 @@
 }
 
 ul.tree li.folder a {
-  background: #5b23f4;
-  color: #6a71d6;
+  background: #0004e3;
+  color: #3e6bff;
   text-decoration: none;
   padding: 8px 16px;
   margin: 4px 0;
@@ -704,7 +704,7 @@ nav#main .links_wrapper {
   gap: 10px;
 }
 nav#main .links_wrapper a {
-  background: #eee;
+  background: rgb(219, 237, 243);
   text-decoration: none;
   font-size: 14px;
   border-radius: 5px;
@@ -715,21 +715,22 @@ nav#main .links_wrapper a {
   justify-content: center;
 }
 nav#main .links_wrapper a.mac {
-  color: rgb(11, 114, 66);
+  color: rgb(11, 73, 44);
+  background: rgb(218, 255, 218);
 }
 nav#main .links_wrapper a.mac:hover {
-  background: rgb(216, 255, 213);
+  background: rgb(179, 252, 174);
   color: rgb(17, 53, 25);
 }
 nav#main .links_wrapper a i {
   font-size: 12px;
-  color: #bbb;
+  color: #00aa93;
 }
 nav#main .links_wrapper a i:before {
   margin-left: 5px;
 }
 nav#main .links_wrapper a:hover {
-  background: rgb(214, 240, 252);
+  background: rgb(176, 228, 252);
   color: blue;
 }
 nav#main .upload_wrapper {

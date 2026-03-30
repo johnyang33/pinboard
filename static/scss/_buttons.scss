@@ -31,7 +31,7 @@
                 gap: 10px;
 
                 a {
-                    background: #eee;
+                    background: rgb(219, 237, 243);
                     text-decoration: none;
                     font-size: 14px;
                     border-radius: 5px;
@@ -42,24 +42,25 @@
                     justify-content: center;
 
                     &.mac {
-                        color: rgb(11, 114, 66);
+                        color: rgb(11, 73, 44);
+                        background:rgb(218, 255, 218);
 
                         &:hover {
-                            background: rgb(216, 255, 213);
+                            background: rgb(179, 252, 174);
                             color: rgb(17, 53, 25);
                         }
                     }
 
                     i {
                         font-size: 12px;
-                        color: #bbb;
+                        color: #00aa93;
                     }
                     i:before { 
                         margin-left:5px;
                     }
 
                     &:hover {
-                        background: rgb(214, 240, 252);
+                        background: rgb(176, 228, 252);
                         color: blue;
                     }
                 }
