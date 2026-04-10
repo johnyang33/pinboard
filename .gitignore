@@ -1,4 +1,5 @@
-static/favicons/
+static/favicons/*.png
+static/favicons/*.ico
 media/
 media/*.png
 *.mp4
