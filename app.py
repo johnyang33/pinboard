@@ -12,11 +12,11 @@ port = int(os.environ.get("FLASK_PORT", 6001))
 app_name = os.environ.get("APP_NAME","watercolor_pc") 
 app = Flask(__name__)
 
-watercolor_link = os.environ.get("WATERCOLOR_LINK","http://192.168.254.93:8083/") 
-photoz_link = os.environ.get("PHOTOZ_LINK","http://192.168.254.93:8082/") 
-tutz_link = os.environ.get("TUTZ_LINK","http://192.168.254.93:8084/") 
-alchemy_link = os.environ.get("ALCHEMY_LINK","http://192.168.254.93:8081/") 
-bookz_link = os.environ.get("BOOKZ_LINK","http://192.168.254.93:8085/") 
+watercolor_link = os.environ.get("WATERCOLOR_LINK","http://192.168.254.92:8083/") 
+photoz_link = os.environ.get("PHOTOZ_LINK","http://192.168.254.92:8082/") 
+tutz_link = os.environ.get("TUTZ_LINK","http://192.168.254.92:8084/") 
+alchemy_link = os.environ.get("ALCHEMY_LINK","http://192.168.254.92:8081/") 
+bookz_link = os.environ.get("BOOKZ_LINK","http://192.168.254.92:8085/") 
 
 MEDIA_ROOT = os.path.join(app.root_path, "media")
 
