@@ -1,5 +1,6 @@
 static/favicons/*.png
 static/favicons/*.ico
+static/favicons/*.webmanifest
 media/
 media/*.png
 *.mp4
